@@ -1,0 +1,3194 @@
+<!DOCTYPE html>
+<html lang="ro" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>BlackBlock Academy • Admin</title>
+
+  <!-- iOS Web App Meta Tags (Pentru rulare ca aplicație nativă pe iPhone) -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BlackBlock" />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="manifest" href="./manifest.json" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" href="" />
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #131318;
+      --card-elevated: #1c1c24;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #8b5cf6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --safe-top: env(safe-area-inset-top, 16px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      padding-top: calc(var(--safe-top) + 64px);
+      padding-bottom: calc(var(--safe-bottom) + 88px);
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    input, textarea, button {
+      font-family: inherit;
+      user-select: auto;
+    }
+
+    /* TOP HEADER */
+    .app-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      padding: calc(var(--safe-top) + 8px) 16px 12px;
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1e1b4b, #09090b);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.15;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      display: inline-block;
+    }
+    .sync-dot.syncing {
+      background: var(--warning);
+      animation: pulse 1s infinite;
+    }
+    .sync-dot.local {
+      background: #64748b;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sync-btn {
+      background: var(--card-elevated);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+    .sync-btn:active {
+      transform: scale(0.9);
+    }
+
+    .me-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--card-elevated);
+      border: 1px solid var(--border);
+      padding: 5px 11px 5px 6px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .circle-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 0 10px currentColor;
+      flex-shrink: 0;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 12px 16px;
+    }
+
+    /* MONTH BAR */
+    .month-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+
+    .month-nav-btn {
+      background: var(--card-elevated);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .month-nav-btn:active {
+      transform: scale(0.92);
+    }
+
+    .month-label-wrap {
+      text-align: center;
+    }
+
+    .month-label {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      text-transform: capitalize;
+    }
+
+    .month-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* ADMIN LEGEND PILLS */
+    .legend-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .legend-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .legend-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .legend-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .legend-name {
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .legend-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* CALENDAR GRID */
+    .calendar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 14px 10px;
+      margin-bottom: 16px;
+    }
+
+    .weekdays-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .day-cell {
+      aspect-ratio: 1 / 1.12;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 2px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.12s, background 0.15s;
+    }
+
+    .day-cell:active {
+      transform: scale(0.92);
+    }
+
+    .day-cell.empty {
+      background: transparent;
+      border-color: transparent;
+      pointer-events: none;
+    }
+
+    .day-cell.today {
+      border-color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .day-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .day-circle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      margin: auto 0;
+    }
+
+    .day-worker-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    }
+
+    .day-worker-circle.dual {
+      width: 18px;
+      height: 18px;
+      font-size: 8px;
+    }
+
+    .day-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 12px;
+    }
+
+    .badge-leads {
+      font-size: 9px;
+      font-weight: 800;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 0px 4px;
+      border-radius: 4px;
+      line-height: 1.2;
+    }
+
+    .badge-comment {
+      font-size: 9px;
+      line-height: 1;
+    }
+
+    /* QUICK ACTION BANNER */
+    .quick-sign-card {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.16), rgba(236, 72, 153, 0.1));
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .quick-sign-text h3 {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .quick-sign-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .quick-sign-btn {
+      background: #fff;
+      color: #09090b;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+    }
+
+    .quick-sign-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* COMMENTS & ACTIVITY FEED */
+    .section-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      margin: 18px 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feed-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      cursor: pointer;
+    }
+
+    .feed-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .feed-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .feed-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .feed-comment {
+      font-size: 13px;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 10px;
+      border-radius: 10px;
+      border-left: 3px solid var(--accent);
+      margin-top: 4px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+
+    /* STATS PAGE */
+    .hero-salary-card {
+      background: linear-gradient(145deg, #1c1936 0%, #121218 100%);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .hero-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-amount {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 4px 0;
+      color: #fff;
+    }
+
+    .hero-sub {
+      font-size: 12px;
+      color: #a78bfa;
+      font-weight: 600;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .stat-box-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .stat-box-value {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .stat-box-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* COMPARISON PAGE */
+    .vs-header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px 16px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .vs-player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .vs-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .vs-name {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .vs-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .vs-badge {
+      background: var(--card-elevated);
+      border: 1px solid var(--border);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--text-muted);
+    }
+
+    .comp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .comp-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .comp-values {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .comp-val {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .comp-bar-track {
+      height: 12px;
+      border-radius: 999px;
+      background: var(--card-elevated);
+      overflow: hidden;
+      display: flex;
+      gap: 2px;
+    }
+
+    .comp-bar-seg {
+      height: 100%;
+      transition: width 0.35s ease;
+    }
+
+    /* BOTTOM TAB BAR */
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: rgba(15, 15, 20, 0.9);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-top: 1px solid var(--border);
+      padding: 8px 12px calc(var(--safe-bottom) + 4px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 4px 0;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      transition: color 0.15s;
+    }
+
+    .tab-btn.active {
+      color: #fff;
+    }
+
+    .tab-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    /* MODAL / BOTTOM SHEET */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: #14141b;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 26px 26px 0 0;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90dvh;
+      overflow-y: auto;
+      padding: 14px 18px calc(var(--safe-bottom) + 20px);
+      animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      margin: 0 auto 14px;
+    }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .sheet-title {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+    }
+
+    .sheet-close {
+      background: var(--card-elevated);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .worker-select-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .worker-option {
+      background: var(--card-elevated);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .worker-option.selected {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .worker-opt-name {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .worker-opt-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .extra-worker-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .sub-opt-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sub-opt-btn.selected {
+      border-color: #fff;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .field-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .leads-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+    }
+
+    .step-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card-elevated);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .step-btn:active {
+      transform: scale(0.92);
+    }
+
+    .leads-val-wrap {
+      text-align: center;
+    }
+
+    .leads-val {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--success);
+    }
+
+    .leads-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .text-input, .textarea-input {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .text-input:focus, .textarea-input:focus {
+      border-color: var(--accent);
+    }
+
+    .textarea-input {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .primary-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    .primary-btn:active {
+      transform: scale(0.98);
+    }
+
+    .secondary-btn {
+      width: 100%;
+      background: var(--card-elevated);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* COLOR SWATCHES */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .color-swatch {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .color-swatch.active {
+      border-color: #fff;
+      transform: scale(1.15);
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .who-am-i-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .toast {
+      position: fixed;
+      top: calc(var(--safe-top) + 70px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: #10b981;
+      color: #052e16;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* LOGIN OVERLAY */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: radial-gradient(circle at top, #1a1530 0%, #09090b 60%);
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--safe-top) + 16px) 16px calc(var(--safe-bottom) + 20px);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 24px 18px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65);
+    }
+
+    .login-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1e1b4b, #09090b);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 20px;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .login-title {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+    }
+
+    .login-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .login-error {
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      color: #fca5a5;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .drive-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .logout-btn {
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: var(--card-elevated);
+      padding: 5px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+
+    .auth-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 9px 8px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .auth-tab-btn.active {
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .auth-status-pill {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c4b5fd;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+    }
+
+    .account-summary-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+
+    .inline-link-btn {
+      background: none;
+      border: none;
+      color: #a78bfa;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 12px;
+      display: inline-block;
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toast" class="toast">Salvat & Sincronizat!</div>
+
+  <!-- LOGIN OVERLAY -->
+  <div id="loginOverlay" class="login-overlay hidden">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="login-logo">BB</div>
+        <div class="login-title">BlackBlock Academy</div>
+        <div class="login-sub">Conturi Administratori • Școala Muzicală</div>
+      </div>
+
+      <div id="authAccountsStatus" class="auth-status-pill">Conturi create: 0/2</div>
+
+      <div class="auth-tabs">
+        <button id="authTabLogin" type="button" class="auth-tab-btn active" onclick="switchAuthMode('login')">🔑 Intră în Cont</button>
+        <button id="authTabRegister" type="button" class="auth-tab-btn" onclick="switchAuthMode('register')">✨ Creează Cont</button>
+      </div>
+
+      <div id="loginErrorMsg" class="login-error hidden"></div>
+
+      <!-- LOGIN FORM -->
+      <div id="authFormLogin">
+        <span class="field-label">Nume Utilizator (Username)</span>
+        <input id="loginUsernameInput" type="text" class="text-input" autocapitalize="none" autocomplete="username" placeholder="Nume utilizator (ex: mihail)" />
+
+        <span class="field-label">Parola Ta Personală</span>
+        <input id="loginPersonalPassInput" type="password" class="text-input" autocomplete="current-password" placeholder="Parola ta personală" onkeydown="if(event.key==='Enter')handleAccountLogin()" />
+
+        <div id="loginSchoolCodeWrap">
+          <span class="field-label">Cod de Acces BlackBlock</span>
+          <input id="loginSchoolCodeInput" type="password" class="text-input" placeholder="Introdu codul de acces al școlii" onkeydown="if(event.key==='Enter')handleAccountLogin()" />
+        </div>
+        <button id="toggleLoginSchoolCode" type="button" class="inline-link-btn hidden" onclick="revealLoginSchoolCode()">Schimbă codul școlii</button>
+
+        <button id="loginSubmitBtn" type="button" class="primary-btn" onclick="handleAccountLogin()">🔑 Intră în Cont</button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="authFormRegister" class="hidden">
+        <span class="field-label">Numele Tău Afișat</span>
+        <input id="regNameInput" type="text" class="text-input" placeholder="Numele tău afișat (ex: Mihail / Elena)" />
+
+        <span class="field-label">Nume Utilizator pentru Login (fără spații)</span>
+        <input id="regUsernameInput" type="text" class="text-input" autocapitalize="none" autocomplete="username" placeholder="Nume utilizator (ex: mihail)" />
+
+        <span class="field-label">Parola Ta Personală</span>
+        <input id="regPassInput" type="password" class="text-input" autocomplete="new-password" placeholder="Parola ta personală (min. 4 caractere)" />
+
+        <span class="field-label">Alege Culoarea Cercului Tău</span>
+        <div id="regColorSwatchesGrid" class="color-grid"></div>
+
+        <div id="regSchoolCodeWrap">
+          <span class="field-label">Cod de Acces BlackBlock</span>
+          <input id="regSchoolCodeInput" type="password" class="text-input" placeholder="Introdu codul de acces al școlii" onkeydown="if(event.key==='Enter')handleAccountRegister()" />
+        </div>
+
+        <button id="regSubmitBtn" type="button" class="primary-btn" onclick="handleAccountRegister()">✨ Creează Contul Meu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP HEADER -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <div class="brand-logo">BB</div>
+      <div>
+        <div class="brand-title">BlackBlock Academy</div>
+        <div class="brand-subtitle">
+          <span id="syncDot" class="sync-dot"></span>
+          <span id="syncText">Sincronizat</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button class="sync-btn" onclick="triggerManualSync()" title="Sincronizează acum">↻</button>
+      <div class="me-pill" onclick="switchTab('profile')">
+        <span id="headerMeCircle" class="circle-dot" style="background: #8b5cf6;">M</span>
+        <span id="headerMeName">Profil</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- SHARED MONTH NAVIGATOR (Visible on Calendar, Stats, Compare) -->
+    <div id="monthNavBar" class="month-bar">
+      <button class="month-nav-btn" onclick="changeMonth(-1)">‹</button>
+      <div class="month-label-wrap" onclick="goToCurrentMonth()" style="cursor:pointer;">
+        <div id="currentMonthLabel" class="month-label">Noiembrie 2026</div>
+        <div class="month-sub">Schimb 12 ore • 500 MDL / tură</div>
+      </div>
+      <button class="month-nav-btn" onclick="changeMonth(1)">›</button>
+    </div>
+
+    <!-- ==================== TAB 1: CALENDAR ==================== -->
+    <section id="tab-calendar">
+      <!-- Quick sign today banner -->
+      <div class="quick-sign-card">
+        <div class="quick-sign-text">
+          <h3 id="todayBannerTitle">Ești azi la lucru pe schimb?</h3>
+          <p id="todayBannerSub">Semnează tura de 12 ore (+500 MDL) sau adaugă lead-uri</p>
+        </div>
+        <button class="quick-sign-btn" onclick="openTodayModal()">Ziua de Azi</button>
+      </div>
+
+      <!-- Two Admins Legend -->
+      <div class="legend-bar">
+        <div class="legend-card" onclick="switchTab('stats')">
+          <div id="legCircle1" class="legend-circle" style="background:#8b5cf6;">M</div>
+          <div class="legend-info">
+            <div id="legName1" class="legend-name">Admin 1</div>
+            <div id="legMeta1" class="legend-meta">0 ture • 0 MDL</div>
+          </div>
+        </div>
+        <div class="legend-card" onclick="switchTab('compare')">
+          <div id="legCircle2" class="legend-circle" style="background:#ec4899;">C</div>
+          <div class="legend-info">
+            <div id="legName2" class="legend-name">Colega</div>
+            <div id="legMeta2" class="legend-meta">0 ture • 0 MDL</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar Card -->
+      <div class="calendar-card">
+        <div class="weekdays-grid">
+          <div>Lun</div><div>Mar</div><div>Mie</div><div>Joi</div><div>Vin</div><div>Sâm</div><div>Dum</div>
+        </div>
+        <div id="calendarDaysGrid" class="days-grid"></div>
+      </div>
+
+      <!-- Comments & Leads Feed for Current Month -->
+      <div class="section-title">
+        <span>💬 Comentarii & Lead-uri în această lună</span>
+      </div>
+      <div id="monthFeedList" class="feed-list"></div>
+    </section>
+
+    <!-- ==================== TAB 2: STATISTICA MEA ==================== -->
+    <section id="tab-stats" class="hidden">
+      <!-- Switch which admin's personal stats we view -->
+      <div class="who-am-i-grid" style="margin-bottom: 12px;">
+        <button id="statsToggle1" class="sub-opt-btn selected" onclick="setStatsViewWorker('admin1')">Statistica Admin 1</button>
+        <button id="statsToggle2" class="sub-opt-btn" onclick="setStatsViewWorker('admin2')">Statistica Admin 2</button>
+      </div>
+
+      <div class="hero-salary-card">
+        <div class="hero-top">
+          <div id="statHeroCircle" class="hero-circle" style="background:#8b5cf6;">M</div>
+          <div>
+            <div id="statHeroName" style="font-size:17px;font-weight:800;">Mihail</div>
+            <div class="hero-label">Administrator • BlackBlock Academy</div>
+          </div>
+        </div>
+        <div class="hero-label">Salariu Acumulat (Luna Selectată)</div>
+        <div id="statSalaryMDL" class="hero-amount">0 MDL</div>
+        <div id="statSalaryFormula" class="hero-sub">0 schimburi × 500 MDL (12 ore / schimb)</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-box-label">SCHIMBURI LUCRATE</div>
+          <div id="statShiftsCount" class="stat-box-value">0</div>
+          <div class="stat-box-sub">Ture a câte 500 MDL</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-label">ORE LUCRATE</div>
+          <div id="statHoursCount" class="stat-box-value">0h</div>
+          <div class="stat-box-sub">12 ore pe fiecare schimb</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-label">CLIENȚI NOI (LEAD-URI)</div>
+          <div id="statLeadsCount" class="stat-box-value" style="color:var(--success);">0</div>
+          <div class="stat-box-sub">Clienți închiși în această lună</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-label">MEDIA LEAD-URI / TURĂ</div>
+          <div id="statLeadsAvg" class="stat-box-value" style="color:#38bdf8;">0.0</div>
+          <div class="stat-box-sub">Clienți închiși per schimb</div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <span>📅 Zilele lucrate în această lună</span>
+      </div>
+      <div id="myWorkedDaysList" class="feed-list"></div>
+    </section>
+
+    <!-- ==================== TAB 3: COMPARAȚIE ==================== -->
+    <section id="tab-compare" class="hidden">
+      <div class="vs-header">
+        <div class="vs-player">
+          <div id="vsCircle1" class="vs-circle" style="background:#8b5cf6;">M</div>
+          <div id="vsName1" class="vs-name">Mihail</div>
+          <div class="vs-role">Administrator</div>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="vs-player">
+          <div id="vsCircle2" class="vs-circle" style="background:#ec4899;">C</div>
+          <div id="vsName2" class="vs-name">Colega</div>
+          <div class="vs-role">Administrator</div>
+        </div>
+      </div>
+
+      <!-- Comparison Metrics -->
+      <div id="comparisonCardsWrap"></div>
+
+      <!-- Total BlackBlock Academy Summary -->
+      <div class="profile-card" style="margin-top: 14px;">
+        <div class="field-label" style="margin-bottom:10px;">🏫 Total BlackBlock Academy (Ambii Admini)</div>
+        <div class="stats-grid" style="margin-bottom:0;">
+          <div class="stat-box">
+            <div class="stat-box-label">TOTAL SCHIMBURI</div>
+            <div id="totalSchoolShifts" class="stat-box-value">0</div>
+            <div id="totalSchoolHours" class="stat-box-sub">0 ore acoperite</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-label">TOTAL LEAD-URI ȘCOALĂ</div>
+            <div id="totalSchoolLeads" class="stat-box-value" style="color:var(--success);">0</div>
+            <div id="totalSchoolPay" class="stat-box-sub">Buget ture: 0 MDL</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: PROFIL & SINCRONIZARE ==================== -->
+    <section id="tab-profile" class="hidden">
+      <div class="profile-card">
+        <span class="field-label">1. Contul Tău Conectat</span>
+        <div class="account-summary-box">
+          <div id="profMyCircle" class="legend-circle" style="width:44px;height:44px;font-size:16px;">M</div>
+          <div>
+            <div id="profMyNameDisplay" style="font-size:16px;font-weight:800;">Mihail</div>
+            <div id="profMyUsernameDisplay" style="font-size:12px;color:var(--text-muted);font-weight:600;">@admin</div>
+          </div>
+        </div>
+        <div id="profColleagueInfo" style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Coleg: în așteptare</div>
+
+        <span class="field-label">Numele Tău Afișat</span>
+        <input id="inputMyName" type="text" class="text-input" placeholder="Ex: Mihail / Elena" oninput="updateMyProfileLive()" />
+
+        <span class="field-label">Alege Culoarea Cercului Tău</span>
+        <div id="colorSwatchesGrid" class="color-grid"></div>
+
+        <button class="primary-btn" onclick="saveProfilesAndSync()">Salvează Profilul & Culoarea</button>
+
+        <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
+          <span class="field-label">Schimbă Parola Ta Personală</span>
+          <input id="inputNewPersonalPass" type="password" class="text-input" autocomplete="new-password" placeholder="Parolă nouă (min. 4 caractere)" />
+          <button class="secondary-btn" style="margin-top:0;" onclick="changeMyPersonalPassword()">🔒 Actualizează Parola Mea</button>
+        </div>
+      </div>
+
+      <!-- CLOUD SYNC (GOOGLE) -->
+      <div class="profile-card">
+        <span class="field-label">☁️ 2. Auto-Sincronizare Online Gratuită (Google Drive)</span>
+        <div id="driveFolderStatusBadge" class="drive-badge">📁 Folder Backup: ADMIN APP BACKUP</div>
+        <p style="font-size:12px;color:var(--text-muted);line-height:1.45;margin-bottom:12px;">
+          Toate datele (Google Sheet + backup JSON) se salvează automat în folderul <strong>ADMIN APP BACKUP</strong> din Google Drive pe contul vostru de lucru.
+        </p>
+
+        <span class="field-label">Link Bază de Date Google (Web App URL / Firebase URL)</span>
+        <input id="inputSyncUrl" type="url" class="text-input" placeholder="https://script.google.com/macros/s/.../exec" />
+
+        <span class="field-label">Cod de Acces BlackBlock</span>
+        <input id="inputTeamPass" type="password" class="text-input" placeholder="Codul de acces al școlii" />
+
+        <button class="primary-btn" onclick="saveSyncUrlAndTest()">Conectează & Sincronizează Acum</button>
+        <button id="openDriveFolderBtn" class="secondary-btn hidden" onclick="openDriveBackupFolder()">📁 Deschide Folderul ADMIN APP BACKUP</button>
+        <button class="secondary-btn" onclick="shareMagicLinkWithColleague()">📲 Trimite Aplicația Colegei</button>
+        <button class="secondary-btn" onclick="copyGoogleAppsScriptCode()">📋 Copiază Codul pentru Google Drive & Sheets</button>
+      </div>
+
+      <!-- IPHONE INSTALL GUIDE -->
+      <div class="profile-card">
+        <span class="field-label">📱 Cum o pui pe ecranul iPhone-ului (Fără App Store)</span>
+        <ol style="font-size:13px;color:#e2e8f0;line-height:1.6;padding-left:18px;">
+          <li>Deschide link-ul aplicației în <strong>Safari</strong> pe iPhone.</li>
+          <li>Apasă jos pe butonul <strong>Share (Partajare)</strong> <span style="background:#27272a;padding:2px 6px;border-radius:6px;">↑</span>.</li>
+          <li>Alege <strong>Add to Home Screen (Adaugă la ecranul principal)</strong>.</li>
+          <li>Acum ai iconița <strong>BlackBlock</strong> pe iPhone ca o aplicație nativă și se sincronizează automat când o deschizi!</li>
+        </ol>
+      </div>
+
+      <!-- LOGOUT -->
+      <div class="profile-card">
+        <button class="secondary-btn logout-btn" style="margin-top:0;" onclick="logoutUser()">🚪 Deconectare (Logout)</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== DAY MODAL (BOTTOM SHEET) ==================== -->
+  <div id="dayModalBackdrop" class="modal-backdrop" onclick="handleBackdropClick(event)">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <div id="modalDateTitle" class="sheet-title">19 Noiembrie 2026</div>
+          <div style="font-size:12px;color:var(--text-muted);">Schimb 12 ore • 500 MDL</div>
+        </div>
+        <button class="sheet-close" onclick="closeDayModal()">✕</button>
+      </div>
+
+      <span class="field-label">Cine a fost la lucru pe schimb?</span>
+      <div class="worker-select-grid">
+        <div id="modalOptAdmin1" class="worker-option" onclick="selectModalWorker('admin1')">
+          <div id="modalCircle1" class="legend-circle" style="width:42px;height:42px;font-size:16px;">M</div>
+          <div id="modalName1" class="worker-opt-name">Mihail</div>
+          <div class="worker-opt-tag">12 ore • +500 MDL</div>
+        </div>
+        <div id="modalOptAdmin2" class="worker-option" onclick="selectModalWorker('admin2')">
+          <div id="modalCircle2" class="legend-circle" style="width:42px;height:42px;font-size:16px;">C</div>
+          <div id="modalName2" class="worker-opt-name">Colega</div>
+          <div class="worker-opt-tag">12 ore • +500 MDL</div>
+        </div>
+      </div>
+
+      <div class="extra-worker-row">
+        <button id="modalOptBoth" class="sub-opt-btn" onclick="selectModalWorker('both')">👥 Ambii pe schimb</button>
+        <button id="modalOptNone" class="sub-opt-btn" onclick="selectModalWorker('')">✕ Zi nesemnată / Liber</button>
+      </div>
+
+      <span class="field-label">Clienți noi închiși în această zi / Lead-uri (Opțional)</span>
+      <div class="leads-stepper">
+        <button class="step-btn" onclick="adjustModalLeads(-1)">−</button>
+        <div class="leads-val-wrap">
+          <div id="modalLeadsVal" class="leads-val">0</div>
+          <div class="leads-sub">clienți noi închiși</div>
+        </div>
+        <button class="step-btn" onclick="adjustModalLeads(1)">+</button>
+      </div>
+
+      <span class="field-label">Comentariu pentru celălalt administrator (Opțional)</span>
+      <textarea id="modalCommentInput" class="textarea-input" placeholder="Lasă un mesaj colegului/colegei despre această zi (ex: clienți noi, plăți, programări)..."></textarea>
+
+      <button class="primary-btn" onclick="saveDayFromModal()">Salvează Ziua & Sincronizează</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION BAR -->
+  <nav class="tab-bar">
+    <button id="nav-calendar" class="tab-btn active" onclick="switchTab('calendar')">
+      <span class="tab-icon">📅</span>
+      <span>Calendar</span>
+    </button>
+    <button id="nav-stats" class="tab-btn" onclick="switchTab('stats')">
+      <span class="tab-icon">📊</span>
+      <span>Statistica Mea</span>
+    </button>
+    <button id="nav-compare" class="tab-btn" onclick="switchTab('compare')">
+      <span class="tab-icon">⚖️</span>
+      <span>Comparație</span>
+    </button>
+    <button id="nav-profile" class="tab-btn" onclick="switchTab('profile')">
+      <span class="tab-icon">👤</span>
+      <span>Profil & Sync</span>
+    </button>
+  </nav>
+
+  <script>
+    /********************************************************************
+     * CONSTANTE & CONFIGURARE BLACKBLOCK ACADEMY
+     ********************************************************************/
+    const SHIFT_HOURS = 12;
+    const SHIFT_PAY_MDL = 500;
+    const STORAGE_KEY = 'blackblock_academy_state_v1';
+    const LOCAL_PREFS_KEY = 'blackblock_academy_prefs_v1';
+
+    // Dacă ai deja un link Google Apps Script sau Firebase, îl poți pune direct aici:
+    const DEFAULT_SYNC_URL = 'https://script.google.com/macros/s/AKfycbwUOO7FV8gPwyn6P2AxGfyfEPOpP1YAYnfdFqtCr6xYIEk-MJLS17xkVtpjfp9E0CUj/exec';
+
+    const CIRCLE_COLORS = [
+      '#8b5cf6', // Violet Electric
+      '#ec4899', // Roz Neon
+      '#06b6d4', // Albastru Cyan
+      '#10b981', // Verde Smarald
+      '#f59e0b', // Auriu / Galben
+      '#ef4444', // Roșu Coral
+      '#3b82f6', // Albastru Regal
+      '#f97316'  // Portocaliu
+    ];
+
+    const MONTHS_RO = [
+      'Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie',
+      'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'
+    ];
+
+    // Starea sincronizată între cei 2 administratori
+    let appState = {
+      profiles: {
+        admin1: { id: 'admin1', name: 'Admin 1', username: '', passHash: '', registered: false, color: '#8b5cf6', updatedAt: 0 },
+        admin2: { id: 'admin2', name: 'Admin 2', username: '', passHash: '', registered: false, color: '#ec4899', updatedAt: 0 }
+      },
+      days: {}, // cheie: "YYYY-MM-DD" -> { workerId: 'admin1'|'admin2'|'both'|'', leads: 0, comment: '', updatedAt: 123, updatedBy: 'Mihail' }
+      updatedAt: 0
+    };
+
+    // Preferințele locale ale telefonului curent
+    let localPrefs = {
+      myWorkerId: '',
+      syncUrl: DEFAULT_SYNC_URL,
+      teamPass: '',
+      isLoggedIn: false,
+      folderUrl: ''
+    };
+
+    // Starea UI curentă
+    const now = new Date();
+    let currentYear = now.getFullYear();
+    let currentMonth = now.getMonth(); // 0-11
+    let activeTab = 'calendar';
+    let statsViewWorkerId = 'admin1';
+    let authMode = 'login';
+    let regSelectedColor = '#8b5cf6';
+
+    // Starea Modalului Zilei
+    let editingDateKey = null;
+    let modalWorkerId = '';
+    let modalLeadsCount = 0;
+
+    /********************************************************************
+     * INIȚIALIZARE & AUTO-SINCRONIZARE LA DESCHIDERE
+     ********************************************************************/
+    window.addEventListener('DOMContentLoaded', async () => {
+      generateAppleTouchIcon();
+      loadFromLocalStorage();
+      checkUrlMagicSyncParam();
+
+      if (localPrefs.isLoggedIn && (!localPrefs.myWorkerId || !appState.profiles[localPrefs.myWorkerId])) {
+        localPrefs.isLoggedIn = false;
+        localPrefs.myWorkerId = '';
+        saveToLocalStorage();
+      }
+      statsViewWorkerId = localPrefs.myWorkerId || 'admin1';
+
+      renderColorSwatches();
+      renderRegColorSwatches();
+      renderAll();
+
+      if (!localPrefs.isLoggedIn && localPrefs.teamPass && localPrefs.syncUrl) {
+        await fetchRemoteStateWithCode(localPrefs.teamPass);
+      }
+
+      updateLoginOverlayVisibility();
+
+      // Auto-sincronizare la deschiderea aplicației doar dacă utilizatorul este autentificat
+      if (localPrefs.isLoggedIn) {
+        autoSyncOnOpen();
+      }
+
+      // Auto-sincronizare de fiecare dată când utilizatorul redeschide aplicația pe iPhone
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && localPrefs.isLoggedIn) {
+          autoSyncOnOpen();
+        }
+      });
+      window.addEventListener('focus', () => {
+        if (localPrefs.isLoggedIn) autoSyncOnOpen();
+      });
+
+      // Polling discret la fiecare 25 secunde cât timp aplicația e deschisă
+      setInterval(() => {
+        if (document.visibilityState === 'visible' && localPrefs.isLoggedIn && localPrefs.syncUrl) {
+          pullFromCloud(false);
+        }
+      }, 25000);
+
+      // Înregistrare Service Worker pentru PWA
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }
+    });
+
+    function generateAppleTouchIcon() {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 180;
+        canvas.height = 180;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#09090b';
+        ctx.fillRect(0, 0, 180, 180);
+
+        // Cercul 1
+        ctx.beginPath();
+        ctx.arc(68, 90, 34, 0, Math.PI * 2);
+        ctx.fillStyle = '#8b5cf6';
+        ctx.fill();
+
+        // Cercul 2
+        ctx.beginPath();
+        ctx.arc(112, 90, 34, 0, Math.PI * 2);
+        ctx.fillStyle = '#ec4899';
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 32px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('BB', 90, 92);
+
+        const link = document.getElementById('appleTouchIcon');
+        if (link) link.href = canvas.toDataURL('image/png');
+      } catch (e) {}
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        const savedState = localStorage.getItem(STORAGE_KEY);
+        if (savedState) {
+          const parsed = JSON.parse(savedState);
+          if (parsed && parsed.profiles) {
+            mergeRemoteState(parsed);
+          }
+          if (parsed && typeof parsed.updatedAt === 'number') {
+            appState.updatedAt = parsed.updatedAt;
+          }
+        }
+        const savedPrefs = localStorage.getItem(LOCAL_PREFS_KEY);
+        if (savedPrefs) {
+          localPrefs = Object.assign(localPrefs, JSON.parse(savedPrefs));
+          if (!localPrefs.syncUrl && DEFAULT_SYNC_URL) {
+            localPrefs.syncUrl = DEFAULT_SYNC_URL;
+          }
+        }
+      } catch (e) {}
+    }
+
+    function saveToLocalStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        localStorage.setItem(LOCAL_PREFS_KEY, JSON.stringify(localPrefs));
+      } catch (e) {}
+    }
+
+    function checkUrlMagicSyncParam() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const syncParam = params.get('sync');
+        if (syncParam && syncParam.startsWith('http')) {
+          const incomingUrl = syncParam.trim();
+          if (incomingUrl !== localPrefs.syncUrl) {
+            localPrefs.syncUrl = incomingUrl;
+            localPrefs.isLoggedIn = false;
+          }
+          saveToLocalStorage();
+          window.history.replaceState({}, document.title, window.location.pathname);
+          showToast('Aplicația a fost conectată! Creează contul sau autentifică-te.');
+        }
+      } catch (e) {}
+    }
+
+    /********************************************************************
+     * HASH PAROLĂ (SHA-256) & AUTENTIFICARE 2 CONTURI SEPARATE
+     ********************************************************************/
+    function sha256Hex(str) {
+      let bytes;
+      if (typeof TextEncoder !== 'undefined') {
+        bytes = Array.from(new TextEncoder().encode(String(str)));
+      } else {
+        const utf8 = unescape(encodeURIComponent(String(str)));
+        bytes = [];
+        for (let i = 0; i < utf8.length; i++) bytes.push(utf8.charCodeAt(i));
+      }
+
+      const bitLen = bytes.length * 8;
+      bytes.push(0x80);
+      while (bytes.length % 64 !== 56) bytes.push(0);
+      const hi = Math.floor(bitLen / 0x100000000);
+      const lo = bitLen >>> 0;
+      for (let i = 3; i >= 0; i--) bytes.push((hi >>> (i * 8)) & 0xff);
+      for (let i = 3; i >= 0; i--) bytes.push((lo >>> (i * 8)) & 0xff);
+
+      const K = [
+        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+      ];
+      const H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+      const rotr = (v, n) => (v >>> n) | (v << (32 - n));
+      const w = new Array(64);
+
+      for (let i = 0; i < bytes.length; i += 64) {
+        for (let t = 0; t < 16; t++) {
+          const j = i + t * 4;
+          w[t] = (bytes[j] << 24) | (bytes[j + 1] << 16) | (bytes[j + 2] << 8) | bytes[j + 3];
+        }
+        for (let t = 16; t < 64; t++) {
+          const s0 = rotr(w[t - 15], 7) ^ rotr(w[t - 15], 18) ^ (w[t - 15] >>> 3);
+          const s1 = rotr(w[t - 2], 17) ^ rotr(w[t - 2], 19) ^ (w[t - 2] >>> 10);
+          w[t] = (w[t - 16] + s0 + w[t - 7] + s1) | 0;
+        }
+        let [a, b, c, d, e, f, g, h] = H;
+        for (let t = 0; t < 64; t++) {
+          const S1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25);
+          const ch = (e & f) ^ ((~e) & g);
+          const temp1 = (h + S1 + ch + K[t] + w[t]) | 0;
+          const S0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22);
+          const maj = (a & b) ^ (a & c) ^ (b & c);
+          const temp2 = (S0 + maj) | 0;
+          h = g; g = f; f = e; e = (d + temp1) | 0;
+          d = c; c = b; b = a; a = (temp1 + temp2) | 0;
+        }
+        H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c) | 0; H[3] = (H[3] + d) | 0;
+        H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + h) | 0;
+      }
+
+      return H.map((x) => (x >>> 0).toString(16).padStart(8, '0')).join('');
+    }
+
+    function hashPersonalPassword(plain) {
+      return sha256Hex('bb_admin_v1:' + String(plain));
+    }
+
+    function showLoginError(msg) {
+      const errBox = document.getElementById('loginErrorMsg');
+      if (!errBox) return;
+      if (msg) {
+        errBox.textContent = msg;
+        errBox.classList.remove('hidden');
+      } else {
+        errBox.textContent = '';
+        errBox.classList.add('hidden');
+      }
+    }
+
+    function switchAuthMode(mode) {
+      authMode = mode;
+      showLoginError('');
+      const loginTab = document.getElementById('authTabLogin');
+      const regTab = document.getElementById('authTabRegister');
+      const loginForm = document.getElementById('authFormLogin');
+      const regForm = document.getElementById('authFormRegister');
+
+      if (loginTab) loginTab.classList.toggle('active', mode === 'login');
+      if (regTab) regTab.classList.toggle('active', mode === 'register');
+      if (loginForm) loginForm.classList.toggle('hidden', mode !== 'login');
+      if (regForm) regForm.classList.toggle('hidden', mode !== 'register');
+    }
+
+    function revealLoginSchoolCode() {
+      const wrap = document.getElementById('loginSchoolCodeWrap');
+      const toggle = document.getElementById('toggleLoginSchoolCode');
+      if (wrap) wrap.classList.remove('hidden');
+      if (toggle) toggle.classList.add('hidden');
+    }
+
+    function getRegisteredAccountsCount() {
+      const r1 = !!(appState.profiles.admin1 && appState.profiles.admin1.registered);
+      const r2 = !!(appState.profiles.admin2 && appState.profiles.admin2.registered);
+      return (r1 ? 1 : 0) + (r2 ? 1 : 0);
+    }
+
+    function updateLoginOverlayVisibility() {
+      const overlay = document.getElementById('loginOverlay');
+      if (!overlay) return;
+      if (!localPrefs.isLoggedIn) {
+        showLoginError('');
+
+        const hasSavedCode = !!(localPrefs.teamPass && localPrefs.teamPass.trim());
+        const loginWrap = document.getElementById('loginSchoolCodeWrap');
+        const regWrap = document.getElementById('regSchoolCodeWrap');
+        const toggleBtn = document.getElementById('toggleLoginSchoolCode');
+        if (loginWrap) loginWrap.classList.toggle('hidden', hasSavedCode);
+        if (regWrap) regWrap.classList.toggle('hidden', hasSavedCode);
+        if (toggleBtn) toggleBtn.classList.toggle('hidden', !hasSavedCode);
+
+        const count = getRegisteredAccountsCount();
+        const statusEl = document.getElementById('authAccountsStatus');
+        const regTab = document.getElementById('authTabRegister');
+        if (statusEl) {
+          if (count >= 2) {
+            statusEl.textContent = 'Ambele conturi de admin sunt active (2/2)';
+          } else {
+            statusEl.textContent = `Conturi create: ${count}/2 • Creează contul tău sau intră`;
+          }
+        }
+        if (regTab) regTab.classList.toggle('hidden', count >= 2);
+
+        if (count >= 2) {
+          switchAuthMode('login');
+        } else if (count === 0) {
+          switchAuthMode('register');
+        } else {
+          switchAuthMode(authMode);
+        }
+
+        overlay.classList.remove('hidden');
+      } else {
+        overlay.classList.add('hidden');
+      }
+    }
+
+    async function fetchRemoteStateWithCode(schoolCode) {
+      const url = (localPrefs.syncUrl || '').trim();
+      if (!url) return { ok: true, localOnly: true };
+
+      try {
+        if (isFirebaseUrl(url)) {
+          const res = await fetch(normalizeFirebaseUrl(url), { cache: 'no-store' });
+          const remoteState = await res.json();
+          if (remoteState && remoteState.profiles) {
+            mergeRemoteState(remoteState);
+            saveToLocalStorage();
+          }
+          return { ok: true };
+        }
+
+        const sep = url.includes('?') ? '&' : '?';
+        const res = await fetch(`${url}${sep}pass=${encodeURIComponent(schoolCode || '')}&t=${Date.now()}`, { cache: 'no-store' });
+        const data = await res.json();
+
+        if (data && data.error === 'UNAUTHORIZED') {
+          return { ok: false, unauthorized: true };
+        }
+        if (data && data.ok) {
+          if (data.folderUrl) localPrefs.folderUrl = data.folderUrl;
+          if (data.state) mergeRemoteState(data.state);
+          saveToLocalStorage();
+          return { ok: true };
+        }
+        return { ok: false, message: 'Răspuns neașteptat de la serverul Google.' };
+      } catch (err) {
+        return { ok: false, networkError: true };
+      }
+    }
+
+    async function handleAccountLogin() {
+      const username = document.getElementById('loginUsernameInput').value.trim().toLowerCase();
+      const personalPass = document.getElementById('loginPersonalPassInput').value;
+      const typedCode = document.getElementById('loginSchoolCodeInput').value.trim();
+      const schoolCode = typedCode || localPrefs.teamPass || '';
+      const btn = document.getElementById('loginSubmitBtn');
+      showLoginError('');
+
+      if (!username || !personalPass) {
+        showLoginError('Introdu numele de utilizator și parola ta personală.');
+        return;
+      }
+      if (localPrefs.syncUrl && !schoolCode) {
+        revealLoginSchoolCode();
+        showLoginError('Introdu Codul de Acces BlackBlock.');
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Se verifică contul...';
+      }
+
+      try {
+        if (localPrefs.syncUrl) {
+          const syncRes = await fetchRemoteStateWithCode(schoolCode);
+          if (syncRes.unauthorized) {
+            revealLoginSchoolCode();
+            showLoginError('Codul de acces al școlii este incorect!');
+            return;
+          }
+          if (!syncRes.ok) {
+            showLoginError('Nu s-a putut conecta la Google Drive. Verifică internetul.');
+            return;
+          }
+        }
+
+        const p1 = appState.profiles.admin1;
+        const p2 = appState.profiles.admin2;
+        const matched = [p1, p2].find(
+          (p) => p && p.registered && String(p.username || '').toLowerCase() === username
+        );
+
+        if (!matched) {
+          const count = getRegisteredAccountsCount();
+          if (count < 2) {
+            showLoginError('Nu există acest username. Dacă e prima dată, creează contul din «Creează Cont».');
+          } else {
+            showLoginError('Nume utilizator inexistent.');
+          }
+          return;
+        }
+
+        if (hashPersonalPassword(personalPass) !== matched.passHash) {
+          showLoginError('Parolă personală incorectă!');
+          return;
+        }
+
+        localPrefs.myWorkerId = matched.id;
+        localPrefs.teamPass = schoolCode;
+        localPrefs.isLoggedIn = true;
+        statsViewWorkerId = matched.id;
+        saveToLocalStorage();
+
+        document.getElementById('loginPersonalPassInput').value = '';
+        updateLoginOverlayVisibility();
+        renderAll();
+        updateSyncStatusUI('ok', 'Sincronizat • ADMIN APP BACKUP');
+        showToast('Bine ai venit, ' + matched.name + '!');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '🔑 Intră în Cont';
+        }
+      }
+    }
+
+    async function handleAccountRegister() {
+      const name = document.getElementById('regNameInput').value.trim();
+      const username = document.getElementById('regUsernameInput').value.trim().toLowerCase();
+      const personalPass = document.getElementById('regPassInput').value;
+      const typedCode = document.getElementById('regSchoolCodeInput').value.trim();
+      const schoolCode = typedCode || localPrefs.teamPass || '';
+      const btn = document.getElementById('regSubmitBtn');
+      showLoginError('');
+
+      if (!name) {
+        showLoginError('Introdu numele tău afișat (ex: Mihail sau Elena).');
+        return;
+      }
+      if (!/^[a-z0-9._-]{2,24}$/.test(username)) {
+        showLoginError('Numele de utilizator trebuie să aibă 2-24 caractere (litere, cifre, . _ - fără spații).');
+        return;
+      }
+      if (!personalPass || personalPass.length < 4) {
+        showLoginError('Parola personală trebuie să aibă cel puțin 4 caractere.');
+        return;
+      }
+      if (localPrefs.syncUrl && !schoolCode) {
+        const regWrap = document.getElementById('regSchoolCodeWrap');
+        if (regWrap) regWrap.classList.remove('hidden');
+        showLoginError('Introdu Codul de Acces BlackBlock.');
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Se creează contul...';
+      }
+
+      try {
+        if (localPrefs.syncUrl) {
+          const syncRes = await fetchRemoteStateWithCode(schoolCode);
+          if (syncRes.unauthorized) {
+            const regWrap = document.getElementById('regSchoolCodeWrap');
+            if (regWrap) regWrap.classList.remove('hidden');
+            showLoginError('Codul de acces al școlii este incorect!');
+            return;
+          }
+          if (!syncRes.ok) {
+            showLoginError('Nu s-a putut conecta la Google Drive. Verifică internetul.');
+            return;
+          }
+        }
+
+        const p1 = appState.profiles.admin1;
+        const p2 = appState.profiles.admin2;
+
+        if ((p1.registered && String(p1.username || '').toLowerCase() === username) ||
+            (p2.registered && String(p2.username || '').toLowerCase() === username)) {
+          showLoginError('Acest username este deja folosit de colegul/colega ta. Alege altul.');
+          return;
+        }
+
+        let slot = null;
+        if (!p1.registered) slot = 'admin1';
+        else if (!p2.registered) slot = 'admin2';
+
+        if (!slot) {
+          showLoginError('Ambele conturi (2/2) au fost deja create! Intră din «Intră în Cont».');
+          updateLoginOverlayVisibility();
+          switchAuthMode('login');
+          return;
+        }
+
+        appState.profiles[slot] = {
+          id: slot,
+          name: name,
+          username: username,
+          passHash: hashPersonalPassword(personalPass),
+          registered: true,
+          color: regSelectedColor,
+          updatedAt: Date.now()
+        };
+
+        localPrefs.myWorkerId = slot;
+        localPrefs.teamPass = schoolCode;
+        localPrefs.isLoggedIn = true;
+        statsViewWorkerId = slot;
+        saveToLocalStorage();
+
+        await pushToCloud();
+
+        document.getElementById('regPassInput').value = '';
+        updateLoginOverlayVisibility();
+        renderAll();
+        showToast('Cont creat cu succes! Bine ai venit, ' + name + '!');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '✨ Creează Contul Meu';
+        }
+      }
+    }
+
+    function logoutUser() {
+      localPrefs.isLoggedIn = false;
+      localPrefs.myWorkerId = '';
+      saveToLocalStorage();
+      const p1 = document.getElementById('loginPersonalPassInput');
+      if (p1) p1.value = '';
+      const p2 = document.getElementById('regPassInput');
+      if (p2) p2.value = '';
+      updateLoginOverlayVisibility();
+    }
+
+    /********************************************************************
+     * SINCRONIZARE CLOUD (GOOGLE DRIVE / SHEETS SAU FIREBASE)
+     ********************************************************************/
+    function updateSyncStatusUI(status, text) {
+      const dot = document.getElementById('syncDot');
+      const label = document.getElementById('syncText');
+      if (!dot || !label) return;
+
+      dot.className = 'sync-dot';
+      if (status === 'syncing') dot.classList.add('syncing');
+      if (status === 'local') dot.classList.add('local');
+      label.textContent = text;
+    }
+
+    function isFirebaseUrl(url) {
+      return url.includes('firebaseio.com') || url.includes('firebasedatabase.app');
+    }
+
+    function normalizeFirebaseUrl(url) {
+      let clean = url.trim().replace(/\/+$/, '');
+      if (!clean.endsWith('.json')) {
+        clean += '/blackblock.json';
+      }
+      return clean;
+    }
+
+    async function autoSyncOnOpen() {
+      if (!localPrefs.isLoggedIn) return;
+      if (!localPrefs.syncUrl) {
+        updateSyncStatusUI('local', 'Mod Local (Conectează Google în Profil)');
+        return;
+      }
+      await pullFromCloud(false);
+    }
+
+    async function triggerManualSync() {
+      if (!localPrefs.syncUrl) {
+        switchTab('profile');
+        showToast('Adaugă link-ul Google în secțiunea Profil & Sync');
+        return;
+      }
+      await pullFromCloud(true);
+    }
+
+    async function pullFromCloud(showFeedback = false) {
+      const url = (localPrefs.syncUrl || '').trim();
+      if (!url) return;
+
+      updateSyncStatusUI('syncing', 'Se sincronizează...');
+      try {
+        if (isFirebaseUrl(url)) {
+          const res = await fetch(normalizeFirebaseUrl(url), { cache: 'no-store' });
+          const remoteState = await res.json();
+          if (remoteState && remoteState.profiles) {
+            mergeRemoteState(remoteState);
+          }
+          updateSyncStatusUI('ok', 'Sincronizat online');
+        } else {
+          // Google Apps Script Web App URL cu validare cod acces
+          const sep = url.includes('?') ? '&' : '?';
+          const passParam = encodeURIComponent(localPrefs.teamPass || '');
+          const res = await fetch(`${url}${sep}pass=${passParam}&t=${Date.now()}`, { cache: 'no-store' });
+          const data = await res.json();
+          if (data && data.error === 'UNAUTHORIZED') {
+            updateSyncStatusUI('local', 'Cod acces incorect');
+            showToast('Cod acces incorect — re-autentifică-te!');
+            localPrefs.isLoggedIn = false;
+            saveToLocalStorage();
+            updateLoginOverlayVisibility();
+            return;
+          }
+          if (data && data.ok) {
+            if (data.folderUrl) localPrefs.folderUrl = data.folderUrl;
+            if (data.state) mergeRemoteState(data.state);
+            updateSyncStatusUI('ok', 'Sincronizat • ADMIN APP BACKUP');
+          }
+        }
+        saveToLocalStorage();
+        renderAll();
+        if (showFeedback) showToast('Sincronizat cu succes!');
+      } catch (err) {
+        updateSyncStatusUI('local', 'Offline • Salvat pe telefon');
+      }
+    }
+
+    async function pushToCloud() {
+      const url = (localPrefs.syncUrl || '').trim();
+      appState.updatedAt = Date.now();
+      saveToLocalStorage();
+
+      if (!url) {
+        updateSyncStatusUI('local', 'Salvat local');
+        return;
+      }
+
+      updateSyncStatusUI('syncing', 'Se salvează online...');
+      try {
+        if (isFirebaseUrl(url)) {
+          await fetch(normalizeFirebaseUrl(url), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(appState)
+          });
+          updateSyncStatusUI('ok', 'Sincronizat online');
+        } else {
+          // Google Apps Script acceptă text/plain fără preflight CORS
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ pass: localPrefs.teamPass || '', state: appState })
+          });
+          const data = await res.json();
+          if (data && data.error === 'UNAUTHORIZED') {
+            updateSyncStatusUI('local', 'Cod acces incorect');
+            showToast('Cod acces incorect — re-autentifică-te!');
+            localPrefs.isLoggedIn = false;
+            saveToLocalStorage();
+            updateLoginOverlayVisibility();
+            return;
+          }
+          if (data && data.ok) {
+            if (data.folderUrl) localPrefs.folderUrl = data.folderUrl;
+            if (data.state) mergeRemoteState(data.state);
+            saveToLocalStorage();
+            renderAll();
+            updateSyncStatusUI('ok', 'Sincronizat • ADMIN APP BACKUP');
+          }
+        }
+      } catch (err) {
+        updateSyncStatusUI('local', 'Salvat pe telefon (va sincroniza la net)');
+      }
+    }
+
+    function mergeRemoteState(remote) {
+      if (!remote) return;
+      if (remote.profiles) {
+        ['admin1', 'admin2'].forEach((id) => {
+          const defaults = {
+            id: id,
+            name: id === 'admin1' ? 'Admin 1' : 'Admin 2',
+            username: '',
+            passHash: '',
+            registered: false,
+            color: id === 'admin1' ? '#8b5cf6' : '#ec4899',
+            updatedAt: 0
+          };
+          const loc = appState.profiles[id] || defaults;
+          const rem = remote.profiles[id] || {};
+          if ((rem.updatedAt || 0) >= (loc.updatedAt || 0)) {
+            appState.profiles[id] = Object.assign({}, defaults, loc, rem);
+          } else {
+            appState.profiles[id] = Object.assign({}, defaults, loc);
+          }
+        });
+      }
+      if (remote.days) {
+        Object.keys(remote.days).forEach((dateKey) => {
+          const remDay = remote.days[dateKey];
+          const locDay = appState.days[dateKey];
+          if (!locDay || (remDay.updatedAt || 0) >= (locDay.updatedAt || 0)) {
+            if (remDay.deleted) {
+              delete appState.days[dateKey];
+            } else {
+              appState.days[dateKey] = remDay;
+            }
+          }
+        });
+      }
+    }
+
+    /********************************************************************
+     * RANDARE INTERFAȚĂ
+     ********************************************************************/
+    function getInitials(name) {
+      if (!name) return '?';
+      const parts = name.trim().split(/\s+/);
+      if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+      return name.trim().substring(0, 2).toUpperCase();
+    }
+
+    function formatMDL(num) {
+      return Number(num || 0).toLocaleString('ro-RO') + ' MDL';
+    }
+
+    function makeDateKey(year, monthZeroBased, day) {
+      const m = String(monthZeroBased + 1).padStart(2, '0');
+      const d = String(day).padStart(2, '0');
+      return `${year}-${m}-${d}`;
+    }
+
+    function getMonthPrefix(year, monthZeroBased) {
+      const m = String(monthZeroBased + 1).padStart(2, '0');
+      return `${year}-${m}-`;
+    }
+
+    function computeMonthStats(year, monthZeroBased) {
+      const prefix = getMonthPrefix(year, monthZeroBased);
+      const stats = {
+        admin1: { shifts: 0, hours: 0, pay: 0, leads: 0, days: [] },
+        admin2: { shifts: 0, hours: 0, pay: 0, leads: 0, days: [] }
+      };
+
+      Object.keys(appState.days).sort().forEach((dateKey) => {
+        if (!dateKey.startsWith(prefix)) return;
+        const d = appState.days[dateKey];
+        if (!d || d.deleted) return;
+
+        const leads = Number(d.leads || 0);
+        if (d.workerId === 'admin1') {
+          stats.admin1.shifts += 1;
+          stats.admin1.hours += SHIFT_HOURS;
+          stats.admin1.pay += SHIFT_PAY_MDL;
+          stats.admin1.leads += leads;
+          stats.admin1.days.push({ dateKey, ...d });
+        } else if (d.workerId === 'admin2') {
+          stats.admin2.shifts += 1;
+          stats.admin2.hours += SHIFT_HOURS;
+          stats.admin2.pay += SHIFT_PAY_MDL;
+          stats.admin2.leads += leads;
+          stats.admin2.days.push({ dateKey, ...d });
+        } else if (d.workerId === 'both') {
+          ['admin1', 'admin2'].forEach((id) => {
+            stats[id].shifts += 1;
+            stats[id].hours += SHIFT_HOURS;
+            stats[id].pay += SHIFT_PAY_MDL;
+            stats[id].leads += leads;
+            stats[id].days.push({ dateKey, ...d });
+          });
+        }
+      });
+
+      return stats;
+    }
+
+    function renderAll() {
+      const p1 = appState.profiles.admin1;
+      const p2 = appState.profiles.admin2;
+      const me = appState.profiles[localPrefs.myWorkerId] || p1;
+
+      // Top Header
+      const headerCircle = document.getElementById('headerMeCircle');
+      headerCircle.style.background = me.color;
+      headerCircle.textContent = getInitials(me.name);
+      document.getElementById('headerMeName').textContent = me.name;
+
+      // Month Label
+      document.getElementById('currentMonthLabel').textContent = `${MONTHS_RO[currentMonth]} ${currentYear}`;
+
+      const monthStats = computeMonthStats(currentYear, currentMonth);
+
+      renderCalendarTab(p1, p2, me, monthStats);
+      renderStatsTab(p1, p2, monthStats);
+      renderCompareTab(p1, p2, monthStats);
+      renderProfileTab(p1, p2);
+    }
+
+    function renderCalendarTab(p1, p2, me, monthStats) {
+      // Legend Cards
+      const c1 = document.getElementById('legCircle1');
+      c1.style.background = p1.color;
+      c1.textContent = getInitials(p1.name);
+      document.getElementById('legName1').textContent = p1.name;
+      document.getElementById('legMeta1').textContent = `${monthStats.admin1.shifts} ture • ${formatMDL(monthStats.admin1.pay)}`;
+
+      const c2 = document.getElementById('legCircle2');
+      c2.style.background = p2.color;
+      c2.textContent = getInitials(p2.name);
+      document.getElementById('legName2').textContent = p2.name;
+      document.getElementById('legMeta2').textContent = `${monthStats.admin2.shifts} ture • ${formatMDL(monthStats.admin2.pay)}`;
+
+      // Today Quick Banner
+      const todayKey = makeDateKey(now.getFullYear(), now.getMonth(), now.getDate());
+      const todayData = appState.days[todayKey];
+      const bannerTitle = document.getElementById('todayBannerTitle');
+      const bannerSub = document.getElementById('todayBannerSub');
+      if (todayData && todayData.workerId) {
+        const wName = todayData.workerId === 'both'
+          ? `${p1.name} & ${p2.name}`
+          : (appState.profiles[todayData.workerId]?.name || '');
+        bannerTitle.textContent = `Azi pe schimb: ${wName}`;
+        bannerSub.textContent = `12 ore (+500 MDL) • ${todayData.leads || 0} clienți noi închiși`;
+      } else {
+        bannerTitle.textContent = `Salut, ${me.name}! Ești azi pe schimb?`;
+        bannerSub.textContent = `Apasă pentru a semna ziua de azi (12h • 500 MDL)`;
+      }
+
+      // Calendar Grid
+      const grid = document.getElementById('calendarDaysGrid');
+      grid.innerHTML = '';
+
+      const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      // Luni = 0 ... Duminică = 6
+      const startOffset = (firstDayOfMonth.getDay() + 6) % 7;
+
+      for (let i = 0; i < startOffset; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'day-cell empty';
+        grid.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = makeDateKey(currentYear, currentMonth, day);
+        const dayData = appState.days[dateKey];
+        const cell = document.createElement('div');
+        cell.className = 'day-cell';
+        if (dateKey === todayKey) cell.classList.add('today');
+
+        let circleHTML = '';
+        if (dayData && dayData.workerId === 'admin1') {
+          circleHTML = `<div class="day-worker-circle" style="background:${p1.color}">${getInitials(p1.name)}</div>`;
+          cell.style.borderColor = p1.color + '66';
+          cell.style.background = p1.color + '14';
+        } else if (dayData && dayData.workerId === 'admin2') {
+          circleHTML = `<div class="day-worker-circle" style="background:${p2.color}">${getInitials(p2.name)}</div>`;
+          cell.style.borderColor = p2.color + '66';
+          cell.style.background = p2.color + '14';
+        } else if (dayData && dayData.workerId === 'both') {
+          circleHTML = `
+            <div class="day-worker-circle dual" style="background:${p1.color}">${getInitials(p1.name)}</div>
+            <div class="day-worker-circle dual" style="background:${p2.color}">${getInitials(p2.name)}</div>
+          `;
+          cell.style.borderColor = 'rgba(255,255,255,0.35)';
+        }
+
+        let badgesHTML = '';
+        if (dayData && Number(dayData.leads) > 0) {
+          badgesHTML += `<span class="badge-leads">+${dayData.leads}</span>`;
+        }
+        if (dayData && dayData.comment && dayData.comment.trim() !== '') {
+          badgesHTML += `<span class="badge-comment">💬</span>`;
+        }
+
+        cell.innerHTML = `
+          <div class="day-num">${day}</div>
+          <div class="day-circle-wrap">${circleHTML}</div>
+          <div class="day-badges">${badgesHTML}</div>
+        `;
+
+        cell.onclick = () => openDayModal(dateKey);
+        grid.appendChild(cell);
+      }
+
+      // Month Comments & Activity Feed
+      const feedList = document.getElementById('monthFeedList');
+      feedList.innerHTML = '';
+      const prefix = getMonthPrefix(currentYear, currentMonth);
+      const monthEntries = Object.keys(appState.days)
+        .filter((k) => k.startsWith(prefix))
+        .sort()
+        .reverse()
+        .map((k) => ({ dateKey: k, ...appState.days[k] }))
+        .filter((d) => !d.deleted && ((d.comment && d.comment.trim() !== '') || Number(d.leads) > 0));
+
+      if (monthEntries.length === 0) {
+        feedList.innerHTML = `
+          <div class="feed-item" style="text-align:center;color:var(--text-muted);font-size:13px;cursor:default;">
+            Niciun comentariu sau lead adăugat în ${MONTHS_RO[currentMonth]}. Apasă pe orice zi din calendar pentru a lăsa un comentariu celuilalt administrator!
+          </div>
+        `;
+      } else {
+        monthEntries.forEach((entry) => {
+          const worker = appState.profiles[entry.workerId] || { name: 'Nesemnat', color: '#64748b' };
+          const dayNum = Number(entry.dateKey.split('-')[2]);
+          const item = document.createElement('div');
+          item.className = 'feed-item';
+          item.onclick = () => openDayModal(entry.dateKey);
+
+          item.innerHTML = `
+            <div class="feed-top">
+              <div class="feed-author">
+                <span class="circle-dot" style="background:${worker.color};width:20px;height:20px;font-size:9px;">
+                  ${getInitials(worker.name)}
+                </span>
+                <span>${worker.name}</span>
+                ${Number(entry.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${entry.leads} clienți noi</span>` : ''}
+              </div>
+              <div class="feed-date">${dayNum} ${MONTHS_RO[currentMonth]}</div>
+            </div>
+            ${entry.comment ? `<div class="feed-comment" style="border-left-color:${worker.color}">${escapeHtml(entry.comment)}</div>` : ''}
+          `;
+          feedList.appendChild(item);
+        });
+      }
+    }
+
+    function renderStatsTab(p1, p2, monthStats) {
+      const btn1 = document.getElementById('statsToggle1');
+      const btn2 = document.getElementById('statsToggle2');
+      btn1.textContent = `Statistica: ${p1.name}`;
+      btn2.textContent = `Statistica: ${p2.name}`;
+      btn1.className = 'sub-opt-btn' + (statsViewWorkerId === 'admin1' ? ' selected' : '');
+      btn2.className = 'sub-opt-btn' + (statsViewWorkerId === 'admin2' ? ' selected' : '');
+
+      const profile = appState.profiles[statsViewWorkerId] || p1;
+      const st = monthStats[statsViewWorkerId] || monthStats.admin1;
+
+      const heroCircle = document.getElementById('statHeroCircle');
+      heroCircle.style.background = profile.color;
+      heroCircle.textContent = getInitials(profile.name);
+      document.getElementById('statHeroName').textContent = profile.name;
+
+      document.getElementById('statSalaryMDL').textContent = formatMDL(st.pay);
+      document.getElementById('statSalaryFormula').textContent = `${st.shifts} schimburi × ${SHIFT_PAY_MDL} MDL (${st.hours} ore lucrate)`;
+
+      document.getElementById('statShiftsCount').textContent = st.shifts;
+      document.getElementById('statHoursCount').textContent = `${st.hours}h`;
+      document.getElementById('statLeadsCount').textContent = st.leads;
+      const avg = st.shifts > 0 ? (st.leads / st.shifts).toFixed(1) : '0.0';
+      document.getElementById('statLeadsAvg').textContent = avg;
+
+      const list = document.getElementById('myWorkedDaysList');
+      list.innerHTML = '';
+      if (st.days.length === 0) {
+        list.innerHTML = `
+          <div class="feed-item" style="text-align:center;color:var(--text-muted);font-size:13px;">
+            Niciun schimb semnat pentru ${profile.name} în ${MONTHS_RO[currentMonth]} ${currentYear}.
+          </div>
+        `;
+      } else {
+        st.days.slice().reverse().forEach((d) => {
+          const dayNum = Number(d.dateKey.split('-')[2]);
+          const el = document.createElement('div');
+          el.className = 'feed-item';
+          el.onclick = () => openDayModal(d.dateKey);
+          el.innerHTML = `
+            <div class="feed-top" style="margin-bottom:0;">
+              <div class="feed-author">
+                <span class="circle-dot" style="background:${profile.color};width:22px;height:22px;">${dayNum}</span>
+                <span>${dayNum} ${MONTHS_RO[currentMonth]} ${currentYear}</span>
+                ${Number(d.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${d.leads} lead-uri</span>` : ''}
+              </div>
+              <div style="font-weight:800;font-size:13px;color:#fff;">+${SHIFT_PAY_MDL} MDL <span style="color:var(--text-muted);font-size:11px;">(12h)</span></div>
+            </div>
+            ${d.comment ? `<div class="feed-comment" style="border-left-color:${profile.color};margin-top:8px;">${escapeHtml(d.comment)}</div>` : ''}
+          `;
+          list.appendChild(el);
+        });
+      }
+    }
+
+    function renderCompareTab(p1, p2, monthStats) {
+      const s1 = monthStats.admin1;
+      const s2 = monthStats.admin2;
+
+      const vc1 = document.getElementById('vsCircle1');
+      vc1.style.background = p1.color;
+      vc1.textContent = getInitials(p1.name);
+      document.getElementById('vsName1').textContent = p1.name;
+
+      const vc2 = document.getElementById('vsCircle2');
+      vc2.style.background = p2.color;
+      vc2.textContent = getInitials(p2.name);
+      document.getElementById('vsName2').textContent = p2.name;
+
+      const metrics = [
+        {
+          title: 'Salariu Acumulat (500 MDL / Schimb)',
+          v1: s1.pay,
+          v2: s2.pay,
+          fmt1: formatMDL(s1.pay),
+          fmt2: formatMDL(s2.pay)
+        },
+        {
+          title: 'Schimburi Lucrate (Ture)',
+          v1: s1.shifts,
+          v2: s2.shifts,
+          fmt1: `${s1.shifts} ture`,
+          fmt2: `${s2.shifts} ture`
+        },
+        {
+          title: 'Ore Lucrate (12 ore / Schimb)',
+          v1: s1.hours,
+          v2: s2.hours,
+          fmt1: `${s1.hours} ore`,
+          fmt2: `${s2.hours} ore`
+        },
+        {
+          title: 'Clienți Noi Închiși (Lead-uri)',
+          v1: s1.leads,
+          v2: s2.leads,
+          fmt1: `${s1.leads} clienți`,
+          fmt2: `${s2.leads} clienți`
+        }
+      ];
+
+      const wrap = document.getElementById('comparisonCardsWrap');
+      wrap.innerHTML = '';
+
+      metrics.forEach((m) => {
+        const total = m.v1 + m.v2;
+        const pct1 = total > 0 ? Math.round((m.v1 / total) * 100) : 50;
+        const pct2 = total > 0 ? (100 - pct1) : 50;
+
+        const card = document.createElement('div');
+        card.className = 'comp-card';
+        card.innerHTML = `
+          <div class="comp-title">${m.title}</div>
+          <div class="comp-values">
+            <div class="comp-val" style="color:${p1.color}">${m.fmt1}</div>
+            <div class="comp-val" style="color:${p2.color}">${m.fmt2}</div>
+          </div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-seg" style="width:${pct1}%;background:${p1.color}"></div>
+            <div class="comp-bar-seg" style="width:${pct2}%;background:${p2.color}"></div>
+          </div>
+        `;
+        wrap.appendChild(card);
+      });
+
+      document.getElementById('totalSchoolShifts').textContent = s1.shifts + s2.shifts;
+      document.getElementById('totalSchoolHours').textContent = `${s1.hours + s2.hours} ore acoperite`;
+      document.getElementById('totalSchoolLeads').textContent = s1.leads + s2.leads;
+      document.getElementById('totalSchoolPay').textContent = `Buget salarii: ${formatMDL(s1.pay + s2.pay)}`;
+    }
+
+    function renderProfileTab(p1, p2) {
+      const me = appState.profiles[localPrefs.myWorkerId] || p1;
+      const other = me.id === 'admin1' ? p2 : p1;
+
+      const myCircle = document.getElementById('profMyCircle');
+      if (myCircle) {
+        myCircle.style.background = me.color;
+        myCircle.textContent = getInitials(me.name);
+      }
+      const myNameEl = document.getElementById('profMyNameDisplay');
+      if (myNameEl) myNameEl.textContent = me.name;
+
+      const myUserEl = document.getElementById('profMyUsernameDisplay');
+      if (myUserEl) myUserEl.textContent = me.username ? '@' + me.username : 'Cont activ';
+
+      const colleagueEl = document.getElementById('profColleagueInfo');
+      if (colleagueEl) {
+        if (other && other.registered) {
+          colleagueEl.textContent = `Coleg conectat: ${other.name} (@${other.username})`;
+        } else {
+          colleagueEl.textContent = 'Coleg: în așteptare (nu și-a creat încă contul)';
+        }
+      }
+
+      const nameInput = document.getElementById('inputMyName');
+      if (document.activeElement !== nameInput) {
+        nameInput.value = me.name;
+      }
+
+      const syncInput = document.getElementById('inputSyncUrl');
+      if (document.activeElement !== syncInput) {
+        syncInput.value = localPrefs.syncUrl || '';
+      }
+
+      const passInput = document.getElementById('inputTeamPass');
+      if (passInput && document.activeElement !== passInput) {
+        passInput.value = localPrefs.teamPass || '';
+      }
+
+      const driveBadge = document.getElementById('driveFolderStatusBadge');
+      const openDriveBtn = document.getElementById('openDriveFolderBtn');
+      if (localPrefs.folderUrl) {
+        if (driveBadge) driveBadge.textContent = '📁 Conectat la Google Drive: ADMIN APP BACKUP';
+        if (openDriveBtn) openDriveBtn.classList.remove('hidden');
+      } else {
+        if (driveBadge) driveBadge.textContent = '📁 Folder Backup: ADMIN APP BACKUP (așteaptă conectarea)';
+        if (openDriveBtn) openDriveBtn.classList.add('hidden');
+      }
+
+      highlightActiveColorSwatch(me.color);
+    }
+
+    function renderColorSwatches() {
+      const grid = document.getElementById('colorSwatchesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      CIRCLE_COLORS.forEach((hex) => {
+        const sw = document.createElement('button');
+        sw.type = 'button';
+        sw.className = 'color-swatch';
+        sw.style.background = hex;
+        sw.style.color = hex;
+        sw.dataset.color = hex;
+        sw.onclick = () => {
+          const me = appState.profiles[localPrefs.myWorkerId];
+          if (!me) return;
+          me.color = hex;
+          me.updatedAt = Date.now();
+          renderAll();
+        };
+        grid.appendChild(sw);
+      });
+    }
+
+    function renderRegColorSwatches() {
+      const grid = document.getElementById('regColorSwatchesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      CIRCLE_COLORS.forEach((hex) => {
+        const sw = document.createElement('button');
+        sw.type = 'button';
+        sw.className = 'color-swatch' + (regSelectedColor === hex ? ' active' : '');
+        sw.style.background = hex;
+        sw.style.color = hex;
+        sw.dataset.color = hex;
+        sw.onclick = () => {
+          regSelectedColor = hex;
+          grid.querySelectorAll('.color-swatch').forEach((el) => {
+            el.classList.toggle('active', el.dataset.color === hex);
+          });
+        };
+        grid.appendChild(sw);
+      });
+    }
+
+    function highlightActiveColorSwatch(activeHex) {
+      document.querySelectorAll('#colorSwatchesGrid .color-swatch').forEach((el) => {
+        if (el.dataset.color === activeHex) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+    }
+
+    /********************************************************************
+     * ACȚIUNI UTILIZATOR (MODAL ZI, PROFIL, NAVIGARE)
+     ********************************************************************/
+    function switchTab(tabName) {
+      activeTab = tabName;
+      ['calendar', 'stats', 'compare', 'profile'].forEach((t) => {
+        document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tabName);
+        document.getElementById(`nav-${t}`).classList.toggle('active', t === tabName);
+      });
+      document.getElementById('monthNavBar').classList.toggle('hidden', tabName === 'profile');
+      renderAll();
+    }
+
+    function changeMonth(delta) {
+      currentMonth += delta;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+      } else if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear += 1;
+      }
+      renderAll();
+    }
+
+    function goToCurrentMonth() {
+      currentYear = now.getFullYear();
+      currentMonth = now.getMonth();
+      renderAll();
+    }
+
+    function setStatsViewWorker(workerId) {
+      statsViewWorkerId = workerId;
+      renderAll();
+    }
+
+    function openTodayModal() {
+      currentYear = now.getFullYear();
+      currentMonth = now.getMonth();
+      const todayKey = makeDateKey(currentYear, currentMonth, now.getDate());
+      openDayModal(todayKey);
+    }
+
+    function openDayModal(dateKey) {
+      editingDateKey = dateKey;
+      const parts = dateKey.split('-');
+      const y = Number(parts[0]);
+      const m = Number(parts[1]) - 1;
+      const d = Number(parts[2]);
+
+      document.getElementById('modalDateTitle').textContent = `${d} ${MONTHS_RO[m]} ${y}`;
+
+      const p1 = appState.profiles.admin1;
+      const p2 = appState.profiles.admin2;
+
+      const mc1 = document.getElementById('modalCircle1');
+      mc1.style.background = p1.color;
+      mc1.textContent = getInitials(p1.name);
+      document.getElementById('modalName1').textContent = p1.name;
+
+      const mc2 = document.getElementById('modalCircle2');
+      mc2.style.background = p2.color;
+      mc2.textContent = getInitials(p2.name);
+      document.getElementById('modalName2').textContent = p2.name;
+
+      const existing = appState.days[dateKey];
+      // Dacă ziua e goală, preselectăm automat administratorul acestui telefon pentru semnare în 1 secundă!
+      modalWorkerId = existing && existing.workerId !== undefined ? existing.workerId : (localPrefs.myWorkerId || 'admin1');
+      modalLeadsCount = existing ? Number(existing.leads || 0) : 0;
+
+      document.getElementById('modalCommentInput').value = existing && existing.comment ? existing.comment : '';
+      updateModalSelectionUI();
+
+      document.getElementById('dayModalBackdrop').classList.add('open');
+    }
+
+    function closeDayModal() {
+      document.getElementById('dayModalBackdrop').classList.remove('open');
+      editingDateKey = null;
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === 'dayModalBackdrop') {
+        closeDayModal();
+      }
+    }
+
+    function selectModalWorker(workerId) {
+      modalWorkerId = workerId;
+      updateModalSelectionUI();
+    }
+
+    function adjustModalLeads(delta) {
+      modalLeadsCount = Math.max(0, modalLeadsCount + delta);
+      document.getElementById('modalLeadsVal').textContent = modalLeadsCount;
+    }
+
+    function updateModalSelectionUI() {
+      const p1 = appState.profiles.admin1;
+      const p2 = appState.profiles.admin2;
+
+      const opt1 = document.getElementById('modalOptAdmin1');
+      const opt2 = document.getElementById('modalOptAdmin2');
+      const optBoth = document.getElementById('modalOptBoth');
+      const optNone = document.getElementById('modalOptNone');
+
+      opt1.className = 'worker-option' + (modalWorkerId === 'admin1' ? ' selected' : '');
+      opt1.style.borderColor = modalWorkerId === 'admin1' ? p1.color : 'var(--border)';
+
+      opt2.className = 'worker-option' + (modalWorkerId === 'admin2' ? ' selected' : '');
+      opt2.style.borderColor = modalWorkerId === 'admin2' ? p2.color : 'var(--border)';
+
+      optBoth.className = 'sub-opt-btn' + (modalWorkerId === 'both' ? ' selected' : '');
+      optNone.className = 'sub-opt-btn' + (modalWorkerId === '' ? ' selected' : '');
+
+      document.getElementById('modalLeadsVal').textContent = modalLeadsCount;
+    }
+
+    async function saveDayFromModal() {
+      if (!editingDateKey) return;
+      const comment = document.getElementById('modalCommentInput').value.trim();
+      const me = appState.profiles[localPrefs.myWorkerId];
+
+      if (!modalWorkerId && modalLeadsCount === 0 && !comment) {
+        appState.days[editingDateKey] = {
+          deleted: true,
+          updatedAt: Date.now()
+        };
+      } else {
+        appState.days[editingDateKey] = {
+          workerId: modalWorkerId,
+          leads: modalLeadsCount,
+          comment: comment,
+          updatedAt: Date.now(),
+          updatedBy: me ? me.name : 'Admin'
+        };
+      }
+
+      closeDayModal();
+      renderAll();
+      showToast('Ziua a fost salvată!');
+      await pushToCloud();
+    }
+
+    async function changeMyPersonalPassword() {
+      const me = appState.profiles[localPrefs.myWorkerId];
+      if (!me) return;
+      const input = document.getElementById('inputNewPersonalPass');
+      const newPass = input ? input.value : '';
+      if (!newPass || newPass.length < 4) {
+        showToast('Parola nouă trebuie să aibă minim 4 caractere!');
+        return;
+      }
+      me.passHash = hashPersonalPassword(newPass);
+      me.updatedAt = Date.now();
+      if (input) input.value = '';
+      saveToLocalStorage();
+      renderAll();
+      showToast('Parola ta personală a fost actualizată!');
+      await pushToCloud();
+    }
+
+    function updateMyProfileLive() {
+      const val = document.getElementById('inputMyName').value;
+      const me = appState.profiles[localPrefs.myWorkerId];
+      if (me) {
+        me.name = val || (localPrefs.myWorkerId === 'admin1' ? 'Admin 1' : 'Colega');
+        me.updatedAt = Date.now();
+        renderAll();
+      }
+    }
+
+    async function saveProfilesAndSync() {
+      const me = appState.profiles[localPrefs.myWorkerId];
+      if (me) me.updatedAt = Date.now();
+      saveToLocalStorage();
+      renderAll();
+      showToast('Profilul și culoarea au fost salvate!');
+      await pushToCloud();
+    }
+
+    async function saveSyncUrlAndTest() {
+      const url = document.getElementById('inputSyncUrl').value.trim();
+      const passEl = document.getElementById('inputTeamPass');
+      const pass = passEl ? passEl.value.trim() : (localPrefs.teamPass || '');
+      localPrefs.syncUrl = url;
+      localPrefs.teamPass = pass;
+      saveToLocalStorage();
+      if (!url) {
+        updateSyncStatusUI('local', 'Mod Local');
+        showToast('Link-ul de sincronizare a fost șters.');
+        return;
+      }
+      await pullFromCloud(false);
+      if (localPrefs.isLoggedIn) {
+        await pushToCloud();
+        renderAll();
+        showToast('Conectat și sincronizat cu ADMIN APP BACKUP!');
+      }
+    }
+
+    function openDriveBackupFolder() {
+      if (localPrefs.folderUrl) {
+        window.open(localPrefs.folderUrl, '_blank');
+      }
+    }
+
+    async function shareMagicLinkWithColleague() {
+      const url = window.location.origin + window.location.pathname;
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'BlackBlock Academy Admin',
+            text: 'Deschide aplicația BlackBlock Academy în Safari pe iPhone, adaug-o pe ecranul principal și creează-ți contul tău de admin:',
+            url: url
+          });
+          return;
+        } catch (e) {}
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('Link-ul aplicației a fost copiat!');
+      } catch (e) {
+        prompt('Copiază acest link și trimite-l colegei tale:', url);
+      }
+    }
+
+    async function copyGoogleAppsScriptCode() {
+      const code = `const DRIVE_FOLDER_NAME = 'ADMIN APP BACKUP';
+const SPREADSHEET_NAME = 'BlackBlock Academy - Pontaj & Statistici';
+const BACKUP_JSON_NAME = 'blackblock-backup.json';
+const PROP_KEY = 'BLACKBLOCK_STATE_JSON';
+const TEAM_PASSWORD = 'SCHIMBA_PAROLA_AICI';
+
+function jsonResponse(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function isAuthorized(pass) {
+  const expected = String(TEAM_PASSWORD || '').trim();
+  if (!expected) return true;
+  return String(pass || '') === expected;
+}
+
+function getOrCreateBackupFolder() {
+  const folders = DriveApp.getFoldersByName(DRIVE_FOLDER_NAME);
+  if (folders.hasNext()) return folders.next();
+  return DriveApp.createFolder(DRIVE_FOLDER_NAME);
+}
+
+function getOrCreateBackupSpreadsheet(folder) {
+  let ss = null;
+  try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch (ignore) {}
+  if (ss) {
+    try { DriveApp.getFileById(ss.getId()).moveTo(folder); } catch (ignore) {}
+    return ss;
+  }
+  const files = folder.getFilesByName(SPREADSHEET_NAME);
+  if (files.hasNext()) return SpreadsheetApp.openById(files.next().getId());
+  ss = SpreadsheetApp.create(SPREADSHEET_NAME);
+  try { DriveApp.getFileById(ss.getId()).moveTo(folder); } catch (ignore) {}
+  return ss;
+}
+
+function upsertDriveTextFile(folder, fileName, content) {
+  const files = folder.getFilesByName(fileName);
+  if (files.hasNext()) {
+    const file = files.next();
+    file.setContent(content);
+    return file;
+  }
+  return folder.createFile(fileName, content, MimeType.PLAIN_TEXT);
+}
+
+function loadStateFromDrive(folder) {
+  try {
+    const files = folder.getFilesByName(BACKUP_JSON_NAME);
+    if (files.hasNext()) {
+      const content = files.next().getBlob().getDataAsString();
+      if (content && content.trim()) return JSON.parse(content);
+    }
+  } catch (ignore) {}
+  try {
+    const raw = PropertiesService.getScriptProperties().getProperty(PROP_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (ignore) {}
+  return null;
+}
+
+function saveStateToDrive(folder, state) {
+  try { PropertiesService.getScriptProperties().setProperty(PROP_KEY, JSON.stringify(state)); } catch (ignore) {}
+  const prettyJson = JSON.stringify(state, null, 2);
+  upsertDriveTextFile(folder, BACKUP_JSON_NAME, prettyJson);
+  const monthStamp = new Date().toISOString().slice(0, 7);
+  upsertDriveTextFile(folder, 'backup-' + monthStamp + '.json', prettyJson);
+}
+
+function mergeStates(existing, incoming) {
+  const ex = existing || {};
+  const inc = incoming || {};
+  const exProfiles = ex.profiles || {};
+  const incProfiles = inc.profiles || {};
+  const mergedProfiles = {};
+  const profileIds = {};
+  Object.keys(exProfiles).forEach(function(id) { profileIds[id] = true; });
+  Object.keys(incProfiles).forEach(function(id) { profileIds[id] = true; });
+  Object.keys(profileIds).forEach(function(id) {
+    const exP = exProfiles[id];
+    const incP = incProfiles[id];
+    if (!exP) mergedProfiles[id] = incP;
+    else if (!incP) mergedProfiles[id] = exP;
+    else mergedProfiles[id] = (incP.updatedAt || 0) >= (exP.updatedAt || 0) ? incP : exP;
+  });
+  const exDays = ex.days || {};
+  const incDays = inc.days || {};
+  const mergedDays = {};
+  const dayKeys = {};
+  Object.keys(exDays).forEach(function(k) { dayKeys[k] = true; });
+  Object.keys(incDays).forEach(function(k) { dayKeys[k] = true; });
+  Object.keys(dayKeys).forEach(function(dateKey) {
+    const exD = exDays[dateKey];
+    const incD = incDays[dateKey];
+    if (!exD) mergedDays[dateKey] = incD;
+    else if (!incD) mergedDays[dateKey] = exD;
+    else mergedDays[dateKey] = (incD.updatedAt || 0) >= (exD.updatedAt || 0) ? incD : exD;
+  });
+  return { profiles: mergedProfiles, days: mergedDays, updatedAt: Date.now() };
+}
+
+function setupDriveBackupFolder() {
+  const folder = getOrCreateBackupFolder();
+  let state = loadStateFromDrive(folder);
+  if (!state || !state.profiles) {
+    state = {
+      profiles: {
+        admin1: { id: 'admin1', name: 'Mihail', color: '#8b5cf6', updatedAt: 0 },
+        admin2: { id: 'admin2', name: 'Colega', color: '#ec4899', updatedAt: 0 }
+      },
+      days: {},
+      updatedAt: Date.now()
+    };
+  }
+  saveStateToDrive(folder, state);
+  updateReadableSheet(folder, state);
+  Logger.log('Folder creat/verificat: ' + folder.getUrl());
+  return folder.getUrl();
+}
+
+function doGet(e) {
+  const pass = e && e.parameter ? e.parameter.pass : '';
+  if (!isAuthorized(pass)) return jsonResponse({ ok: false, error: 'UNAUTHORIZED', message: 'Parolă incorectă!' });
+  const folder = getOrCreateBackupFolder();
+  const data = loadStateFromDrive(folder);
+  return jsonResponse({ ok: true, state: data, folderName: DRIVE_FOLDER_NAME, folderUrl: folder.getUrl(), serverTime: new Date().toISOString() });
+}
+
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    const body = JSON.parse(e.postData.contents);
+    if (!isAuthorized(body.pass)) return jsonResponse({ ok: false, error: 'UNAUTHORIZED', message: 'Parolă incorectă!' });
+    const folder = getOrCreateBackupFolder();
+    const existing = loadStateFromDrive(folder) || { profiles: {}, days: {}, updatedAt: 0 };
+    const merged = mergeStates(existing, body.state || {});
+    saveStateToDrive(folder, merged);
+    updateReadableSheet(folder, merged);
+    return jsonResponse({ ok: true, state: merged, folderName: DRIVE_FOLDER_NAME, folderUrl: folder.getUrl(), serverTime: new Date().toISOString() });
+  } catch (err) {
+    return jsonResponse({ ok: false, error: String(err) });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function updateReadableSheet(folder, state) {
+  try {
+    const ss = getOrCreateBackupSpreadsheet(folder);
+    if (!ss) return;
+    let sheet = ss.getSheetByName('Pontaj BlackBlock');
+    if (!sheet) { sheet = ss.getSheets()[0]; sheet.setName('Pontaj BlackBlock'); }
+    sheet.clearContents();
+    const headers = ['Data', 'Administrator', 'Ore Lucrate', 'Salariu (MDL)', 'Clienți Noi (Lead-uri)', 'Comentariu / Notiță', 'Actualizat de'];
+    const rows = [headers];
+    const profiles = state.profiles || {};
+    const days = state.days || {};
+    const p1Name = profiles.admin1 && profiles.admin1.name ? profiles.admin1.name : 'Admin 1';
+    const p2Name = profiles.admin2 && profiles.admin2.name ? profiles.admin2.name : 'Admin 2';
+    const monthlyMap = {};
+    function ensureMonthStat(monthKey, adminId, adminName) {
+      if (!monthlyMap[monthKey]) {
+        monthlyMap[monthKey] = {
+          admin1: { name: p1Name, shifts: 0, hours: 0, pay: 0, leads: 0 },
+          admin2: { name: p2Name, shifts: 0, hours: 0, pay: 0, leads: 0 }
+        };
+      }
+      monthlyMap[monthKey][adminId].name = adminName;
+      return monthlyMap[monthKey][adminId];
+    }
+    Object.keys(days).sort().forEach(function(dateKey) {
+      const d = days[dateKey];
+      if (!d || d.deleted) return;
+      const leads = Number(d.leads || 0);
+      const comment = d.comment ? String(d.comment).trim() : '';
+      if (!d.workerId && leads === 0 && !comment) return;
+      const monthKey = dateKey.substring(0, 7);
+      if (d.workerId === 'both') {
+        const dualNote = comment ? (comment + ' (Schimb dublu)') : 'Schimb dublu';
+        ['admin1', 'admin2'].forEach(function(id) {
+          const wName = id === 'admin1' ? p1Name : p2Name;
+          rows.push([dateKey, wName, 12, 500, leads, dualNote, d.updatedBy || '']);
+          const st = ensureMonthStat(monthKey, id, wName);
+          st.shifts += 1; st.hours += 12; st.pay += 500; st.leads += leads;
+        });
+      } else if (d.workerId === 'admin1' || d.workerId === 'admin2') {
+        const wName = d.workerId === 'admin1' ? p1Name : p2Name;
+        rows.push([dateKey, wName, 12, 500, leads, comment, d.updatedBy || '']);
+        const st = ensureMonthStat(monthKey, d.workerId, wName);
+        st.shifts += 1; st.hours += 12; st.pay += 500; st.leads += leads;
+      } else {
+        rows.push([dateKey, '-', 0, 0, leads, comment, d.updatedBy || '']);
+      }
+    });
+    sheet.getRange(1, 1, rows.length, headers.length).setValues(rows);
+    sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
+    let statsSheet = ss.getSheetByName('Statistici Lunare');
+    if (!statsSheet) statsSheet = ss.insertSheet('Statistici Lunare');
+    statsSheet.clearContents();
+    const statsHeaders = ['Luna', 'Administrator', 'Schimburi', 'Ore Lucrate', 'Salariu (MDL)', 'Clienți Noi (Lead-uri)'];
+    const statsRows = [statsHeaders];
+    Object.keys(monthlyMap).sort().reverse().forEach(function(monthKey) {
+      ['admin1', 'admin2'].forEach(function(id) {
+        const st = monthlyMap[monthKey][id];
+        statsRows.push([monthKey, st.name, st.shifts, st.hours, st.pay, st.leads]);
+      });
+    });
+    statsSheet.getRange(1, 1, statsRows.length, statsHeaders.length).setValues(statsRows);
+    statsSheet.getRange(1, 1, 1, statsHeaders.length).setFontWeight('bold');
+  } catch (ignore) {}
+}`;
+      try {
+        await navigator.clipboard.writeText(code);
+        showToast('Codul Google Script a fost copiat!');
+      } catch (e) {
+        prompt('Copiază acest cod în https://script.google.com:', code);
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
