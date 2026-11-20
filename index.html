@@ -218,7 +218,7 @@
     /* CONTAINER */
     .container {
       width: 100%;
-      max-width: var(--app-max-width, 480px);
+      max-width: 480px;
       margin: 0 auto;
       padding: 8px 10px;
       box-sizing: border-box;
@@ -361,7 +361,7 @@
     }
 
     .day-cell {
-      aspect-ratio: var(--day-aspect-ratio, 1 / 1.15);
+      aspect-ratio: 1 / 1.15;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.04);
@@ -743,7 +743,7 @@
       left: 0;
       right: 0;
       width: 100%;
-      max-width: var(--app-max-width, 480px);
+      max-width: 480px;
       margin: 0 auto;
       box-sizing: border-box;
       z-index: 40;
@@ -765,7 +765,7 @@
       left: 0;
       right: 0;
       width: 100%;
-      max-width: var(--app-max-width, 480px);
+      max-width: 480px;
       margin: 0 auto;
       box-sizing: border-box;
       z-index: 40;
@@ -950,239 +950,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
-
-    /* MINIATURE LIVE THEME PREVIEW */
-    .mini-app-preview-wrap {
-      margin-bottom: 16px;
-      background: var(--card-elevated);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 12px;
-      overflow: hidden;
-    }
-    .mini-preview-header-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .mini-preview-tag {
-      font-size: 10px;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      padding: 2px 7px;
-      border-radius: 8px;
-      font-weight: 700;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .theme-mini-frame {
-      border-radius: 16px;
-      border: 1.5px solid var(--border);
-      padding: 10px;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      transition: background 0.25s, border-color 0.25s;
-    }
-    .mini-top-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px 6px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--card);
-    }
-    .mini-bb-badge {
-      font-weight: 900;
-      font-size: 10px;
-      background: #881337;
-      color: #fff;
-      padding: 2px 5px;
-      border-radius: 5px;
-    }
-    .mini-title-wrap {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      margin-left: 6px;
-    }
-    .mini-title {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .mini-sync {
-      font-size: 8.5px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-    .mini-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #10b981;
-    }
-    .mini-profile-pill {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 6px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 9.5px;
-      font-weight: 700;
-    }
-    .mini-avatar-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 8px;
-      font-weight: 800;
-    }
-    .mini-month-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 10.5px;
-      color: var(--text);
-      padding: 2px 4px;
-    }
-    .mini-admins-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-    .mini-admin-chip {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 4px 6px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .mini-chip-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 7px;
-      font-weight: 800;
-    }
-    .mini-calendar-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 6px;
-    }
-    .mini-cal-weekdays {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-      font-size: 8px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-    .mini-cal-days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 3px;
-    }
-    .mini-day {
-      aspect-ratio: 1;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.04);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .mini-day.today-cell {
-      border: 1.5px solid var(--accent);
-      background: rgba(255, 255, 255, 0.1);
-    }
-    .mini-day.shift-1 {
-      border: 1px solid #ef4444;
-      color: #ef4444;
-    }
-    .mini-day.shift-2 {
-      border: 1px solid #06b6d4;
-      color: #06b6d4;
-    }
-    .mini-day.shift-both {
-      border: 1px solid #8b5cf6;
-      color: #8b5cf6;
-    }
-    .mini-action-btn {
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      padding: 6px;
-      font-size: 10px;
-      font-weight: 800;
-      color: #fff;
-      cursor: pointer;
-      text-align: center;
-      transition: background 0.2s, box-shadow 0.2s;
-    }
-    .mini-tab-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 4px 2px;
-      text-align: center;
-      font-size: 8px;
-      font-weight: 700;
-    }
-    .mini-tab-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      opacity: 0.75;
-      transition: opacity 0.2s, color 0.2s;
-    }
-    .mini-tab-item.active {
-      opacity: 1;
-    }
-    .mini-tab-pill {
-      font-size: 11px;
-      padding: 1px 6px;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .btn-layout-w.active, .btn-cell-h.active, .btn-ui-zoom.active {
-      border-color: var(--accent) !important;
-      background: rgba(var(--accent-rgb, 139, 92, 246), 0.2) !important;
-      font-weight: 800 !important;
-      color: #fff !important;
-    }
-
     /* THEME TILES */
     .theme-tiles-grid {
       display: grid;
@@ -1303,7 +1070,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 26px 26px 0 0;
       width: 100%;
-      max-width: var(--app-max-width, 480px);
+      max-width: 480px;
       max-height: 90dvh;
       overflow-y: auto;
       padding: 14px 18px calc(var(--safe-bottom) + 20px);
@@ -2182,141 +1949,6 @@
 
         <!-- THEMES, BUTTONS & BACKGROUND CUSTOMIZATION -->
         <div style="border-top:1px solid var(--border);margin-top:18px;padding-top:16px;">
-          
-          <!-- LIVE MINIATURE PREVIEW -->
-          <div class="mini-app-preview-wrap">
-            <div class="mini-preview-header-label">
-              <span>📱 Previzualizare Live Design (Miniatură)</span>
-              <span class="mini-preview-tag">Timp Real</span>
-            </div>
-            <div id="themeMiniPreview" class="theme-mini-frame">
-              <!-- Mini Top Header -->
-              <div class="mini-top-header">
-                <div class="mini-bb-badge">BB</div>
-                <div class="mini-title-wrap">
-                  <div class="mini-title">BlackBlock Academy</div>
-                  <div class="mini-sync"><span class="mini-dot"></span> Sincronizat</div>
-                </div>
-                <div class="mini-profile-pill">
-                  <span id="miniProfileCircle" class="mini-avatar-dot">M</span>
-                  <span id="miniProfileName">Mike</span>
-                </div>
-              </div>
-
-              <!-- Mini Month & Admins -->
-              <div class="mini-month-bar">
-                <span>‹</span>
-                <span id="miniMonthLabel" style="font-weight:700;">Noiembrie 2026</span>
-                <span>›</span>
-              </div>
-
-              <div class="mini-admins-row">
-                <div class="mini-admin-chip">
-                  <span id="miniChip1" class="mini-chip-dot">M</span>
-                  <span id="miniChip1Name">Mike: 3 ture</span>
-                </div>
-                <div class="mini-admin-chip">
-                  <span id="miniChip2" class="mini-chip-dot">Y</span>
-                  <span id="miniChip2Name">Yanna: 7 ture</span>
-                </div>
-              </div>
-
-              <!-- Mini Calendar Grid Sample -->
-              <div class="mini-calendar-box">
-                <div class="mini-cal-weekdays">
-                  <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
-                </div>
-                <div class="mini-cal-days">
-                  <div class="mini-day">1</div>
-                  <div class="mini-day">2</div>
-                  <div class="mini-day shift-1">3</div>
-                  <div class="mini-day shift-2">4</div>
-                  <div class="mini-day today-cell">5</div>
-                  <div class="mini-day shift-both">6</div>
-                  <div class="mini-day">7</div>
-                </div>
-              </div>
-
-              <!-- Mini Primary Action Button -->
-              <button type="button" class="mini-action-btn" id="miniPrimaryBtn">
-                ⚡ Tura Mea de Azi (+500 MDL)
-              </button>
-
-              <!-- Mini Bottom Tab Bar -->
-              <div class="mini-tab-bar" id="miniTabBar">
-                <div class="mini-tab-item active" id="miniTab1">
-                  <div class="mini-tab-pill">📅</div>
-                  <span>Calendar</span>
-                </div>
-                <div class="mini-tab-item" id="miniTab2">
-                  <div class="mini-tab-pill">📊</div>
-                  <span>Statistica</span>
-                </div>
-                <div class="mini-tab-item" id="miniTab3">
-                  <div class="mini-tab-pill">⚖️</div>
-                  <span>Comparație</span>
-                </div>
-                <div class="mini-tab-item" id="miniTab4">
-                  <div class="mini-tab-pill">👤</div>
-                  <span>Profil</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SIZING & SCALE CONTROLS (LĂȚIME, COLOANE, ZOOM) -->
-          <div style="background:var(--card-elevated);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:16px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-              <span class="field-label" style="font-size:13.5px;color:var(--text);margin-bottom:0;">📐 Mărime Ferestre, Coloane & Zoom (Scală)</span>
-              <span style="font-size:10px;color:var(--accent);font-weight:700;background:rgba(var(--accent-rgb, 139, 92, 246), 0.15);padding:2px 6px;border-radius:6px;">Auto-Salvat</span>
-            </div>
-            <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:12px;">
-              Aplicația ține minte cum ai setat lățimea, celulele din calendar și zoom-ul și se deschide mereu identic:
-            </p>
-
-            <!-- 1. Window Max Width -->
-            <div style="margin-bottom:12px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-                <span style="font-size:11.5px;font-weight:700;">Lățime Aplicație (Ferestre):</span>
-                <span id="labelCurrentWidth" style="font-size:11px;color:var(--accent);font-weight:700;">480px (Standard)</span>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;">
-                <button type="button" class="secondary-btn btn-layout-w" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setAppWidth('440px')">440px</button>
-                <button type="button" class="secondary-btn btn-layout-w" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setAppWidth('480px')">480px</button>
-                <button type="button" class="secondary-btn btn-layout-w" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setAppWidth('580px')">580px</button>
-                <button type="button" class="secondary-btn btn-layout-w" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setAppWidth('100%')">100% Full</button>
-              </div>
-            </div>
-
-            <!-- 2. Calendar Columns & Day Cell Height (Stolbik) -->
-            <div style="margin-bottom:12px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-                <span style="font-size:11.5px;font-weight:700;">Înălțime Coloane Zile (Столбик):</span>
-                <span id="labelCurrentCellHeight" style="font-size:11px;color:var(--accent);font-weight:700;">Normal</span>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:6px;">
-                <button type="button" class="secondary-btn btn-cell-h" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setCellHeight('compact')">Compact</button>
-                <button type="button" class="secondary-btn btn-cell-h" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setCellHeight('normal')">Normal</button>
-                <button type="button" class="secondary-btn btn-cell-h" style="margin:0;padding:7px 2px;font-size:11px;" onclick="setCellHeight('tall')">Înalt (Extins)</button>
-              </div>
-            </div>
-
-            <!-- 3. UI Zoom / Scale (Mashtab) -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-                <span style="font-size:11.5px;font-weight:700;">Mashtab / Zoom General:</span>
-                <span id="labelCurrentScale" style="font-size:11px;color:var(--accent);font-weight:700;">100%</span>
-              </div>
-              <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:5px;">
-                <button type="button" class="secondary-btn btn-ui-zoom" style="margin:0;padding:7px 1px;font-size:11px;" onclick="setUiScale('0.90')">90%</button>
-                <button type="button" class="secondary-btn btn-ui-zoom" style="margin:0;padding:7px 1px;font-size:11px;" onclick="setUiScale('0.95')">95%</button>
-                <button type="button" class="secondary-btn btn-ui-zoom" style="margin:0;padding:7px 1px;font-size:11px;" onclick="setUiScale('1.00')">100%</button>
-                <button type="button" class="secondary-btn btn-ui-zoom" style="margin:0;padding:7px 1px;font-size:11px;" onclick="setUiScale('1.08')">108%</button>
-                <button type="button" class="secondary-btn btn-ui-zoom" style="margin:0;padding:7px 1px;font-size:11px;" onclick="setUiScale('1.15')">115%</button>
-              </div>
-            </div>
-          </div>
-        <div style="border-top:1px solid var(--border);margin-top:18px;padding-top:16px;">
           <span class="field-label" style="font-size:14px;color:var(--text);margin-bottom:4px;">🎨 Culoare Butoane & Teme Aplicație</span>
           <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
             Alege culoarea dorită pentru butoane, acțiuni și accente:
@@ -2689,10 +2321,7 @@
       accentColor: 'auto',
       buttonColorMode: 'unicolor',
       bgTheme: 'obsidian',
-      customBg: '#09090b',
-      appMaxWidth: '480px',
-      cellHeight: 'normal',
-      uiScale: '1.00'
+      customBg: '#09090b'
     };
 
     // Starea UI curentă
@@ -3839,8 +3468,7 @@
         tile.onclick = () => {
           localPrefs.bgTheme = t.id;
           saveToLocalStorage();
-          applyLayoutSettings();
-      applyBackgroundTheme();
+          applyBackgroundTheme();
           renderBgThemeTiles();
           showToast(`Fundal ${t.name} activat!`);
         };
@@ -3861,190 +3489,7 @@
     function renderThemeTiles() {
       renderButtonColorTiles();
       renderBgThemeTiles();
-      updateThemeMiniature();
     }
-
-    function updateThemeMiniature() {
-      const preview = document.getElementById('themeMiniPreview');
-      if (!preview) return;
-
-      const p1 = appState.profiles.admin1;
-      const p2 = appState.profiles.admin2;
-      const me = appState.profiles[localPrefs.myWorkerId] || p1;
-
-      // 1. Get current theme background
-      const currentBgTheme = localPrefs.bgTheme || 'obsidian';
-      let t = BG_THEME_PRESETS.find(x => x.id === currentBgTheme);
-      let bg = '#09090b';
-      let card = '#131318';
-      let elevated = '#1c1c24';
-      let border = 'rgba(255, 255, 255, 0.08)';
-
-      if (currentBgTheme === 'custom' && localPrefs.customBg) {
-        bg = localPrefs.customBg;
-        card = adjustBrightness(bg, 5);
-        elevated = adjustBrightness(bg, 10);
-      } else if (t) {
-        bg = t.bg;
-        card = t.card;
-        elevated = t.elevated;
-        border = t.border;
-      }
-
-      // 2. Get current accent color
-      let col = '#881337';
-      if (!localPrefs.accentColor || localPrefs.accentColor === 'auto') {
-        col = me?.color || '#881337';
-      } else {
-        col = localPrefs.accentColor;
-      }
-      const rgb = hexToRgb(col);
-
-      // Apply to preview container
-      preview.style.background = bg;
-      preview.style.borderColor = border;
-
-      // Mini cards and elements
-      const cards = document.querySelectorAll('#themeMiniPreview .mini-admins-row, #themeMiniPreview .mini-calendar-box, #themeMiniPreview .mini-top-header');
-      cards.forEach(el => {
-        el.style.background = card;
-        el.style.borderColor = border;
-      });
-
-      // Mini chips
-      const chip1 = document.getElementById('miniChip1');
-      const chip2 = document.getElementById('miniChip2');
-      if (chip1) chip1.style.background = p1?.color || '#ef4444';
-      if (chip2) chip2.style.background = p2?.color || '#06b6d4';
-
-      const profCircle = document.getElementById('miniProfileCircle');
-      if (profCircle) {
-        profCircle.style.background = me?.color || col;
-        profCircle.textContent = getInitials(me?.name || 'Mike');
-      }
-      const profName = document.getElementById('miniProfileName');
-      if (profName) profName.textContent = me?.name || 'Mike';
-
-      // Mini Action button
-      const actionBtn = document.getElementById('miniPrimaryBtn');
-      if (actionBtn) {
-        actionBtn.style.background = `linear-gradient(135deg, ${col}, ${adjustBrightness(col, -15)})`;
-        actionBtn.style.boxShadow = `0 4px 12px ${col}66`;
-      }
-
-      // Today cell
-      const todayCell = document.querySelector('#themeMiniPreview .today-cell');
-      if (todayCell) {
-        todayCell.style.borderColor = col;
-        todayCell.style.boxShadow = `0 0 8px ${col}88`;
-      }
-
-      // Bottom nav mode
-      const mode = localPrefs.buttonColorMode || 'unicolor';
-      const tab1 = document.getElementById('miniTab1');
-      const tab2 = document.getElementById('miniTab2');
-      const tab3 = document.getElementById('miniTab3');
-      const tab4 = document.getElementById('miniTab4');
-
-      const miniTabBar = document.getElementById('miniTabBar');
-      if (miniTabBar) {
-        miniTabBar.style.background = bg + 'f5';
-        miniTabBar.style.borderColor = border;
-      }
-
-      if (mode === 'unicolor') {
-        if (tab1) { tab1.style.color = col; const p = tab1.querySelector('.mini-tab-pill'); if(p) { p.style.background = `rgba(${rgb}, 0.22)`; p.style.borderColor = col; } }
-        if (tab2) { tab2.style.color = col; }
-        if (tab3) { tab3.style.color = col; }
-        if (tab4) { tab4.style.color = col; }
-      } else {
-        if (tab1) { tab1.style.color = '#f43f5e'; const p = tab1.querySelector('.mini-tab-pill'); if(p) { p.style.background = 'rgba(244, 63, 94, 0.22)'; p.style.borderColor = '#f43f5e'; } }
-        if (tab2) { tab2.style.color = '#10b981'; }
-        if (tab3) { tab3.style.color = '#f59e0b'; }
-        if (tab4) { tab4.style.color = col; }
-      }
-    }
-
-    function applyLayoutSettings() {
-      const root = document.documentElement;
-
-      // 1. App Max Width
-      const w = localPrefs.appMaxWidth || '480px';
-      root.style.setProperty('--app-max-width', w);
-
-      // 2. Cell Height Ratio
-      const h = localPrefs.cellHeight || 'normal';
-      let ratio = '1 / 1.15';
-      if (h === 'compact') ratio = '1 / 1.05';
-      else if (h === 'tall') ratio = '1 / 1.35';
-      root.style.setProperty('--day-aspect-ratio', ratio);
-
-      // 3. UI Zoom
-      const scale = localPrefs.uiScale || '1.00';
-      if (document.body) {
-        document.body.style.zoom = scale;
-      }
-
-      updateLayoutSettingsUI();
-    }
-
-    function updateLayoutSettingsUI() {
-      const w = localPrefs.appMaxWidth || '480px';
-      const h = localPrefs.cellHeight || 'normal';
-      const s = localPrefs.uiScale || '1.00';
-
-      const labelW = document.getElementById('labelCurrentWidth');
-      if (labelW) labelW.textContent = w === '100%' ? '100% (Ecran Complet)' : `${w} (${w === '480px' ? 'Standard' : (w === '440px' ? 'Compact' : 'Larg')})`;
-
-      const labelH = document.getElementById('labelCurrentCellHeight');
-      if (labelH) labelH.textContent = h === 'tall' ? 'Înalt (Extins)' : (h === 'compact' ? 'Compact' : 'Normal');
-
-      const labelS = document.getElementById('labelCurrentScale');
-      if (labelS) labelS.textContent = `${Math.round(parseFloat(s) * 100)}%`;
-
-      document.querySelectorAll('.btn-layout-w').forEach(btn => {
-        const text = btn.textContent.trim();
-        const active = (w === '100%' && text.includes('100%')) || text.includes(w);
-        btn.classList.toggle('active', active);
-      });
-
-      document.querySelectorAll('.btn-cell-h').forEach(btn => {
-        const text = btn.textContent.toLowerCase();
-        let active = false;
-        if (h === 'compact' && text.includes('compact')) active = true;
-        if (h === 'normal' && text.includes('normal')) active = true;
-        if (h === 'tall' && text.includes('înalt')) active = true;
-        btn.classList.toggle('active', active);
-      });
-
-      document.querySelectorAll('.btn-ui-zoom').forEach(btn => {
-        const text = btn.textContent.replace('%', '').trim();
-        const expected = Math.round(parseFloat(s) * 100).toString();
-        btn.classList.toggle('active', text === expected);
-      });
-    }
-
-    function setAppWidth(w) {
-      localPrefs.appMaxWidth = w;
-      saveToLocalStorage();
-      applyLayoutSettings();
-      showToast(`Lățime ferestre: ${w}`);
-    }
-
-    function setCellHeight(h) {
-      localPrefs.cellHeight = h;
-      saveToLocalStorage();
-      applyLayoutSettings();
-      showToast(h === 'tall' ? 'Coloane zile extinse (mai înalte)!' : `Înălțime celule: ${h}`);
-    }
-
-    function setUiScale(s) {
-      localPrefs.uiScale = s;
-      saveToLocalStorage();
-      applyLayoutSettings();
-      showToast(`Mashtab / Zoom: ${Math.round(parseFloat(s) * 100)}%`);
-    }
-
 
     function setButtonColorMode(mode) {
       localPrefs.buttonColorMode = mode;
@@ -4069,7 +3514,6 @@
       localPrefs.bgTheme = 'custom';
       localPrefs.customBg = hex;
       saveToLocalStorage();
-      applyLayoutSettings();
       applyBackgroundTheme();
       renderBgThemeTiles();
       showToast(`Fundal personalizat setat: ${hex}`);
@@ -5299,12 +4743,6 @@ function updateReadableSheet(folder, state) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
     }
-    window.addEventListener('resize', () => {
-      try {
-        localPrefs.lastWindowWidth = window.innerWidth;
-        saveToLocalStorage();
-      } catch(e) {}
-    });
   </script>
 </body>
 </html>
