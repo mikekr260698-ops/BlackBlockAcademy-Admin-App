@@ -1,4 +1,4 @@
-const CACHE_NAME = 'blackblock-admin-v14';
+const CACHE_NAME = 'blackblock-admin-v15';
 const ASSETS = [
   './',
   './index.html',

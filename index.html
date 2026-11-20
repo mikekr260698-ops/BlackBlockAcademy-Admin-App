@@ -445,6 +445,17 @@
       line-height: 1.2;
     }
 
+    .badge-subs {
+      font-size: 9px;
+      font-weight: 800;
+      background: rgba(167, 139, 250, 0.22);
+      color: #c4b5fd;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      padding: 0px 4px;
+      border-radius: 4px;
+      line-height: 1.2;
+    }
+
     .badge-comment {
       font-size: 9px;
       line-height: 1;
@@ -1792,7 +1803,7 @@
 
       <!-- Calendar Card -->
       <div class="calendar-card">
-        <div class="weekdays-grid">
+        <div id="weekdaysGridRow" class="weekdays-grid">
           <div>Lun</div><div>Mar</div><div>Mie</div><div>Joi</div><div>Vin</div><div>Sâm</div><div>Dum</div>
         </div>
         <div id="calendarDaysGrid" class="days-grid"></div>
@@ -1800,7 +1811,7 @@
 
       <!-- Comments & Leads Feed for Current Month -->
       <div class="section-title">
-        <span>💬 Comentarii & Lead-uri în această lună</span>
+        <span id="commentsSectionTitle">💬 Comentarii & Lead-uri în această lună</span>
       </div>
       <div id="monthFeedList" class="feed-list"></div>
     </section>
@@ -1857,9 +1868,9 @@
           <div class="stat-box-sub">Închiși în această lună</div>
         </div>
         <div class="stat-box">
-          <div class="stat-box-label">MEDIE LEAD-URI</div>
-          <div id="statLeadsAvg" class="stat-box-value" style="color:#38bdf8;">0.0</div>
-          <div class="stat-box-sub">Clienți per schimb</div>
+          <div id="lblStatSubsTitle" class="stat-box-label">ABONAMENTE ÎNCHEIATE</div>
+          <div id="statSubsCount" class="stat-box-value" style="color:#a78bfa;">0</div>
+          <div id="lblStatSubsSub" class="stat-box-sub">Abonamente vândute</div>
         </div>
       </div>
 
@@ -1915,6 +1926,24 @@
 
     <!-- ==================== TAB 4: PROFIL & SINCRONIZARE ==================== -->
     <section id="tab-profile" class="hidden">
+      <!-- 0. LANGUAGE SELECTOR (LIMBA / ЯЗЫК) -->
+      <div class="profile-card" style="margin-bottom: 14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <span class="field-label" style="font-size:13px;color:var(--text);margin-bottom:0;" id="lblLangTitle">🌐 Limba Aplicației (Язык)</span>
+          <span id="langCurrentBadge" style="font-size:10px;font-weight:800;background:rgba(var(--accent-rgb, 139, 92, 246), 0.18);color:var(--accent);padding:2px 8px;border-radius:10px;border:1px solid var(--border);">Română</span>
+        </div>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;" id="lblLangDesc">
+          Alege limba preferată (se salvează automat pe contul tău):
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <button type="button" id="btnLangRo" class="secondary-btn" style="margin:0;padding:10px 8px;font-weight:700;font-size:13px;" onclick="setAppLanguage('ro')">
+            🇷🇴 Română
+          </button>
+          <button type="button" id="btnLangRu" class="secondary-btn" style="margin:0;padding:10px 8px;font-weight:700;font-size:13px;" onclick="setAppLanguage('ru')">
+            🇷🇺 Русский
+          </button>
+        </div>
+      </div>
       <!-- 1. PERSONAL PROFILE & AVATAR -->
       <div class="profile-card">
         <span class="field-label">1. Profilul Tău & Poză Avatar</span>
@@ -2123,14 +2152,24 @@
         </div>
       </div>
 
-      <span class="field-label">Clienți noi închiși în această zi / Lead-uri (Opțional)</span>
+      <span id="lblModalLeads" class="field-label">Clienți noi închiși în această zi / Lead-uri Mesaje (Opțional)</span>
       <div class="leads-stepper">
-        <button class="step-btn" onclick="adjustModalLeads(-1)">−</button>
+        <button type="button" class="step-btn" onclick="adjustModalLeads(-1)">−</button>
         <div class="leads-val-wrap">
           <div id="modalLeadsVal" class="leads-val">0</div>
-          <div class="leads-sub">clienți noi închiși</div>
+          <div id="modalLeadsSub" class="leads-sub">clienți noi închiși</div>
         </div>
-        <button class="step-btn" onclick="adjustModalLeads(1)">+</button>
+        <button type="button" class="step-btn" onclick="adjustModalLeads(1)">+</button>
+      </div>
+
+      <span id="lblModalSubs" class="field-label" style="color:#c4b5fd;">🎟️ Clienți Închiși la ABONAMENTE (Opțional)</span>
+      <div class="leads-stepper" style="border-color:rgba(167, 139, 250, 0.35);background:rgba(167, 139, 250, 0.05);margin-bottom:14px;">
+        <button type="button" class="step-btn" onclick="adjustModalSubs(-1)">−</button>
+        <div class="leads-val-wrap">
+          <div id="modalSubsVal" class="leads-val" style="color:#a78bfa;">0</div>
+          <div id="modalSubsSub" class="leads-sub">abonamente vândute</div>
+        </div>
+        <button type="button" class="step-btn" onclick="adjustModalSubs(1)">+</button>
       </div>
 
       <span class="field-label">Comentariu pentru celălalt administrator (Opțional)</span>
@@ -2298,6 +2337,14 @@
       'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'
     ];
 
+    const MONTHS_RU = [
+      'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+    ];
+
+    const WEEKDAYS_RO = ['LUN', 'MAR', 'MIE', 'JOI', 'VIN', 'SÂM', 'DUM'];
+    const WEEKDAYS_RU = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+
     // Starea sincronizată între cei 2 administratori
     let appState = {
       profiles: {
@@ -2321,7 +2368,8 @@
       accentColor: 'auto',
       buttonColorMode: 'unicolor',
       bgTheme: 'obsidian',
-      customBg: '#09090b'
+      customBg: '#09090b',
+      language: 'ro'
     };
 
     // Starea UI curentă
@@ -2337,6 +2385,7 @@
     let editingDateKey = null;
     let modalWorkerId = '';
     let modalLeadsCount = 0;
+    let modalSubsCount = 0;
 
     /********************************************************************
      * INIȚIALIZARE & AUTO-SINCRONIZARE LA DESCHIDERE
@@ -3027,8 +3076,8 @@
     function computeMonthStats(year, monthZeroBased) {
       const prefix = getMonthPrefix(year, monthZeroBased);
       const stats = {
-        admin1: { shifts: 0, hours: 0, pay: 0, leads: 0, days: [] },
-        admin2: { shifts: 0, hours: 0, pay: 0, leads: 0, days: [] }
+        admin1: { shifts: 0, hours: 0, pay: 0, leads: 0, subs: 0, days: [] },
+        admin2: { shifts: 0, hours: 0, pay: 0, leads: 0, subs: 0, days: [] }
       };
 
       Object.keys(appState.days).sort().forEach((dateKey) => {
@@ -3037,17 +3086,20 @@
         if (!d || d.deleted) return;
 
         const leads = Number(d.leads || 0);
+        const subs = Number(d.subs || 0);
         if (d.workerId === 'admin1') {
           stats.admin1.shifts += 1;
           stats.admin1.hours += SHIFT_HOURS;
           stats.admin1.pay += SHIFT_PAY_MDL;
           stats.admin1.leads += leads;
+          stats.admin1.subs += subs;
           stats.admin1.days.push({ dateKey, ...d });
         } else if (d.workerId === 'admin2') {
           stats.admin2.shifts += 1;
           stats.admin2.hours += SHIFT_HOURS;
           stats.admin2.pay += SHIFT_PAY_MDL;
           stats.admin2.leads += leads;
+          stats.admin2.subs += subs;
           stats.admin2.days.push({ dateKey, ...d });
         } else if (d.workerId === 'both') {
           ['admin1', 'admin2'].forEach((id) => {
@@ -3055,6 +3107,7 @@
             stats[id].hours += SHIFT_HOURS;
             stats[id].pay += SHIFT_PAY_MDL;
             stats[id].leads += leads;
+            stats[id].subs += subs;
             stats[id].days.push({ dateKey, ...d });
           });
         }
@@ -3068,6 +3121,7 @@
       let totalShifts = 0;
       let totalHours = 0;
       let totalLeads = 0;
+      let totalSubs = 0;
 
       Object.keys(appState.days || {}).forEach((dateKey) => {
         const d = appState.days[dateKey];
@@ -3076,6 +3130,7 @@
           totalShifts += 1;
           totalHours += SHIFT_HOURS;
           totalLeads += Number(d.leads || 0);
+          totalSubs += Number(d.subs || 0);
         }
       });
 
@@ -3101,6 +3156,7 @@
         totalShifts,
         totalHours,
         totalLeads,
+        totalSubs,
         totalEarned,
         totalPaidOut,
         bankBalance,
@@ -3604,8 +3660,30 @@
       updateElementAvatar(headerCircle, me, 22);
       document.getElementById('headerMeName').textContent = me.name;
 
-      // Month Label
-      document.getElementById('currentMonthLabel').textContent = `${MONTHS_RO[currentMonth]} ${currentYear}`;
+      const isRu = localPrefs.language === 'ru';
+      const currentMonths = isRu ? MONTHS_RU : MONTHS_RO;
+      const currentWeekdays = isRu ? WEEKDAYS_RU : WEEKDAYS_RO;
+
+      // Month Label & Sync Header
+      document.getElementById('currentMonthLabel').textContent = `${currentMonths[currentMonth]} ${currentYear}`;
+      const syncTextEl = document.getElementById('syncStatusText');
+      if (syncTextEl) syncTextEl.textContent = isRu ? 'Синхронизировано • ADMIN APP BACKUP' : 'Sincronizat • ADMIN APP BACKUP';
+
+      // Update Navigation Tab Labels
+      const calNav = document.querySelector('#nav-calendar span');
+      if (calNav) calNav.textContent = isRu ? 'Календарь' : 'Calendar';
+      const statNav = document.querySelector('#nav-stats span');
+      if (statNav) statNav.textContent = isRu ? 'Статистика' : 'Statistica Mea';
+      const compNav = document.querySelector('#nav-compare span');
+      if (compNav) compNav.textContent = isRu ? 'Сравнение' : 'Comparație';
+      const profNav = document.querySelector('#nav-profile span');
+      if (profNav) profNav.textContent = isRu ? 'Настройки' : 'Profil & Sync';
+
+      // Weekdays Header Row
+      const weekdaysEl = document.getElementById('weekdaysGridRow');
+      if (weekdaysEl) {
+        weekdaysEl.innerHTML = currentWeekdays.map(w => `<div>${w}</div>`).join('');
+      }
 
       const monthStats = computeMonthStats(currentYear, currentMonth);
 
@@ -3629,19 +3707,29 @@
       document.getElementById('legMeta2').textContent = `${monthStats.admin2.shifts} ture • ${formatMDL(monthStats.admin2.pay)}`;
 
       // Today Quick Banner
+      const isRu = localPrefs.language === 'ru';
       const todayKey = makeDateKey(now.getFullYear(), now.getMonth(), now.getDate());
       const todayData = appState.days[todayKey];
       const bannerTitle = document.getElementById('todayBannerTitle');
       const bannerSub = document.getElementById('todayBannerSub');
+      const todayBtn = document.querySelector('.quick-sign-btn');
+      if (todayBtn) todayBtn.textContent = isRu ? 'Сегодня' : 'Ziua de Azi';
+
+      const shiftWord = isRu ? 'смен' : 'ture';
+      document.getElementById('legMeta1').textContent = `${monthStats.admin1.shifts} ${shiftWord} • ${formatMDL(monthStats.admin1.pay)}`;
+      document.getElementById('legMeta2').textContent = `${monthStats.admin2.shifts} ${shiftWord} • ${formatMDL(monthStats.admin2.pay)}`;
+
       if (todayData && todayData.workerId) {
         const wName = todayData.workerId === 'both'
           ? `${p1.name} & ${p2.name}`
           : (appState.profiles[todayData.workerId]?.name || '');
-        bannerTitle.textContent = `Azi pe schimb: ${wName}`;
-        bannerSub.textContent = `12 ore (+500 MDL) • ${todayData.leads || 0} clienți noi închiși`;
+        bannerTitle.textContent = isRu ? `Сегодня на смене: ${wName}` : `Azi pe schimb: ${wName}`;
+        bannerSub.textContent = isRu 
+          ? `12 часов (+500 MDL) • ${todayData.leads || 0} лидов • ${todayData.subs || 0} абонементов` 
+          : `12 ore (+500 MDL) • ${todayData.leads || 0} clienți • ${todayData.subs || 0} abonamente`;
       } else {
-        bannerTitle.textContent = `Salut, ${me.name}! Ești azi pe schimb?`;
-        bannerSub.textContent = `Apasă pentru a semna ziua de azi (12h • 500 MDL)`;
+        bannerTitle.textContent = isRu ? `Привет, ${me.name}! Ты сегодня на смене?` : `Salut, ${me.name}! Ești azi pe schimb?`;
+        bannerSub.textContent = isRu ? 'Нажми чтобы отметить смену (12ч • 500 MDL)' : 'Apasă pentru a semna ziua de azi (12h • 500 MDL)';
       }
 
       // Calendar Grid
@@ -3687,6 +3775,9 @@
         if (dayData && Number(dayData.leads) > 0) {
           badgesHTML += `<span class="badge-leads">+${dayData.leads}</span>`;
         }
+        if (dayData && Number(dayData.subs) > 0) {
+          badgesHTML += `<span class="badge-subs">+${dayData.subs}🎟️</span>`;
+        }
         if (dayData && dayData.comment && dayData.comment.trim() !== '') {
           badgesHTML += `<span class="badge-comment">💬</span>`;
         }
@@ -3702,6 +3793,8 @@
       }
 
       // Month Comments & Activity Feed
+      const feedTitleEl = document.getElementById('commentsSectionTitle');
+      if (feedTitleEl) feedTitleEl.textContent = isRu ? '💬 Комментарии, Лиды & Абонементы в этом месяце' : '💬 Comentarii & Lead-uri în această lună';
       const feedList = document.getElementById('monthFeedList');
       feedList.innerHTML = '';
       const prefix = getMonthPrefix(currentYear, currentMonth);
@@ -3731,7 +3824,8 @@
               <div class="feed-author">
                 ${renderAvatarBadgeHTML(worker, 20)}
                 <span>${worker.name}</span>
-                ${Number(entry.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${entry.leads} clienți noi</span>` : ''}
+                ${Number(entry.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${entry.leads} ${isRu ? 'лидов' : 'clienți noi'}</span>` : ''}
+                ${Number(entry.subs) > 0 ? `<span class="badge-subs" style="font-size:11px;padding:2px 6px;">+${entry.subs} ${isRu ? 'абонементов' : 'abonamente'}</span>` : ''}
               </div>
               <div class="feed-date">${dayNum} ${MONTHS_RO[currentMonth]}</div>
             </div>
@@ -3772,11 +3866,16 @@
       document.getElementById('statSalaryMDL').textContent = formatMDL(st.pay);
       document.getElementById('statSalaryFormula').textContent = `${st.shifts} schimburi în ${MONTHS_RO[currentMonth]} (${st.hours} ore lucrate)`;
 
+      const isRu = localPrefs.language === 'ru';
       document.getElementById('statShiftsCount').textContent = st.shifts;
       document.getElementById('statHoursCount').textContent = `${st.hours}h`;
       document.getElementById('statLeadsCount').textContent = st.leads;
-      const avg = st.shifts > 0 ? (st.leads / st.shifts).toFixed(1) : '0.0';
-      document.getElementById('statLeadsAvg').textContent = avg;
+      const subsCountEl = document.getElementById('statSubsCount');
+      if (subsCountEl) subsCountEl.textContent = st.subs || 0;
+      const lblSubsT = document.getElementById('lblStatSubsTitle');
+      if (lblSubsT) lblSubsT.textContent = isRu ? 'АБОНЕМЕНТЫ' : 'ABONAMENTE ÎNCHEIATE';
+      const lblSubsS = document.getElementById('lblStatSubsSub');
+      if (lblSubsS) lblSubsS.textContent = isRu ? 'Оформлено абонементов' : 'Abonamente vândute';
 
       // Payouts Feed
       const pList = document.getElementById('myPayoutsList');
@@ -3889,18 +3988,25 @@
           fmt2: `${s2.shifts} ture`
         },
         {
-          title: 'Ore Lucrate (12 ore / Schimb)',
+          title: localPrefs.language === 'ru' ? 'Отработано Часов (12ч / смена)' : 'Ore Lucrate (12 ore / Schimb)',
           v1: s1.hours,
           v2: s2.hours,
-          fmt1: `${s1.hours} ore`,
-          fmt2: `${s2.hours} ore`
+          fmt1: `${s1.hours} ${localPrefs.language === 'ru' ? 'ч.' : 'ore'}`,
+          fmt2: `${s2.hours} ${localPrefs.language === 'ru' ? 'ч.' : 'ore'}`
         },
         {
-          title: 'Clienți Noi Închiși (Lead-uri)',
+          title: localPrefs.language === 'ru' ? 'Новые Клиенты (Лиды)' : 'Clienți Noi Închiși (Lead-uri)',
           v1: s1.leads,
           v2: s2.leads,
-          fmt1: `${s1.leads} clienți`,
-          fmt2: `${s2.leads} clienți`
+          fmt1: `${s1.leads} ${localPrefs.language === 'ru' ? 'лидов' : 'lead-uri'}`,
+          fmt2: `${s2.leads} ${localPrefs.language === 'ru' ? 'лидов' : 'lead-uri'}`
+        },
+        {
+          title: localPrefs.language === 'ru' ? '🎟️ Оформлено Абонементов' : '🎟️ Clienți Închiși la Abonamente',
+          v1: s1.subs || 0,
+          v2: s2.subs || 0,
+          fmt1: `${s1.subs || 0} ${localPrefs.language === 'ru' ? 'абон.' : 'ab.'}`,
+          fmt2: `${s2.subs || 0} ${localPrefs.language === 'ru' ? 'абон.' : 'ab.'}`
         }
       ];
 
@@ -3949,6 +4055,7 @@
       }
 
       renderThemeTiles();
+      updateLanguageUI();
       const myNameEl = document.getElementById('profMyNameDisplay');
       if (myNameEl) myNameEl.textContent = me.name;
 
@@ -4184,7 +4291,9 @@
       const m = Number(parts[1]) - 1;
       const d = Number(parts[2]);
 
-      document.getElementById('modalDateTitle').textContent = `${d} ${MONTHS_RO[m]} ${y}`;
+      const isRu = localPrefs.language === 'ru';
+      const currentMonths = isRu ? MONTHS_RU : MONTHS_RO;
+      document.getElementById('modalDateTitle').textContent = `${d} ${currentMonths[m]} ${y}`;
 
       const p1 = appState.profiles.admin1;
       const p2 = appState.profiles.admin2;
@@ -4198,12 +4307,40 @@
       document.getElementById('modalName2').textContent = p2.name;
 
       const existing = appState.days[dateKey];
-      // Dacă ziua e goală, o setăm implicit pe utilizatorul activ
       const myId = localPrefs.myWorkerId || 'admin1';
       modalWorkerId = existing && existing.workerId !== undefined ? existing.workerId : myId;
       modalLeadsCount = existing ? Number(existing.leads || 0) : 0;
+      modalSubsCount = existing ? Number(existing.subs || 0) : 0;
 
-      document.getElementById('modalCommentInput').value = existing && existing.comment ? existing.comment : '';
+      const leadsEl = document.getElementById('modalLeadsVal');
+      if (leadsEl) leadsEl.textContent = modalLeadsCount;
+      const subsEl = document.getElementById('modalSubsVal');
+      if (subsEl) subsEl.textContent = modalSubsCount;
+
+      const lblLeads = document.getElementById('lblModalLeads');
+      if (lblLeads) lblLeads.textContent = isRu ? 'Новые клиенты / Лиды сообщения (Опционально)' : 'Clienți noi închiși în această zi / Lead-uri Mesaje (Opțional)';
+      const subLeads = document.getElementById('modalLeadsSub');
+      if (subLeads) subLeads.textContent = isRu ? 'закрыто новых клиентов' : 'clienți noi închiși';
+
+      const lblSubs = document.getElementById('lblModalSubs');
+      if (lblSubs) lblSubs.textContent = isRu ? '🎟️ Клиенты закрытые на АБОНЕМЕНТЫ (Опционально)' : '🎟️ Clienți Închiși la ABONAMENTE (Opțional)';
+      const subSubs = document.getElementById('modalSubsSub');
+      if (subSubs) subSubs.textContent = isRu ? 'абонементов оформлено' : 'abonamente vândute';
+
+      const optBoth = document.getElementById('modalOptBoth');
+      if (optBoth) optBoth.textContent = isRu ? '👥 Оба на смене' : '👥 Ambii pe schimb';
+      const optNone = document.getElementById('modalOptNone');
+      if (optNone) optNone.textContent = isRu ? '✕ Выходной / Очистить' : '✕ Zi liberă / Șterge';
+
+      const btnSave = document.getElementById('btnQuickSaveDay');
+      if (btnSave) btnSave.textContent = isRu ? '💾 Сохранить Смену' : '💾 Salvează Schimbul';
+
+      const commentInput = document.getElementById('modalCommentInput');
+      if (commentInput) {
+        commentInput.value = existing && existing.comment ? existing.comment : '';
+        commentInput.placeholder = isRu ? 'Оставьте сообщение коллеге об этом дне (лиды, абонементы, оплаты, записи)...' : 'Lasă un mesaj colegului/colegei despre această zi (ex: clienți noi, plăți, programări)...';
+      }
+
       updateModalSelectionUI();
 
       document.getElementById('dayModalBackdrop').classList.add('open');
@@ -4235,6 +4372,63 @@
       updateModalSelectionUI();
     }
 
+
+    function setAppLanguage(lang) {
+      localPrefs.language = lang;
+      try {
+        localStorage.setItem('bb_user_lang', lang);
+      } catch (e) {}
+
+      const myId = localPrefs.myWorkerId;
+      if (myId && appState.profiles[myId]) {
+        appState.profiles[myId].language = lang;
+        appState.updatedAt = Date.now();
+      }
+      saveToLocalStorage();
+      syncToCloudSilently();
+      renderAll();
+      showToast(lang === 'ru' ? 'Язык изменён на Русский!' : 'Limba a fost schimbată în Română!');
+    }
+
+    function updateLanguageUI() {
+      const lang = localPrefs.language || 'ro';
+      const isRu = lang === 'ru';
+      const btnRo = document.getElementById('btnLangRo');
+      const btnRu = document.getElementById('btnLangRu');
+      const badge = document.getElementById('langCurrentBadge');
+
+      if (btnRo && btnRu) {
+        if (isRu) {
+          btnRu.style.borderColor = 'var(--accent)';
+          btnRu.style.background = 'rgba(var(--accent-rgb, 139, 92, 246), 0.22)';
+          btnRu.style.color = '#fff';
+          btnRo.style.borderColor = 'var(--border)';
+          btnRo.style.background = 'var(--card-elevated)';
+          btnRo.style.color = 'var(--text-muted)';
+          if (badge) badge.textContent = 'Русский';
+        } else {
+          btnRo.style.borderColor = 'var(--accent)';
+          btnRo.style.background = 'rgba(var(--accent-rgb, 139, 92, 246), 0.22)';
+          btnRo.style.color = '#fff';
+          btnRu.style.borderColor = 'var(--border)';
+          btnRu.style.background = 'var(--card-elevated)';
+          btnRu.style.color = 'var(--text-muted)';
+          if (badge) badge.textContent = 'Română';
+        }
+      }
+
+      const lblTitle = document.getElementById('lblLangTitle');
+      if (lblTitle) lblTitle.textContent = isRu ? '🌐 Язык Приложения' : '🌐 Limba Aplicației (Язык)';
+      const lblDesc = document.getElementById('lblLangDesc');
+      if (lblDesc) lblDesc.textContent = isRu ? 'Выберите предпочитаемый язык (сохраняется в аккаунте):' : 'Alege limba preferată (se salvează automat pe contul tău):';
+    }
+
+    function adjustModalSubs(delta) {
+      modalSubsCount = Math.max(0, modalSubsCount + delta);
+      const el = document.getElementById('modalSubsVal');
+      if (el) el.textContent = modalSubsCount;
+    }
+
     function adjustModalLeads(delta) {
       modalLeadsCount = Math.max(0, modalLeadsCount + delta);
       document.getElementById('modalLeadsVal').textContent = modalLeadsCount;
@@ -4252,27 +4446,28 @@
       const qTitle = document.getElementById('quickDoneTitle');
       const qSub = document.getElementById('quickDoneSub');
 
+      const isRu = localPrefs.language === 'ru';
       if (modalWorkerId === myId) {
         btnQuick.className = 'quick-shift-done-btn active-mine';
         qIcon.textContent = '✅';
-        qTitle.textContent = 'SCHIMBUL TĂU DONE (+500 MDL)';
-        qSub.textContent = `${myProfile.name} e semnat(ă) pe schimb. Apasă pt. a anula.`;
+        qTitle.textContent = isRu ? 'ТВОЯ СМЕНА DONE (+500 MDL)' : 'SCHIMBUL TĂU DONE (+500 MDL)';
+        qSub.textContent = isRu ? `${myProfile.name} на смене. Нажми для отмены.` : `${myProfile.name} e semnat(ă) pe schimb. Apasă pt. a anula.`;
       } else if (modalWorkerId === 'both') {
         btnQuick.className = 'quick-shift-done-btn';
         qIcon.textContent = '👥';
-        qTitle.textContent = 'AMBII PE SCHIMB (+500 MDL)';
-        qSub.textContent = 'Ambii administratori sunt marcați pe această tură';
+        qTitle.textContent = isRu ? 'ОБА НА СМЕНЕ (+500 MDL)' : 'AMBII PE SCHIMB (+500 MDL)';
+        qSub.textContent = isRu ? 'Оба администратора отмечены на этой смене' : 'Ambii administratori sunt marcați pe această tură';
       } else if (modalWorkerId && modalWorkerId !== '') {
-        const otherName = appState.profiles[modalWorkerId]?.name || 'Coleg';
+        const otherName = appState.profiles[modalWorkerId]?.name || (isRu ? 'Коллега' : 'Coleg');
         btnQuick.className = 'quick-shift-done-btn';
         qIcon.textContent = '👤';
-        qTitle.textContent = `PE SCHIMB: ${otherName} (+500 MDL)`;
-        qSub.textContent = 'Apasă aici dacă vrei să preiei tu schimbul';
+        qTitle.textContent = isRu ? `НА СМЕНЕ: ${otherName} (+500 MDL)` : `PE SCHIMB: ${otherName} (+500 MDL)`;
+        qSub.textContent = isRu ? 'Нажми сюда если хочешь взять смену себе' : 'Apasă aici dacă vrei să preiei tu schimbul';
       } else {
         btnQuick.className = 'quick-shift-done-btn';
         qIcon.textContent = '⚡';
-        qTitle.textContent = 'SCHIMB DONE (+500 MDL)';
-        qSub.textContent = `Apasă pentru a semna schimbul tău de 12 ore`;
+        qTitle.textContent = isRu ? 'СМЕНА DONE (+500 MDL)' : 'SCHIMB DONE (+500 MDL)';
+        qSub.textContent = isRu ? 'Нажми чтобы отметить свою 12ч смену' : 'Apasă pentru a semna schimbul tău de 12 ore';
       }
 
       const opt1 = document.getElementById('modalOptAdmin1');
@@ -4297,7 +4492,7 @@
       const comment = document.getElementById('modalCommentInput').value.trim();
       const me = appState.profiles[localPrefs.myWorkerId];
 
-      if (!modalWorkerId && modalLeadsCount === 0 && !comment) {
+      if (!modalWorkerId && modalLeadsCount === 0 && modalSubsCount === 0 && !comment) {
         appState.days[editingDateKey] = {
           deleted: true,
           updatedAt: Date.now()
@@ -4306,6 +4501,7 @@
         appState.days[editingDateKey] = {
           workerId: modalWorkerId,
           leads: modalLeadsCount,
+          subs: modalSubsCount,
           comment: comment,
           updatedAt: Date.now(),
           updatedBy: me ? me.name : 'Admin'
