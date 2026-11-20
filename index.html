@@ -100,16 +100,26 @@
       width: 36px;
       height: 36px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #1e1b4b, #09090b);
-      border: 1px solid rgba(139, 92, 246, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 900;
-      font-size: 13px;
-      letter-spacing: -0.5px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(136, 19, 55, 0.4);
+      overflow: hidden;
+    }
+
+    .unread-badge {
+      position: absolute;
+      top: -2px;
+      right: -4px;
+      background: #ef4444;
       color: #fff;
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+      font-size: 9px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 1px 5px;
+      border: 1.5px solid #09090b;
+      line-height: 1.2;
     }
 
     .brand-title {
@@ -746,30 +756,106 @@
       overflow: hidden;
     }
 
+
+    /* SVG TAB BAR ICONS */
     .tab-btn {
       background: none;
       border: none;
-      color: var(--text-muted);
+      color: #71717a;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      padding: 4px 0;
+      gap: 3px;
+      padding: 3px 0;
       cursor: pointer;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      transition: color 0.15s;
+      transition: color 0.18s, transform 0.12s;
+    }
+
+    .tab-btn:active {
+      transform: scale(0.92);
     }
 
     .tab-btn.active {
-      color: #fff;
+      color: var(--accent);
+    }
+
+    .tab-btn.active .tab-svg {
+      stroke: var(--accent);
+      filter: drop-shadow(0 0 6px var(--accent-glow));
     }
 
     .tab-icon {
-      font-size: 20px;
-      line-height: 1;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .tab-svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      stroke: currentColor;
+      transition: stroke 0.18s, filter 0.18s;
+    }
+
+    /* AVATAR BADGE STYLES */
+    .legend-circle, .circle-dot, .day-worker-circle, .hero-circle, .vs-circle {
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .badge-lock {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.12);
+      letter-spacing: 0.5px;
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .theme-swatch {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .theme-swatch.active {
+      border-color: #fff;
+      transform: scale(1.15);
+      box-shadow: 0 0 12px currentColor;
+    }
+
 
     /* MODAL / BOTTOM SHEET */
     .modal-backdrop {
@@ -1450,7 +1536,23 @@
   <!-- TOP HEADER -->
   <header class="app-header">
     <div class="brand-wrap">
-      <div class="brand-logo">BB</div>
+      <div class="brand-logo" title="BlackBlock Academy Admin">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4c0519"/>
+              <stop offset="60%" stop-color="#881337"/>
+              <stop offset="100%" stop-color="#2a040e"/>
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="22" fill="url(#brandGrad)" />
+          <rect x="2" y="2" width="96" height="96" rx="20" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+          <text x="50" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="1">BLACK</text>
+          <text x="50" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="900" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="1">BLOCK</text>
+          <line x1="18" y1="64" x2="82" y2="64" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" />
+          <text x="50" y="80" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="10" fill="#fecdd3" text-anchor="middle" letter-spacing="3">ADMIN</text>
+        </svg>
+      </div>
       <div>
         <div class="brand-title">BlackBlock Academy</div>
         <div class="brand-subtitle">
@@ -1636,24 +1738,57 @@
 
     <!-- ==================== TAB 4: PROFIL & SINCRONIZARE ==================== -->
     <section id="tab-profile" class="hidden">
+      <!-- 1. PERSONAL PROFILE & AVATAR -->
       <div class="profile-card">
-        <span class="field-label">1. Contul Tău Conectat</span>
+        <span class="field-label">1. Profilul Tău & Poză Avatar</span>
         <div class="account-summary-box">
-          <div id="profMyCircle" class="legend-circle" style="width:44px;height:44px;font-size:16px;">M</div>
-          <div>
-            <div id="profMyNameDisplay" style="font-size:16px;font-weight:800;">Mihail</div>
+          <div id="profMyCircle" class="legend-circle" style="width:52px;height:52px;font-size:18px;">M</div>
+          <div style="min-width:0;flex:1;">
+            <div id="profMyNameDisplay" style="font-size:16px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mihail</div>
             <div id="profMyUsernameDisplay" style="font-size:12px;color:var(--text-muted);font-weight:600;">@admin</div>
+            <div id="profColleagueInfo" style="font-size:11px;color:var(--text-muted);margin-top:2px;">Coleg: în așteptare</div>
           </div>
         </div>
-        <div id="profColleagueInfo" style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Coleg: în așteptare</div>
+
+        <!-- AVATAR PHOTO PICKER -->
+        <span class="field-label">Poză de Profil (Avatar)</span>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+          <input id="avatarFileInput" type="file" accept="image/*" class="hidden" onchange="handleAvatarFileSelect(event)" />
+          <button type="button" class="secondary-btn" style="margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;" onclick="document.getElementById('avatarFileInput').click()">
+            <span>📷</span> Încarcă / Schimbă Poza
+          </button>
+          <button id="btnRemoveAvatar" type="button" class="secondary-btn hidden" style="margin-top:0;color:var(--danger);border-color:rgba(239,68,68,0.3);width:auto;padding:10px 14px;" onclick="removeMyAvatar()">
+            🗑️ Șterge
+          </button>
+        </div>
 
         <span class="field-label">Numele Tău Afișat</span>
-        <input id="inputMyName" type="text" class="text-input" placeholder="Ex: Mihail / Elena" oninput="updateMyProfileLive()" />
+        <input id="inputMyName" type="text" class="text-input" placeholder="Ex: Mike / Yanna" oninput="updateMyProfileLive()" />
 
-        <span class="field-label">Alege Culoarea Cercului Tău</span>
+        <span class="field-label">Alege Culoarea Cercului & Profilului Tău</span>
         <div id="colorSwatchesGrid" class="color-grid"></div>
 
         <button class="primary-btn" onclick="saveProfilesAndSync()">Salvează Profilul & Culoarea</button>
+
+        <!-- THEME / ACCENT COLOR SETTINGS FOR BOTTOM BUTTONS -->
+        <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
+          <span class="field-label">🎨 Culoare Temă & Butoane Bară Jos</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+            Alege culoarea butoanelor active din bara de jos pe acest telefon:
+          </p>
+          <div id="themeSwatchesGrid" class="theme-grid"></div>
+        </div>
+
+        <!-- NOTIFICATIONS SETTINGS -->
+        <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
+          <span class="field-label">🔔 Notificări Comentarii pe iPhone</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+            Afișează bulină roșie (badge) pe pictograma aplicației când colegul/colega lasă un comentariu:
+          </p>
+          <button type="button" id="btnEnableNotifs" class="secondary-btn" style="margin-top:0;" onclick="enableCommentNotifications()">
+            🔔 Activează Notificările & Bulina Roșie
+          </button>
+        </div>
 
         <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
           <span class="field-label">Schimbă Parola Ta Personală</span>
@@ -1662,24 +1797,45 @@
         </div>
       </div>
 
-      <!-- CLOUD SYNC (GOOGLE) -->
+      <!-- 2. CLOUD SYNC (GOOGLE DRIVE) - PROTEJAT CU PAROLĂ blackblock2026 -->
       <div class="profile-card">
-        <span class="field-label">☁️ 2. Auto-Sincronizare Online Gratuită (Google Drive)</span>
-        <div id="driveFolderStatusBadge" class="drive-badge">📁 Folder Backup: ADMIN APP BACKUP</div>
-        <p style="font-size:12px;color:var(--text-muted);line-height:1.45;margin-bottom:12px;">
-          Toate datele (Google Sheet + backup JSON) se salvează automat în folderul <strong>ADMIN APP BACKUP</strong> din Google Drive pe contul vostru de lucru.
-        </p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span class="field-label" style="margin-bottom:0;">☁️ 2. Conexiune & Sincronizare Google Drive</span>
+          <span id="syncLockBadge" class="badge-lock">🔒 Protejat</span>
+        </div>
+        
+        <div id="driveFolderStatusBadge" class="drive-badge">📁 Conectat la Google Drive: ADMIN APP BACKUP</div>
 
-        <span class="field-label">Link Bază de Date Google (Web App URL / Firebase URL)</span>
-        <input id="inputSyncUrl" type="url" class="text-input" placeholder="https://script.google.com/macros/s/.../exec" />
+        <!-- LOCKED VIEW (DEFAULT) -->
+        <div id="syncLockedView" style="margin-top:12px;">
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.45;margin-bottom:12px;">
+            Setările tehnice de conexiune sunt blocate pentru a preveni deconectarea sau modificarea accidentală. Pentru deblocare, introdu parola școlii.
+          </p>
+          <div style="display:flex;gap:8px;">
+            <input id="inputUnlockPass" type="password" class="text-input" placeholder="Parola (blackblock2026)" style="margin-bottom:0;" onkeydown="if(event.key==='Enter')unlockAdvancedSettings()" />
+            <button type="button" class="primary-btn" style="width:auto;white-space:nowrap;padding:10px 14px;margin:0;" onclick="unlockAdvancedSettings()">🔓 Deblochează</button>
+          </div>
+          <div id="unlockErrorMsg" style="font-size:11px;color:var(--danger);margin-top:6px;display:none;">Parolă incorectă!</div>
+        </div>
 
-        <span class="field-label">Cod de Acces BlackBlock</span>
-        <input id="inputTeamPass" type="password" class="text-input" placeholder="Codul de acces al școlii" />
+        <!-- UNLOCKED VIEW (SHOWN ONLY AFTER TYPING blackblock2026) -->
+        <div id="syncUnlockedView" class="hidden" style="margin-top:12px;">
+          <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:8px 10px;margin-bottom:12px;font-size:11px;color:#fca5a5;">
+            ⚠️ <strong>Atenție:</strong> Modificarea acestor câmpuri poate întrerupe sincronizarea automată dintre voi.
+          </div>
 
-        <button class="primary-btn" onclick="saveSyncUrlAndTest()">Conectează & Sincronizează Acum</button>
-        <button id="openDriveFolderBtn" class="secondary-btn hidden" onclick="openDriveBackupFolder()">📁 Deschide Folderul ADMIN APP BACKUP</button>
-        <button class="secondary-btn" onclick="shareMagicLinkWithColleague()">📲 Trimite Aplicația Colegei</button>
-        <button class="secondary-btn" onclick="copyGoogleAppsScriptCode()">📋 Copiază Codul pentru Google Drive & Sheets</button>
+          <span class="field-label">Link Bază de Date Google (Web App URL)</span>
+          <input id="inputSyncUrl" type="url" class="text-input" placeholder="https://script.google.com/macros/s/.../exec" />
+
+          <span class="field-label">Cod de Acces BlackBlock</span>
+          <input id="inputTeamPass" type="password" class="text-input" placeholder="Codul de acces al școlii" />
+
+          <button class="primary-btn" onclick="saveSyncUrlAndTest()">Conectează & Sincronizează Acum</button>
+          <button id="openDriveFolderBtn" class="secondary-btn" onclick="openDriveBackupFolder()">📁 Deschide Folderul ADMIN APP BACKUP</button>
+          <button class="secondary-btn" onclick="shareMagicLinkWithColleague()">📲 Trimite Aplicația Colegei</button>
+          <button class="secondary-btn" onclick="copyGoogleAppsScriptCode()">📋 Copiază Codul pentru Google Drive & Sheets</button>
+          <button class="secondary-btn" style="color:var(--text-muted);border-color:var(--border);" onclick="lockAdvancedSettings()">🔒 Blochează din Nou</button>
+        </div>
       </div>
 
       <!-- IPHONE INSTALL GUIDE -->
@@ -1808,21 +1964,53 @@
 
   <!-- BOTTOM NAVIGATION BAR -->
   <nav class="tab-bar">
-    <button id="nav-calendar" class="tab-btn active" onclick="switchTab('calendar')">
-      <span class="tab-icon">📅</span>
+    <button id="nav-calendar" class="tab-btn active" onclick="switchTab('calendar')" title="Calendar">
+      <span class="tab-icon">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="4" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+          <circle cx="8" cy="14" r="1.2" fill="currentColor" />
+          <circle cx="12" cy="14" r="1.2" fill="currentColor" />
+          <circle cx="16" cy="14" r="1.2" fill="currentColor" />
+          <circle cx="8" cy="18" r="1.2" fill="currentColor" />
+          <circle cx="12" cy="18" r="1.2" fill="currentColor" />
+        </svg>
+      </span>
       <span>Calendar</span>
     </button>
-    <button id="nav-stats" class="tab-btn" onclick="switchTab('stats')">
-      <span class="tab-icon">📊</span>
-      <span>Statistica Mea</span>
+    <button id="nav-stats" class="tab-btn" onclick="switchTab('stats')" title="Statistica Mea">
+      <span class="tab-icon">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+          <line x1="2" y1="20" x2="22" y2="20" />
+        </svg>
+      </span>
+      <span>Statistica</span>
     </button>
-    <button id="nav-compare" class="tab-btn" onclick="switchTab('compare')">
-      <span class="tab-icon">⚖️</span>
+    <button id="nav-compare" class="tab-btn" onclick="switchTab('compare')" title="Comparație">
+      <span class="tab-icon">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="3" x2="12" y2="21" />
+          <path d="M4 7l8-4 8 4" />
+          <path d="M4 7l-2 6a4 4 0 0 0 8 0L8 7" />
+          <path d="M16 7l-2 6a4 4 0 0 0 8 0L20 7" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+        </svg>
+      </span>
       <span>Comparație</span>
     </button>
-    <button id="nav-profile" class="tab-btn" onclick="switchTab('profile')">
-      <span class="tab-icon">👤</span>
-      <span>Profil & Sync</span>
+    <button id="nav-profile" class="tab-btn" onclick="switchTab('profile')" title="Profil & Setări">
+      <span class="tab-icon">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </span>
+      <span>Setări</span>
     </button>
   </nav>
 
@@ -1857,8 +2045,8 @@
     // Starea sincronizată între cei 2 administratori
     let appState = {
       profiles: {
-        admin1: { id: 'admin1', name: 'Admin 1', username: '', passHash: '', registered: false, color: '#8b5cf6', updatedAt: 0 },
-        admin2: { id: 'admin2', name: 'Admin 2', username: '', passHash: '', registered: false, color: '#ec4899', updatedAt: 0 }
+        admin1: { id: 'admin1', name: 'Admin 1', username: '', passHash: '', registered: false, color: '#8b5cf6', avatar: '', updatedAt: 0 },
+        admin2: { id: 'admin2', name: 'Admin 2', username: '', passHash: '', registered: false, color: '#ec4899', avatar: '', updatedAt: 0 }
       },
       days: {}, // cheie: "YYYY-MM-DD" -> { workerId: 'admin1'|'admin2'|'both'|'', leads: 0, comment: '', updatedAt: 123, updatedBy: 'Mihail' }
       payouts: {}, // cheie: "pay_..." -> { id, workerId, amount, date, note, updatedAt, updatedBy }
@@ -1873,7 +2061,8 @@
       syncUrl: DEFAULT_SYNC_URL,
       teamPass: '',
       isLoggedIn: false,
-      folderUrl: ''
+      folderUrl: '',
+      accentColor: 'auto'
     };
 
     // Starea UI curentă
@@ -1950,26 +2139,46 @@
         canvas.height = 180;
         const ctx = canvas.getContext('2d');
 
-        ctx.fillStyle = '#09090b';
+        // Burgundy gradient background
+        const grad = ctx.createLinearGradient(0, 0, 180, 180);
+        grad.addColorStop(0, '#4c0519');
+        grad.addColorStop(0.5, '#881337');
+        grad.addColorStop(1, '#2a040e');
+        ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 180, 180);
 
-        // Cercul 1
-        ctx.beginPath();
-        ctx.arc(68, 90, 34, 0, Math.PI * 2);
-        ctx.fillStyle = '#8b5cf6';
-        ctx.fill();
+        // Subtle glow
+        const glow = ctx.createRadialGradient(90, 50, 10, 90, 50, 90);
+        glow.addColorStop(0, 'rgba(190, 18, 60, 0.4)');
+        glow.addColorStop(1, 'rgba(76, 5, 25, 0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, 180, 180);
 
-        // Cercul 2
-        ctx.beginPath();
-        ctx.arc(112, 90, 34, 0, Math.PI * 2);
-        ctx.fillStyle = '#ec4899';
-        ctx.fill();
+        // Inner border
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(3, 3, 174, 174);
 
+        // Text BLACK BLOCK
         ctx.fillStyle = '#ffffff';
-        ctx.font = '900 32px -apple-system, sans-serif';
+        ctx.font = '900 24px -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('BB', 90, 92);
+        ctx.fillText('BLACK', 90, 62);
+        ctx.fillText('BLOCK', 90, 92);
+
+        // Divider Line
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(35, 114);
+        ctx.lineTo(145, 114);
+        ctx.stroke();
+
+        // Subtitle ADMIN
+        ctx.fillStyle = '#fecdd3';
+        ctx.font = '800 15px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillText('A D M I N', 90, 138);
 
         const link = document.getElementById('appleTouchIcon');
         if (link) link.href = canvas.toDataURL('image/png');
@@ -2685,15 +2894,196 @@
       };
     }
 
+    
+    const THEME_PRESETS = [
+      { id: 'auto', name: 'Auto', color: '#8b5cf6', isAuto: true },
+      { id: '#8b5cf6', name: 'Violet', color: '#8b5cf6' },
+      { id: '#ef4444', name: 'Roșu', color: '#ef4444' },
+      { id: '#06b6d4', name: 'Cyan', color: '#06b6d4' },
+      { id: '#10b981', name: 'Verde', color: '#10b981' },
+      { id: '#ec4899', name: 'Roz', color: '#ec4899' },
+      { id: '#f59e0b', name: 'Galben', color: '#f59e0b' },
+      { id: '#3b82f6', name: 'Albastru', color: '#3b82f6' }
+    ];
+
+    function applyThemeColor() {
+      const me = appState.profiles[localPrefs.myWorkerId];
+      let col = '#8b5cf6';
+      if (!localPrefs.accentColor || localPrefs.accentColor === 'auto') {
+        col = me?.color || '#8b5cf6';
+      } else {
+        col = localPrefs.accentColor;
+      }
+      document.documentElement.style.setProperty('--accent', col);
+      document.documentElement.style.setProperty('--accent-glow', col + '77');
+    }
+
+    function renderThemeSwatches() {
+      const grid = document.getElementById('themeSwatchesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const me = appState.profiles[localPrefs.myWorkerId];
+      const activeColor = localPrefs.accentColor || 'auto';
+
+      THEME_PRESETS.forEach((preset) => {
+        const sw = document.createElement('button');
+        sw.type = 'button';
+        sw.className = 'theme-swatch' + (activeColor === preset.id ? ' active' : '');
+        if (preset.isAuto) {
+          const autoCol = me?.color || '#8b5cf6';
+          sw.style.background = `linear-gradient(135deg, ${autoCol}, #1e1b4b)`;
+          sw.style.color = '#fff';
+          sw.textContent = '★';
+          sw.title = 'Culoare Automată (Culoarea Profilului Tău)';
+        } else {
+          sw.style.background = preset.color;
+          sw.style.color = preset.color;
+          sw.title = preset.name;
+        }
+        sw.onclick = () => {
+          localPrefs.accentColor = preset.id;
+          saveToLocalStorage();
+          applyThemeColor();
+          renderThemeSwatches();
+        };
+        grid.appendChild(sw);
+      });
+    }
+
+    function renderAvatarBadgeHTML(profile, size = 22, isDual = false) {
+      if (!profile) return '';
+      const s = size;
+      const col = profile.color || '#8b5cf6';
+      const cls = isDual ? 'day-worker-circle dual' : 'day-worker-circle';
+      if (profile.avatar) {
+        return `<div class="${cls} has-avatar" style="width:${s}px;height:${s}px;border:1.5px solid ${col};box-shadow:0 0 6px ${col}66;border-radius:50%;overflow:hidden;flex-shrink:0;padding:0;background:#09090b;"><img src="${profile.avatar}" alt="${escapeHtml(profile.name)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;" /></div>`;
+      }
+      return `<div class="${cls}" style="width:${s}px;height:${s}px;background:${col};box-shadow:0 0 6px ${col}66;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:${Math.round(s * 0.4)}px;flex-shrink:0;">${getInitials(profile.name)}</div>`;
+    }
+
+    function updateElementAvatar(element, profile, size = 30) {
+      if (!element || !profile) return;
+      const col = profile.color || '#8b5cf6';
+      element.style.width = `${size}px`;
+      element.style.height = `${size}px`;
+      element.style.borderRadius = '50%';
+      element.style.overflow = 'hidden';
+      element.style.flexShrink = '0';
+      element.style.padding = '0';
+
+      if (profile.avatar) {
+        element.style.background = '#09090b';
+        element.style.border = `2.5px solid ${col}`;
+        element.style.boxShadow = `0 0 10px ${col}77`;
+        element.innerHTML = `<img src="${profile.avatar}" alt="${escapeHtml(profile.name)}" class="avatar-img" />`;
+      } else {
+        element.style.background = col;
+        element.style.border = 'none';
+        element.style.boxShadow = `0 0 10px ${col}77`;
+        element.style.display = 'flex';
+        element.style.alignItems = 'center';
+        element.style.justifyContent = 'center';
+        element.style.color = '#fff';
+        element.style.fontWeight = '800';
+        element.style.fontSize = `${Math.round(size * 0.38)}px`;
+        element.textContent = getInitials(profile.name);
+      }
+    }
+
+    function handleAvatarFileSelect(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        showToast('Te rugăm să alegi un fișier imagine valid!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const size = 160;
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+
+          const minSide = Math.min(img.width, img.height);
+          const sx = (img.width - minSide) / 2;
+          const sy = (img.height - minSide) / 2;
+
+          ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+          const me = appState.profiles[localPrefs.myWorkerId];
+          if (!me) return;
+          me.avatar = dataUrl;
+          me.updatedAt = Date.now();
+          saveToLocalStorage();
+          renderAll();
+          showToast('Poză avatar salvată!');
+          pushToCloud();
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeMyAvatar() {
+      const me = appState.profiles[localPrefs.myWorkerId];
+      if (!me) return;
+      if (!confirm('Sigur dorești să ștergi poza și să revii la cercul cu inițiale?')) return;
+      me.avatar = '';
+      me.updatedAt = Date.now();
+      saveToLocalStorage();
+      renderAll();
+      showToast('Poza a fost ștearsă.');
+      pushToCloud();
+    }
+
+    function unlockAdvancedSettings() {
+      const input = document.getElementById('inputUnlockPass');
+      const err = document.getElementById('unlockErrorMsg');
+      const pass = (input ? input.value : '').trim();
+      const validPass = (localPrefs.teamPass || 'blackblock2026').trim();
+
+      if (pass === 'blackblock2026' || pass === validPass) {
+        document.getElementById('syncLockedView').classList.add('hidden');
+        document.getElementById('syncUnlockedView').classList.remove('hidden');
+        const badge = document.getElementById('syncLockBadge');
+        badge.textContent = '🔓 Deblocat';
+        badge.style.borderColor = 'rgba(16,185,129,0.4)';
+        badge.style.color = '#34d399';
+        badge.style.background = 'rgba(16,185,129,0.12)';
+        if (err) err.style.display = 'none';
+        if (input) input.value = '';
+        showToast('Setările Google Drive au fost deblocate.');
+      } else {
+        if (err) err.style.display = 'block';
+        showToast('Parolă incorectă!');
+      }
+    }
+
+    function lockAdvancedSettings() {
+      document.getElementById('syncLockedView').classList.remove('hidden');
+      document.getElementById('syncUnlockedView').classList.add('hidden');
+      const badge = document.getElementById('syncLockBadge');
+      badge.textContent = '🔒 Protejat';
+      badge.style.borderColor = 'rgba(239,68,68,0.4)';
+      badge.style.color = '#f87171';
+      badge.style.background = 'rgba(239,68,68,0.12)';
+      showToast('Setările au fost blocate.');
+    }
+
     function renderAll() {
+      applyThemeColor();
       const p1 = appState.profiles.admin1;
       const p2 = appState.profiles.admin2;
       const me = appState.profiles[localPrefs.myWorkerId] || p1;
 
       // Top Header
       const headerCircle = document.getElementById('headerMeCircle');
-      headerCircle.style.background = me.color;
-      headerCircle.textContent = getInitials(me.name);
+      updateElementAvatar(headerCircle, me, 22);
       document.getElementById('headerMeName').textContent = me.name;
 
       // Month Label
@@ -2705,19 +3095,18 @@
       renderStatsTab(p1, p2, monthStats);
       renderCompareTab(p1, p2, monthStats);
       renderProfileTab(p1, p2);
+      updateCommentBadgeAndNotifs();
     }
 
     function renderCalendarTab(p1, p2, me, monthStats) {
       // Legend Cards
       const c1 = document.getElementById('legCircle1');
-      c1.style.background = p1.color;
-      c1.textContent = getInitials(p1.name);
+      updateElementAvatar(c1, p1, 30);
       document.getElementById('legName1').textContent = p1.name;
       document.getElementById('legMeta1').textContent = `${monthStats.admin1.shifts} ture • ${formatMDL(monthStats.admin1.pay)}`;
 
       const c2 = document.getElementById('legCircle2');
-      c2.style.background = p2.color;
-      c2.textContent = getInitials(p2.name);
+      updateElementAvatar(c2, p2, 30);
       document.getElementById('legName2').textContent = p2.name;
       document.getElementById('legMeta2').textContent = `${monthStats.admin2.shifts} ture • ${formatMDL(monthStats.admin2.pay)}`;
 
@@ -2761,17 +3150,17 @@
 
         let circleHTML = '';
         if (dayData && dayData.workerId === 'admin1') {
-          circleHTML = `<div class="day-worker-circle" style="background:${p1.color}">${getInitials(p1.name)}</div>`;
+          circleHTML = renderAvatarBadgeHTML(p1, 22);
           cell.style.borderColor = p1.color + '66';
           cell.style.background = p1.color + '14';
         } else if (dayData && dayData.workerId === 'admin2') {
-          circleHTML = `<div class="day-worker-circle" style="background:${p2.color}">${getInitials(p2.name)}</div>`;
+          circleHTML = renderAvatarBadgeHTML(p2, 22);
           cell.style.borderColor = p2.color + '66';
           cell.style.background = p2.color + '14';
         } else if (dayData && dayData.workerId === 'both') {
           circleHTML = `
-            <div class="day-worker-circle dual" style="background:${p1.color}">${getInitials(p1.name)}</div>
-            <div class="day-worker-circle dual" style="background:${p2.color}">${getInitials(p2.name)}</div>
+            ${renderAvatarBadgeHTML(p1, 15, true)}
+            ${renderAvatarBadgeHTML(p2, 15, true)}
           `;
           cell.style.borderColor = 'rgba(255,255,255,0.35)';
         }
@@ -2822,9 +3211,7 @@
           item.innerHTML = `
             <div class="feed-top">
               <div class="feed-author">
-                <span class="circle-dot" style="background:${worker.color};width:20px;height:20px;font-size:9px;">
-                  ${getInitials(worker.name)}
-                </span>
+                ${renderAvatarBadgeHTML(worker, 20)}
                 <span>${worker.name}</span>
                 ${Number(entry.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${entry.leads} clienți noi</span>` : ''}
               </div>
@@ -2850,8 +3237,7 @@
       const bal = computeAdminBalance(statsViewWorkerId);
 
       const heroCircle = document.getElementById('statHeroCircle');
-      heroCircle.style.background = profile.color;
-      heroCircle.textContent = getInitials(profile.name);
+      updateElementAvatar(heroCircle, profile, 34);
       document.getElementById('statHeroName').textContent = profile.name;
 
       // Bank Balance & Remaining
@@ -2938,13 +3324,11 @@
       const s2 = monthStats.admin2;
 
       const vc1 = document.getElementById('vsCircle1');
-      vc1.style.background = p1.color;
-      vc1.textContent = getInitials(p1.name);
+      updateElementAvatar(vc1, p1, 44);
       document.getElementById('vsName1').textContent = p1.name;
 
       const vc2 = document.getElementById('vsCircle2');
-      vc2.style.background = p2.color;
-      vc2.textContent = getInitials(p2.name);
+      updateElementAvatar(vc2, p2, 44);
       document.getElementById('vsName2').textContent = p2.name;
 
       const bal1 = computeAdminBalance('admin1');
@@ -3038,9 +3422,15 @@
 
       const myCircle = document.getElementById('profMyCircle');
       if (myCircle) {
-        myCircle.style.background = me.color;
-        myCircle.textContent = getInitials(me.name);
+        updateElementAvatar(myCircle, me, 52);
       }
+
+      const btnRemove = document.getElementById('btnRemoveAvatar');
+      if (btnRemove) {
+        btnRemove.classList.toggle('hidden', !me.avatar);
+      }
+
+      renderThemeSwatches();
       const myNameEl = document.getElementById('profMyNameDisplay');
       if (myNameEl) myNameEl.textContent = me.name;
 
@@ -3140,7 +3530,96 @@
     /********************************************************************
      * ACȚIUNI UTILIZATOR (MODAL ZI, PROFIL, NAVIGARE)
      ********************************************************************/
+    
+    /********************************************************************
+     * NOTIFICĂRI COMENTARII & BADGE IPHONE
+     ********************************************************************/
+    let lastSeenCommentTime = Number(localStorage.getItem('bb_last_seen_comment') || 0);
+
+    function updateCommentBadgeAndNotifs() {
+      const me = appState.profiles[localPrefs.myWorkerId];
+      if (!me) return;
+
+      let unreadComments = 0;
+      let latestComment = null;
+
+      Object.keys(appState.days || {}).forEach((dateKey) => {
+        const d = appState.days[dateKey];
+        if (!d || d.deleted || !d.comment || !d.comment.trim()) return;
+
+        // Comentariu lăsat de celălalt administrator
+        if (d.updatedBy && d.updatedBy !== me.name) {
+          const cTime = Number(d.updatedAt || 0);
+          if (cTime > lastSeenCommentTime) {
+            unreadComments++;
+            if (!latestComment || cTime > Number(latestComment.updatedAt || 0)) {
+              latestComment = d;
+            }
+          }
+        }
+      });
+
+      // Update iOS App Badge if supported
+      try {
+        if ('setAppBadge' in navigator) {
+          if (unreadComments > 0) {
+            navigator.setAppBadge(unreadComments).catch(() => {});
+          } else {
+            navigator.clearAppBadge().catch(() => {});
+          }
+        }
+      } catch (ignore) {}
+
+      // Add badge on Calendar nav button
+      const navCal = document.getElementById('nav-calendar');
+      if (navCal) {
+        let b = navCal.querySelector('.unread-badge');
+        if (unreadComments > 0) {
+          if (!b) {
+            b = document.createElement('span');
+            b.className = 'unread-badge';
+            navCal.style.position = 'relative';
+            navCal.appendChild(b);
+          }
+          b.textContent = unreadComments;
+        } else if (b) {
+          b.remove();
+        }
+      }
+    }
+
+    function markCommentsAsRead() {
+      lastSeenCommentTime = Date.now();
+      localStorage.setItem('bb_last_seen_comment', String(lastSeenCommentTime));
+      try {
+        if ('clearAppBadge' in navigator) {
+          navigator.clearAppBadge().catch(() => {});
+        }
+      } catch (ignore) {}
+      updateCommentBadgeAndNotifs();
+    }
+
+    async function enableCommentNotifications() {
+      if (!('Notification' in window)) {
+        showToast('Notificările nu sunt suportate în acest browser.');
+        return;
+      }
+      try {
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
+          showToast('Notificările sunt activate! Vei vedea bulina când apar comentarii noi.');
+          const btn = document.getElementById('btnEnableNotifs');
+          if (btn) btn.textContent = '✅ Notificări Active';
+        } else {
+          showToast('Permisiunea a fost refuzată din setările Safari.');
+        }
+      } catch (err) {
+        showToast('Activează notificările din Setări iPhone -> Safari.');
+      }
+    }
+
     function switchTab(tabName) {
+      if (tabName === "calendar") markCommentsAsRead();
       activeTab = tabName;
       ['calendar', 'stats', 'compare', 'profile'].forEach((t) => {
         document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tabName);
@@ -3193,13 +3672,11 @@
       const p2 = appState.profiles.admin2;
 
       const mc1 = document.getElementById('modalCircle1');
-      mc1.style.background = p1.color;
-      mc1.textContent = getInitials(p1.name);
+      updateElementAvatar(mc1, p1, 34);
       document.getElementById('modalName1').textContent = p1.name;
 
       const mc2 = document.getElementById('modalCircle2');
-      mc2.style.background = p2.color;
-      mc2.textContent = getInitials(p2.name);
+      updateElementAvatar(mc2, p2, 34);
       document.getElementById('modalName2').textContent = p2.name;
 
       const existing = appState.days[dateKey];

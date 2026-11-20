@@ -1,8 +1,9 @@
-const CACHE_NAME = 'blackblock-admin-v5';
+const CACHE_NAME = 'blackblock-admin-v6';
 const ASSETS = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

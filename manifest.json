@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='115' fill='%2309090b'/><rect x='24' y='24' width='464' height='464' rx='95' fill='none' stroke='%238b5cf6' stroke-width='12' stroke-opacity='0.4'/><circle cx='185' cy='256' r='85' fill='%238b5cf6' fill-opacity='0.85'/><circle cx='327' cy='256' r='85' fill='%23ec4899' fill-opacity='0.85'/><text x='256' y='278' font-family='-apple-system,BlinkMacSystemFont,sans-serif' font-weight='900' font-size='78' fill='%23ffffff' text-anchor='middle'>BB</text></svg>",
+      "src": "./icon.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
