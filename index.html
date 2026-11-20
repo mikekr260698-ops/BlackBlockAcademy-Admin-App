@@ -758,50 +758,205 @@
     }
 
 
-    /* SVG TAB BAR ICONS */
+    /* MODERN VIBRANT BOTTOM TAB BAR */
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      z-index: 40;
+      background: rgba(14, 14, 18, 0.94);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-top: 1px solid var(--border);
+      padding: 6px 8px calc(var(--safe-bottom) + 3px);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      overflow: hidden;
+    }
+
     .tab-btn {
       background: none;
       border: none;
-      color: #71717a;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 3px;
-      padding: 3px 0;
+      padding: 2px 0;
       cursor: pointer;
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 700;
-      transition: color 0.18s, transform 0.12s;
+      transition: transform 0.12s, opacity 0.2s;
+      position: relative;
     }
 
     .tab-btn:active {
       transform: scale(0.92);
     }
 
-    .tab-btn.active {
-      color: var(--accent);
-    }
-
-    .tab-btn.active .tab-svg {
-      stroke: var(--accent);
-      filter: drop-shadow(0 0 6px var(--accent-glow));
-    }
-
-    .tab-icon {
-      width: 22px;
-      height: 22px;
+    .tab-icon-pill {
+      width: 46px;
+      height: 28px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 0.22s, box-shadow 0.22s, border-color 0.22s;
+      border: 1px solid transparent;
     }
 
     .tab-svg {
-      width: 20px;
-      height: 20px;
+      width: 23px;
+      height: 23px;
       display: block;
-      stroke: currentColor;
-      transition: stroke 0.18s, filter 0.18s;
+      transition: stroke 0.2s, transform 0.2s;
+    }
+
+    /* VIBRANT ALWAYS-ON COLORS (NU DOAR LA CLICK!) */
+    #nav-calendar {
+      --tab-col: #f43f5e;
+      --tab-col-rgb: 244, 63, 94;
+    }
+    #nav-stats {
+      --tab-col: #10b981;
+      --tab-col-rgb: 16, 185, 129;
+    }
+    #nav-compare {
+      --tab-col: #f59e0b;
+      --tab-col-rgb: 245, 158, 11;
+    }
+    #nav-profile {
+      --tab-col: var(--accent, #8b5cf6);
+      --tab-col-rgb: 139, 92, 246;
+    }
+
+    .tab-btn {
+      color: var(--tab-col);
+      opacity: 0.72;
+    }
+    .tab-btn .tab-svg {
+      stroke: var(--tab-col);
+    }
+
+    /* ACTIVE TAB: GLOWING GLASS PILL & FULL OPACITY */
+    .tab-btn.active {
+      opacity: 1.0;
+    }
+    .tab-btn.active .tab-icon-pill {
+      background: rgba(var(--tab-col-rgb), 0.18);
+      border-color: rgba(var(--tab-col-rgb), 0.45);
+      box-shadow: 0 2px 14px rgba(var(--tab-col-rgb), 0.35);
+    }
+    .tab-btn.active .tab-svg {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 6px rgba(var(--tab-col-rgb), 0.6));
+    }
+    .tab-btn.active span:last-child {
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(var(--tab-col-rgb), 0.3);
+    }
+
+    /* AVATAR CROP MODAL STYLES */
+    .crop-viewport-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      background: #09090b;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .crop-circle-viewfinder {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      touch-action: none;
+      cursor: grab;
+      border: 3px solid var(--accent, #8b5cf6);
+      box-shadow: 0 0 20px var(--accent-glow, rgba(139, 92, 246, 0.4));
+    }
+    .crop-circle-viewfinder:active {
+      cursor: grabbing;
+    }
+
+    .crop-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+    }
+
+    .crop-slider {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--card-elevated);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .crop-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    /* THEME TILES */
+    .theme-tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .theme-tile {
+      background: var(--card-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.2s, background 0.2s;
+    }
+    .theme-tile:active {
+      transform: scale(0.95);
+    }
+    .theme-tile.active {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 14px currentColor;
+    }
+
+    .theme-tile-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+
+    .theme-tile-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
     }
 
     /* AVATAR BADGE STYLES */
@@ -1757,13 +1912,13 @@
 
         <button class="primary-btn" onclick="saveProfilesAndSync()">Salvează Profilul & Culoarea</button>
 
-        <!-- THEME / ACCENT COLOR SETTINGS FOR BOTTOM BUTTONS -->
+        <!-- THEMES & ATMOSPHERE -->
         <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
-          <span class="field-label">🎨 Culoare Temă & Butoane Bară Jos</span>
+          <span class="field-label">🎨 Teme & Atmosferă Aplicație</span>
           <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
-            Alege culoarea butoanelor active din bara de jos pe acest telefon:
+            Alege tema vizuală a aplicației (culori de accent, glow și butoane):
           </p>
-          <div id="themeSwatchesGrid" class="theme-grid"></div>
+          <div id="themeTilesGrid" class="theme-tiles-grid"></div>
         </div>
 
         <!-- NOTIFICATIONS SETTINGS -->
@@ -1949,54 +2104,93 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION BAR -->
+  <!-- ==================== AVATAR CROP / ARRANGE MODAL ==================== -->
+  <div id="avatarCropModalBackdrop" class="modal-backdrop" style="align-items:center;justify-content:center;">
+    <div class="modal-sheet" style="border-radius:24px;max-width:360px;padding:18px 16px;margin:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div>
+          <div class="sheet-title" style="font-size:16px;">Aranjează Poza în Cerc</div>
+          <div style="font-size:11.5px;color:var(--text-muted);">Trage cu degetul pentru a centra fața în cercul tău</div>
+        </div>
+        <button type="button" class="sheet-close" onclick="closeAvatarCropModal()">✕</button>
+      </div>
+
+      <!-- CIRCULAR VIEWFINDER -->
+      <div class="crop-viewport-wrap">
+        <div id="cropCircleViewfinder" class="crop-circle-viewfinder">
+          <canvas id="cropCanvas" width="240" height="240" class="crop-canvas"></canvas>
+        </div>
+      </div>
+
+      <!-- ZOOM & ROTATE CONTROLS -->
+      <div style="margin:14px 0 10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;">
+          <span>Mărește / Micșorează (Zoom)</span>
+          <span id="cropZoomVal">100%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" class="step-btn" style="width:34px;height:34px;" onclick="adjustCropZoom(-0.15)">−</button>
+          <input id="cropZoomSlider" type="range" min="0.5" max="3.0" step="0.05" value="1.0" class="crop-slider" oninput="onCropZoomSlider(this.value)" />
+          <button type="button" class="step-btn" style="width:34px;height:34px;" onclick="adjustCropZoom(0.15)">+</button>
+          <button type="button" class="step-btn" style="width:34px;height:34px;font-size:14px;" onclick="rotateCropImage()" title="Rotește 90°">⟳</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
+        <button type="button" class="secondary-btn" style="margin-top:0;" onclick="closeAvatarCropModal()">Anulează</button>
+        <button type="button" class="primary-btn" style="margin-top:0;" onclick="applyAvatarCrop()">✓ Salvează Poza</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION BAR (MODERN VIBRANT PILL) -->
   <nav class="tab-bar">
     <button id="nav-calendar" class="tab-btn active" onclick="switchTab('calendar')" title="Calendar">
-      <span class="tab-icon">
-        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="tab-icon-pill">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="4" width="18" height="18" rx="4" />
           <line x1="16" y1="2" x2="16" y2="6" />
           <line x1="8" y1="2" x2="8" y2="6" />
           <line x1="3" y1="10" x2="21" y2="10" />
-          <circle cx="8" cy="14" r="1.2" fill="currentColor" />
-          <circle cx="12" cy="14" r="1.2" fill="currentColor" />
-          <circle cx="16" cy="14" r="1.2" fill="currentColor" />
-          <circle cx="8" cy="18" r="1.2" fill="currentColor" />
-          <circle cx="12" cy="18" r="1.2" fill="currentColor" />
+          <circle cx="8" cy="14" r="1.3" fill="currentColor" />
+          <circle cx="12" cy="14" r="1.3" fill="currentColor" />
+          <circle cx="16" cy="14" r="1.3" fill="currentColor" />
+          <circle cx="8" cy="18" r="1.3" fill="currentColor" />
+          <circle cx="12" cy="18" r="1.3" fill="currentColor" />
         </svg>
-      </span>
+      </div>
       <span>Calendar</span>
     </button>
     <button id="nav-stats" class="tab-btn" onclick="switchTab('stats')" title="Statistica Mea">
-      <span class="tab-icon">
-        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="tab-icon-pill">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="20" x2="18" y2="10" />
           <line x1="12" y1="20" x2="12" y2="4" />
           <line x1="6" y1="20" x2="6" y2="14" />
           <line x1="2" y1="20" x2="22" y2="20" />
         </svg>
-      </span>
+      </div>
       <span>Statistica</span>
     </button>
     <button id="nav-compare" class="tab-btn" onclick="switchTab('compare')" title="Comparație">
-      <span class="tab-icon">
-        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="tab-icon-pill">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="3" x2="12" y2="21" />
           <path d="M4 7l8-4 8 4" />
           <path d="M4 7l-2 6a4 4 0 0 0 8 0L8 7" />
           <path d="M16 7l-2 6a4 4 0 0 0 8 0L20 7" />
           <line x1="8" y1="21" x2="16" y2="21" />
         </svg>
-      </span>
+      </div>
       <span>Comparație</span>
     </button>
     <button id="nav-profile" class="tab-btn" onclick="switchTab('profile')" title="Profil & Setări">
-      <span class="tab-icon">
-        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="tab-icon-pill">
+        <svg class="tab-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
           <circle cx="12" cy="7" r="4" />
         </svg>
-      </span>
+      </div>
       <span>Setări</span>
     </button>
   </nav>
@@ -2083,6 +2277,7 @@
 
       renderColorSwatches();
       renderRegColorSwatches();
+      renderThemeTiles();
       renderAll();
 
       if (!localPrefs.isLoggedIn && localPrefs.teamPass && localPrefs.syncUrl) {
@@ -2836,99 +3031,164 @@
     }
 
     
-    const THEME_PRESETS = [
-      { id: 'auto', name: 'Auto', color: '#8b5cf6', isAuto: true },
-      { id: '#8b5cf6', name: 'Violet', color: '#8b5cf6' },
-      { id: '#ef4444', name: 'Roșu', color: '#ef4444' },
-      { id: '#06b6d4', name: 'Cyan', color: '#06b6d4' },
-      { id: '#10b981', name: 'Verde', color: '#10b981' },
-      { id: '#ec4899', name: 'Roz', color: '#ec4899' },
-      { id: '#f59e0b', name: 'Galben', color: '#f59e0b' },
-      { id: '#3b82f6', name: 'Albastru', color: '#3b82f6' }
-    ];
+    
+    /********************************************************************
+     * INTERACTIVE CIRCULAR AVATAR CROPPER (DRAG, ZOOM, ROTATE)
+     ********************************************************************/
+    let cropImg = null;
+    let cropZoom = 1.0;
+    let cropPanX = 0;
+    let cropPanY = 0;
+    let cropRotation = 0; // 0, 90, 180, 270
+    let isCropDragging = false;
+    let cropStartX = 0;
+    let cropStartY = 0;
 
-    function applyThemeColor() {
-      const me = appState.profiles[localPrefs.myWorkerId];
-      let col = '#8b5cf6';
-      if (!localPrefs.accentColor || localPrefs.accentColor === 'auto') {
-        col = me?.color || '#8b5cf6';
-      } else {
-        col = localPrefs.accentColor;
-      }
-      document.documentElement.style.setProperty('--accent', col);
-      document.documentElement.style.setProperty('--accent-glow', col + '77');
-    }
+    function openAvatarCropper(imageSrc) {
+      cropImg = new Image();
+      cropImg.onload = function() {
+        cropZoom = 1.0;
+        cropPanX = 0;
+        cropPanY = 0;
+        cropRotation = 0;
+        document.getElementById('cropZoomSlider').value = '1.0';
+        document.getElementById('cropZoomVal').textContent = '100%';
 
-    function renderThemeSwatches() {
-      const grid = document.getElementById('themeSwatchesGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-      const me = appState.profiles[localPrefs.myWorkerId];
-      const activeColor = localPrefs.accentColor || 'auto';
-
-      THEME_PRESETS.forEach((preset) => {
-        const sw = document.createElement('button');
-        sw.type = 'button';
-        sw.className = 'theme-swatch' + (activeColor === preset.id ? ' active' : '');
-        if (preset.isAuto) {
-          const autoCol = me?.color || '#8b5cf6';
-          sw.style.background = `linear-gradient(135deg, ${autoCol}, #1e1b4b)`;
-          sw.style.color = '#fff';
-          sw.textContent = '★';
-          sw.title = 'Culoare Automată (Culoarea Profilului Tău)';
-        } else {
-          sw.style.background = preset.color;
-          sw.style.color = preset.color;
-          sw.title = preset.name;
+        const me = appState.profiles[localPrefs.myWorkerId];
+        const vf = document.getElementById('cropCircleViewfinder');
+        if (vf && me) {
+          vf.style.borderColor = me.color;
+          vf.style.boxShadow = `0 0 20px ${me.color}88`;
         }
-        sw.onclick = () => {
-          localPrefs.accentColor = preset.id;
-          saveToLocalStorage();
-          applyThemeColor();
-          renderThemeSwatches();
-        };
-        grid.appendChild(sw);
+
+        initCropEvents();
+        drawCropCanvas();
+        document.getElementById('avatarCropModalBackdrop').classList.add('open');
+      };
+      cropImg.src = imageSrc;
+    }
+
+    function closeAvatarCropModal() {
+      document.getElementById('avatarCropModalBackdrop').classList.remove('open');
+      cropImg = null;
+    }
+
+    function drawCropCanvas() {
+      const canvas = document.getElementById('cropCanvas');
+      if (!canvas || !cropImg) return;
+      const ctx = canvas.getContext('2d');
+      const cw = canvas.width;
+      const ch = canvas.height;
+
+      ctx.clearRect(0, 0, cw, ch);
+
+      // Dark background
+      ctx.fillStyle = '#09090b';
+      ctx.fillRect(0, 0, cw, ch);
+
+      ctx.save();
+      // Translate to center
+      ctx.translate(cw / 2 + cropPanX, ch / 2 + cropPanY);
+      ctx.rotate((cropRotation * Math.PI) / 180);
+
+      // Calculate base scale so image fills the 240px circle
+      const minDimension = Math.min(cropImg.width, cropImg.height);
+      const baseScale = (240 / minDimension) * cropZoom;
+      const dw = cropImg.width * baseScale;
+      const dh = cropImg.height * baseScale;
+
+      ctx.drawImage(cropImg, -dw / 2, -dh / 2, dw, dh);
+      ctx.restore();
+    }
+
+    function initCropEvents() {
+      const canvas = document.getElementById('cropCanvas');
+      if (!canvas || canvas.dataset.hasEvents) return;
+      canvas.dataset.hasEvents = 'true';
+
+      canvas.addEventListener('pointerdown', (e) => {
+        isCropDragging = true;
+        cropStartX = e.clientX - cropPanX;
+        cropStartY = e.clientY - cropPanY;
+        canvas.setPointerCapture(e.pointerId);
       });
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (!isCropDragging) return;
+        cropPanX = e.clientX - cropStartX;
+        cropPanY = e.clientY - cropStartY;
+        drawCropCanvas();
+      });
+
+      const stopDrag = (e) => {
+        if (isCropDragging) {
+          isCropDragging = false;
+          try { canvas.releasePointerCapture(e.pointerId); } catch(ignore){}
+        }
+      };
+
+      canvas.addEventListener('pointerup', stopDrag);
+      canvas.addEventListener('pointercancel', stopDrag);
     }
 
-    function renderAvatarBadgeHTML(profile, size = 22, isDual = false) {
-      if (!profile) return '';
-      const s = size;
-      const col = profile.color || '#8b5cf6';
-      const cls = isDual ? 'day-worker-circle dual' : 'day-worker-circle';
-      if (profile.avatar) {
-        return `<div class="${cls} has-avatar" style="width:${s}px;height:${s}px;border:1.5px solid ${col};box-shadow:0 0 6px ${col}66;border-radius:50%;overflow:hidden;flex-shrink:0;padding:0;background:#09090b;"><img src="${profile.avatar}" alt="${escapeHtml(profile.name)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;" /></div>`;
-      }
-      return `<div class="${cls}" style="width:${s}px;height:${s}px;background:${col};box-shadow:0 0 6px ${col}66;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:${Math.round(s * 0.4)}px;flex-shrink:0;">${getInitials(profile.name)}</div>`;
+    function adjustCropZoom(delta) {
+      cropZoom = Math.max(0.5, Math.min(3.0, cropZoom + delta));
+      document.getElementById('cropZoomSlider').value = cropZoom.toFixed(2);
+      document.getElementById('cropZoomVal').textContent = Math.round(cropZoom * 100) + '%';
+      drawCropCanvas();
     }
 
-    function updateElementAvatar(element, profile, size = 30) {
-      if (!element || !profile) return;
-      const col = profile.color || '#8b5cf6';
-      element.style.width = `${size}px`;
-      element.style.height = `${size}px`;
-      element.style.borderRadius = '50%';
-      element.style.overflow = 'hidden';
-      element.style.flexShrink = '0';
-      element.style.padding = '0';
+    function onCropZoomSlider(val) {
+      cropZoom = Number(val);
+      document.getElementById('cropZoomVal').textContent = Math.round(cropZoom * 100) + '%';
+      drawCropCanvas();
+    }
 
-      if (profile.avatar) {
-        element.style.background = '#09090b';
-        element.style.border = `2.5px solid ${col}`;
-        element.style.boxShadow = `0 0 10px ${col}77`;
-        element.innerHTML = `<img src="${profile.avatar}" alt="${escapeHtml(profile.name)}" class="avatar-img" />`;
-      } else {
-        element.style.background = col;
-        element.style.border = 'none';
-        element.style.boxShadow = `0 0 10px ${col}77`;
-        element.style.display = 'flex';
-        element.style.alignItems = 'center';
-        element.style.justifyContent = 'center';
-        element.style.color = '#fff';
-        element.style.fontWeight = '800';
-        element.style.fontSize = `${Math.round(size * 0.38)}px`;
-        element.textContent = getInitials(profile.name);
-      }
+    function rotateCropImage() {
+      cropRotation = (cropRotation + 90) % 360;
+      drawCropCanvas();
+    }
+
+    function applyAvatarCrop() {
+      if (!cropImg) return;
+
+      // Render circular cropped result to high-res 160x160 avatar
+      const outCanvas = document.createElement('canvas');
+      const size = 160;
+      outCanvas.width = size;
+      outCanvas.height = size;
+      const ctx = outCanvas.getContext('2d');
+
+      // Circular clip path
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+
+      ctx.save();
+      const scaleRatio = size / 240;
+      ctx.translate((size / 2) + (cropPanX * scaleRatio), (size / 2) + (cropPanY * scaleRatio));
+      ctx.rotate((cropRotation * Math.PI) / 180);
+
+      const minDimension = Math.min(cropImg.width, cropImg.height);
+      const baseScale = (size / minDimension) * cropZoom;
+      const dw = cropImg.width * baseScale;
+      const dh = cropImg.height * baseScale;
+
+      ctx.drawImage(cropImg, -dw / 2, -dh / 2, dw, dh);
+      ctx.restore();
+
+      const dataUrl = outCanvas.toDataURL('image/jpeg', 0.84);
+      const me = appState.profiles[localPrefs.myWorkerId];
+      if (!me) return;
+
+      me.avatar = dataUrl;
+      me.updatedAt = Date.now();
+      saveToLocalStorage();
+      renderAll();
+      closeAvatarCropModal();
+      showToast('Avatar aranjat și salvat cu succes!');
+      pushToCloud();
     }
 
     function handleAvatarFileSelect(e) {
@@ -2941,45 +3201,70 @@
 
       const reader = new FileReader();
       reader.onload = function(evt) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const size = 160;
-          canvas.width = size;
-          canvas.height = size;
-          const ctx = canvas.getContext('2d');
-
-          const minSide = Math.min(img.width, img.height);
-          const sx = (img.width - minSide) / 2;
-          const sy = (img.height - minSide) / 2;
-
-          ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-
-          const me = appState.profiles[localPrefs.myWorkerId];
-          if (!me) return;
-          me.avatar = dataUrl;
-          me.updatedAt = Date.now();
-          saveToLocalStorage();
-          renderAll();
-          showToast('Poză avatar salvată!');
-          pushToCloud();
-        };
-        img.src = evt.target.result;
+        openAvatarCropper(evt.target.result);
       };
       reader.readAsDataURL(file);
+      e.target.value = ''; // Reset input so same file can be re-selected if needed
     }
 
-    function removeMyAvatar() {
+    /********************************************************************
+     * RICH APP THEMES & PALETTES
+     ********************************************************************/
+    const RICH_THEMES = [
+      { id: 'auto', name: 'Profil', color: '#8b5cf6', isAuto: true, desc: 'Culoare profil' },
+      { id: '#881337', name: 'Burgundy', color: '#881337', desc: 'BlackBlock Vișiniu' },
+      { id: '#8b5cf6', name: 'Violet', color: '#8b5cf6', desc: 'Neon Cyber' },
+      { id: '#ef4444', name: 'Roșu', color: '#ef4444', desc: 'Crimson Red' },
+      { id: '#06b6d4', name: 'Cyan', color: '#06b6d4', desc: 'Electric Cyan' },
+      { id: '#10b981', name: 'Smarald', color: '#10b981', desc: 'Emerald Matrix' },
+      { id: '#f59e0b', name: 'Auriu', color: '#f59e0b', desc: 'Royal Gold' },
+      { id: '#ec4899', name: 'Roz', color: '#ec4899', desc: 'Neon Pink' }
+    ];
+
+    function applyThemeColor() {
       const me = appState.profiles[localPrefs.myWorkerId];
-      if (!me) return;
-      if (!confirm('Sigur dorești să ștergi poza și să revii la cercul cu inițiale?')) return;
-      me.avatar = '';
-      me.updatedAt = Date.now();
-      saveToLocalStorage();
-      renderAll();
-      showToast('Poza a fost ștearsă.');
-      pushToCloud();
+      let col = '#881337';
+      if (!localPrefs.accentColor || localPrefs.accentColor === 'auto') {
+        col = me?.color || '#881337';
+      } else {
+        col = localPrefs.accentColor;
+      }
+      document.documentElement.style.setProperty('--accent', col);
+      document.documentElement.style.setProperty('--accent-glow', col + '77');
+    }
+
+    function renderThemeTiles() {
+      const grid = document.getElementById('themeTilesGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const me = appState.profiles[localPrefs.myWorkerId];
+      const activeColor = localPrefs.accentColor || 'auto';
+
+      RICH_THEMES.forEach((t) => {
+        const tile = document.createElement('div');
+        const isActive = activeColor === t.id;
+        tile.className = 'theme-tile' + (isActive ? ' active' : '');
+        const displayCol = t.isAuto ? (me?.color || '#881337') : t.color;
+        tile.style.color = displayCol;
+
+        tile.innerHTML = `
+          <div class="theme-tile-circle" style="background:${t.isAuto ? `linear-gradient(135deg, ${displayCol}, #000)` : t.color};box-shadow:0 0 8px ${displayCol}66;">
+            ${t.isAuto ? '<span style="color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%;">★</span>' : ''}
+          </div>
+          <div class="theme-tile-label">${t.name}</div>
+        `;
+
+        tile.onclick = () => {
+          localPrefs.accentColor = t.id;
+          saveToLocalStorage();
+          applyThemeColor();
+          renderThemeTiles();
+          renderAll();
+          showToast(`Tema ${t.name} activată!`);
+        };
+
+        grid.appendChild(tile);
+      });
     }
 
     function unlockAdvancedSettings() {
@@ -3371,7 +3656,7 @@
         btnRemove.classList.toggle('hidden', !me.avatar);
       }
 
-      renderThemeSwatches();
+      renderThemeTiles();
       const myNameEl = document.getElementById('profMyNameDisplay');
       if (myNameEl) myNameEl.textContent = me.name;
 
