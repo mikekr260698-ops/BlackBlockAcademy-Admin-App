@@ -1,9 +1,11 @@
-const CACHE_NAME = 'blackblock-admin-v6';
+const CACHE_NAME = 'blackblock-admin-v8';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './apple-touch-icon.png',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
