@@ -4232,6 +4232,67 @@
      ********************************************************************/
     const WEBPUSHR_KEY = '813be8e56ea9b59a7c3c2c3b8f74c0fc';
     const WEBPUSHR_AUTH_TOKEN = '125610';
+    const WEBPUSHR_PUBLIC_KEY = 'BBWBt-isEvHcG1JdvD2RH6twD862qk1Ps73syo5iYihXOyfUW3i5mycytCPHVw3JdLM8yZ2gcDcQV8ongeTv3Ew';
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    async function subscribeToWebpushr() {
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        let sub = await reg.pushManager.getSubscription();
+        if (!sub) {
+          sub = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(WEBPUSHR_PUBLIC_KEY)
+          });
+        }
+        if (sub) {
+          const pKey = sub.getKey('p256dh');
+          const aKey = sub.getKey('auth');
+          const keyB64 = pKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(pKey))) : null;
+          const authB64 = aKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(aKey))) : null;
+          
+          const payload = {
+            endpoint: sub.endpoint,
+            key: keyB64,
+            token: authB64,
+            site_id: WEBPUSHR_PUBLIC_KEY,
+            type: 'POST',
+            timezone: new Date().getTimezoneOffset()
+          };
+
+          await fetch('https://subscriber.webpushr.com/subscribe/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const myId = localPrefs.myWorkerId || 'admin1';
+          const me = appState.profiles[myId] || { name: 'Admin' };
+          await fetch('https://bot.webpushr.com/subscribe/attributes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              endpoint: sub.endpoint,
+              site_id: WEBPUSHR_PUBLIC_KEY,
+              attributes: { workerId: myId, adminName: me.name }
+            })
+          }).catch(() => {});
+        }
+      } catch (err) {
+        console.warn('subscribeToWebpushr error:', err);
+      }
+    }
 
     function syncWebpushrUser() {
       try {
@@ -4243,13 +4304,22 @@
           });
         }
       } catch (ignore) {}
+      subscribeToWebpushr();
     }
 
     async function sendPushToColleague(title, message) {
       try {
         const myId = localPrefs.myWorkerId || 'admin1';
         const otherId = myId === 'admin1' ? 'admin2' : 'admin1';
-        await fetch('https://api.webpushr.com/v1/notification/send/attribute', {
+        const payload = {
+          title: title || '💬 Comentariu nou • BlackBlock',
+          message: message,
+          target_url: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/',
+          icon: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/apple-touch-icon.png'
+        };
+
+        // 1. Trimite către celălalt administrator
+        const res = await fetch('https://api.webpushr.com/v1/notification/send/attribute', {
           method: 'POST',
           headers: {
             'webpushrKey': WEBPUSHR_KEY,
@@ -4257,13 +4327,26 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            title: title || '🔔 BlackBlock Academy',
-            message: message,
-            target_url: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/',
-            icon: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/apple-touch-icon.png',
-            attribute: { 'workerId': otherId }
+            ...payload,
+            attribute: { workerId: otherId }
           })
         });
+        const data = await res.json();
+        console.log('Webpushr attribute send:', data);
+
+        // 2. Fallback dacă atributul celuilalt nu a fost încă sincronizat
+        if (data && (data.status === 'failure' || (data.description && data.description.includes('No subscriber')))) {
+          console.log('Fallback: sending broadcast push for new comment');
+          await fetch('https://api.webpushr.com/v1/notification/send/all', {
+            method: 'POST',
+            headers: {
+              'webpushrKey': WEBPUSHR_KEY,
+              'webpushrAuthToken': WEBPUSHR_AUTH_TOKEN,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+        }
       } catch (err) {
         console.warn('Webpushr push error:', err);
       }
@@ -4352,9 +4435,10 @@
         const perm = await Notification.requestPermission();
         if (perm === 'granted') {
           syncWebpushrUser();
+          await subscribeToWebpushr();
           const btn = document.getElementById('btnEnableNotifs');
           if (btn) btn.textContent = '✅ Notificări Active (Apasă pt Test)';
-          showToast('✅ Notificările sunt active! Trimit test pe ecran...');
+          showToast('✅ Notificările pentru comentarii sunt active! Trimit test...');
           // Trimite notificare nativă de test direct pe ecranul iPhone-ului
           if ('serviceWorker' in navigator) {
             const reg = await navigator.serviceWorker.ready;
@@ -4654,23 +4738,18 @@
       showToast('Ziua a fost salvată!');
       await pushToCloud();
 
-      // Trimite notificare Push în timp real pe iPhone-ul celuilalt administrator
+      // Notificare Push STRICT pentru comentarii lăsate celuilalt administrator
       try {
-        const myName = me ? me.name : 'Colegul';
-        let notifMsg = '';
-        if (savedWorkerId === 'both') {
-          notifMsg = `${myName} a semnat schimb dublu pentru ${savedDateKey}! (+500 MDL)`;
-        } else if (savedWorkerId === localPrefs.myWorkerId) {
-          notifMsg = `${myName} a semnat tura pentru ${savedDateKey}! (+500 MDL)`;
-        } else if (savedComment) {
-          notifMsg = `${myName} a lăsat un comentariu pentru ${savedDateKey}: "${savedComment.slice(0, 45)}"`;
-        } else if (savedLeads > 0 || savedSubs > 0) {
-          notifMsg = `${myName} (${savedDateKey}): +${savedLeads} lead-uri, +${savedSubs} abonamente!`;
+        const trimmed = (savedComment || '').trim();
+        if (trimmed) {
+          const myName = me ? me.name : 'Colegul';
+          const notifTitle = `💬 Comentariu de la ${myName}`;
+          const notifMsg = `"${trimmed.slice(0, 80)}${trimmed.length > 80 ? '...' : ''}" (${savedDateKey})`;
+          sendPushToColleague(notifTitle, notifMsg);
         }
-        if (notifMsg) {
-          sendPushToColleague('🔔 BlackBlock Academy', notifMsg);
-        }
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Comment push notification error:', e);
+      }
     }
 
     
@@ -4764,10 +4843,7 @@
       showToast(`Leafă luată înregistrată: -${formatMDL(amt)}!`);
       await pushToCloud();
 
-      try {
-        const myName = me ? me.name : 'Colegul';
-        sendPushToColleague('💸 Retragere Salariu BlackBlock', `${myName} a retras ${formatMDL(amt)} din bancă.`);
-      } catch (e) {}
+
     }
 
     async function deletePayoutRecord(pId) {
