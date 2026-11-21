@@ -2049,12 +2049,24 @@
 
         <!-- NOTIFICATIONS SETTINGS -->
         <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
-          <span class="field-label">🔔 Notificări Comentarii pe iPhone</span>
+          <span class="field-label">🔔 Notificări Push pe iPhone</span>
           <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
-            Afișează bulină roșie (badge) pe pictograma aplicației când colegul/colega lasă un comentariu:
+            Primești banner pe ecranul iPhone-ului când celălalt administrator semnează tura sau lasă comentarii:
           </p>
           <button type="button" id="btnEnableNotifs" class="secondary-btn" style="margin-top:0;" onclick="enableCommentNotifications()">
-            🔔 Activează Notificările & Bulina Roșie
+            🔔 Activează Notificările & Trimite Test
+          </button>
+          <div id="webpushr-subscription-button" style="margin-top:8px;"></div>
+        </div>
+
+        <!-- REFRESH APP CACHE -->
+        <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
+          <span class="field-label">🔄 Actualizare Forțată (Curățare Cache)</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+            Dacă vrei să forțezi descărcarea versiunii noi sau să reîncarci aplicația fără cache:
+          </p>
+          <button type="button" class="secondary-btn" style="margin-top:0;font-size:12px;" onclick="forceAppUpdate()">
+            🔄 Reîncarcă Versiunea Nouă a Aplicației
           </button>
         </div>
 
@@ -2929,7 +2941,27 @@
       await pullFromCloud(false);
     }
 
+    async function forceAppUpdate() {
+      showToast('Se curăță memoria cache & se reîncarcă...');
+      try {
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          for (const k of keys) await caches.delete(k);
+        }
+        if ('serviceWorker' in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          for (const r of regs) await r.unregister();
+        }
+      } catch (e) {}
+      setTimeout(() => {
+        window.location.href = window.location.origin + window.location.pathname + '?v=' + Date.now();
+      }, 300);
+    }
+
     async function triggerManualSync() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(r => r.update()).catch(() => {});
+      }
       if (!localPrefs.syncUrl) {
         switchTab('profile');
         showToast('Adaugă link-ul Google în secțiunea Profil & Sync');
@@ -4306,6 +4338,12 @@
     }
 
     async function enableCommentNotifications() {
+      // Daca exista butonul oficial Webpushr, il activam
+      const wpBtn = document.querySelector('#webpushr-subscription-button button, #webpushr-subscription-button input');
+      if (wpBtn) {
+        try { wpBtn.click(); } catch (e) {}
+      }
+
       if (!('Notification' in window)) {
         showToast('Notificările nu sunt suportate în această versiune.');
         return;

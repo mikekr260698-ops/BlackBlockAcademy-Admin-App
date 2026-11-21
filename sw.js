@@ -1,6 +1,6 @@
 importScripts('https://cdn.webpushr.com/sw-server.min.js');
 
-const CACHE_NAME = 'blackblock-admin-v18';
+const CACHE_NAME = 'blackblock-admin-v19';
 const ASSETS = [
   './',
   './index.html',
