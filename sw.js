@@ -1,11 +1,14 @@
-const CACHE_NAME = 'blackblock-admin-v16';
+importScripts('https://cdn.webpushr.com/sw-server.min.js');
+
+const CACHE_NAME = 'blackblock-admin-v17';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './apple-touch-icon.png',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './webpushr-sw.js'
 ];
 
 self.addEventListener('install', (event) => {
@@ -26,8 +29,8 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  // Nu interceptam cererile catre Google Script / Firebase (mereu live de pe internet)
-  if (url.origin !== location.origin) {
+  // Nu interceptam cererile catre Webpushr, Google Script, etc.
+  if (url.origin !== location.origin || url.pathname.includes('webpushr')) {
     return;
   }
   event.respondWith(
@@ -41,7 +44,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Suport Push Notifications native pe iOS / iPhone (Apple APNs Web Push)
+// Suport Push Notifications native pe iOS / iPhone (Apple APNs Web Push fallback)
 self.addEventListener('push', (event) => {
   let data = {
     title: '🔔 BlackBlock Academy',

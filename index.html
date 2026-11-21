@@ -14,6 +14,9 @@
   <link id="appleTouchIcon" rel="apple-touch-icon" href="./apple-touch-icon.png?v=12" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=12" />
 
+  <!-- WEBPUSHR PUSH NOTIFICATIONS FOR IPHONE (APNs) -->
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BBWBt-isEvHcG1JdvD2RH6twD862qk1Ps73syo5iYihXOyfUW3i5mycytCPHVw3JdLM8yZ2gcDcQV8ongeTv3Ew' });</script>
+
   <style>
     :root {
       --bg: #09090b;
@@ -2415,6 +2418,7 @@
 
       // Auto-sincronizare la deschiderea aplicației doar dacă utilizatorul este autentificat
       if (localPrefs.isLoggedIn) {
+        syncWebpushrUser();
         autoSyncOnOpen();
         if (activeTab === 'calendar') {
           setTimeout(markCommentsAsRead, 2000);
@@ -4173,6 +4177,48 @@
      ********************************************************************/
     
     /********************************************************************
+     * WEBPUSHR NOTIFICĂRI PUSH NATIVE IPHONE (APNs)
+     ********************************************************************/
+    const WEBPUSHR_KEY = '813be8e56ea9b59a7c3c2c3b8f74c0fc';
+    const WEBPUSHR_AUTH_TOKEN = '125610';
+
+    function syncWebpushrUser() {
+      try {
+        if (typeof webpushr !== 'undefined' && localPrefs.myWorkerId && appState.profiles[localPrefs.myWorkerId]) {
+          const me = appState.profiles[localPrefs.myWorkerId];
+          webpushr('setUserAttribute', {
+            'workerId': localPrefs.myWorkerId,
+            'adminName': me.name
+          });
+        }
+      } catch (ignore) {}
+    }
+
+    async function sendPushToColleague(title, message) {
+      try {
+        const myId = localPrefs.myWorkerId || 'admin1';
+        const otherId = myId === 'admin1' ? 'admin2' : 'admin1';
+        await fetch('https://api.webpushr.com/v1/notification/send/attribute', {
+          method: 'POST',
+          headers: {
+            'webpushrKey': WEBPUSHR_KEY,
+            'webpushrAuthToken': WEBPUSHR_AUTH_TOKEN,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: title || '🔔 BlackBlock Academy',
+            message: message,
+            target_url: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/',
+            icon: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/apple-touch-icon.png',
+            attribute: { 'workerId': otherId }
+          })
+        });
+      } catch (err) {
+        console.warn('Webpushr push error:', err);
+      }
+    }
+
+    /********************************************************************
      * NOTIFICĂRI COMENTARII & BADGE IPHONE
      ********************************************************************/
     let lastSeenCommentTime = Number(localStorage.getItem('bb_last_seen_comment') || 0);
@@ -4241,31 +4287,16 @@
     }
 
     async function enableCommentNotifications() {
-      if (!('Notification' in window)) {
-        showToast('Notificările pe iPhone necesită adăugarea pe Ecranul Principal (Add to Home Screen).');
-        return;
-      }
       try {
-        const perm = await Notification.requestPermission();
-        if (perm === 'granted') {
-          showToast('✅ Notificările sunt active pe iPhone!');
-          const btn = document.getElementById('btnEnableNotifs');
-          if (btn) btn.textContent = '✅ Notificări Active pe iPhone';
-          try {
-            if ('serviceWorker' in navigator) {
-              const reg = await navigator.serviceWorker.ready;
-              if (reg && reg.showNotification) {
-                reg.showNotification('🔔 BlackBlock Academy', {
-                  body: 'Notificările funcționează perfect pe ecranul iPhone-ului tău!',
-                  icon: './apple-touch-icon.png',
-                  badge: './apple-touch-icon.png'
-                });
-              }
-            }
-          } catch (e) {}
-        } else {
-          showToast('Permisiunea a fost refuzată din setările Safari.');
+        if (typeof webpushr !== 'undefined') {
+          webpushr('prompt');
+          syncWebpushrUser();
+        } else if ('Notification' in window) {
+          await Notification.requestPermission();
         }
+        showToast('🔔 Se activează notificările! Confirmă cu «Permite» pe ecran.');
+        const btn = document.getElementById('btnEnableNotifs');
+        if (btn) btn.textContent = '✅ Notificări Active pe iPhone';
       } catch (err) {
         showToast('Activează notificările din Setări iPhone -> Notificări -> BlackBlock.');
       }
@@ -4537,10 +4568,34 @@
         };
       }
 
+      const savedDateKey = editingDateKey;
+      const savedWorkerId = modalWorkerId;
+      const savedLeads = modalLeadsCount;
+      const savedSubs = modalSubsCount;
+      const savedComment = comment;
+
       closeDayModal();
       renderAll();
       showToast('Ziua a fost salvată!');
       await pushToCloud();
+
+      // Trimite notificare Push în timp real pe iPhone-ul celuilalt administrator
+      try {
+        const myName = me ? me.name : 'Colegul';
+        let notifMsg = '';
+        if (savedWorkerId === 'both') {
+          notifMsg = `${myName} a semnat schimb dublu pentru ${savedDateKey}! (+500 MDL)`;
+        } else if (savedWorkerId === localPrefs.myWorkerId) {
+          notifMsg = `${myName} a semnat tura pentru ${savedDateKey}! (+500 MDL)`;
+        } else if (savedComment) {
+          notifMsg = `${myName} a lăsat un comentariu pentru ${savedDateKey}: "${savedComment.slice(0, 45)}"`;
+        } else if (savedLeads > 0 || savedSubs > 0) {
+          notifMsg = `${myName} (${savedDateKey}): +${savedLeads} lead-uri, +${savedSubs} abonamente!`;
+        }
+        if (notifMsg) {
+          sendPushToColleague('🔔 BlackBlock Academy', notifMsg);
+        }
+      } catch (e) {}
     }
 
     
@@ -4633,6 +4688,11 @@
       closePayoutModal();
       showToast(`Leafă luată înregistrată: -${formatMDL(amt)}!`);
       await pushToCloud();
+
+      try {
+        const myName = me ? me.name : 'Colegul';
+        sendPushToColleague('💸 Retragere Salariu BlackBlock', `${myName} a retras ${formatMDL(amt)} din bancă.`);
+      } catch (e) {}
     }
 
     async function deletePayoutRecord(pId) {
