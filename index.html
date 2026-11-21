@@ -2416,16 +2416,27 @@
       // Auto-sincronizare la deschiderea aplicației doar dacă utilizatorul este autentificat
       if (localPrefs.isLoggedIn) {
         autoSyncOnOpen();
+        if (activeTab === 'calendar') {
+          setTimeout(markCommentsAsRead, 2000);
+        }
       }
 
       // Auto-sincronizare de fiecare dată când utilizatorul redeschide aplicația pe iPhone
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && localPrefs.isLoggedIn) {
           autoSyncOnOpen();
+          if (activeTab === 'calendar') {
+            setTimeout(markCommentsAsRead, 1200);
+          }
         }
       });
       window.addEventListener('focus', () => {
-        if (localPrefs.isLoggedIn) autoSyncOnOpen();
+        if (localPrefs.isLoggedIn) {
+          autoSyncOnOpen();
+          if (activeTab === 'calendar') {
+            setTimeout(markCommentsAsRead, 1200);
+          }
+        }
       });
 
       // Polling discret la fiecare 25 secunde cât timp aplicația e deschisă
@@ -4097,6 +4108,11 @@
       }
 
       highlightActiveColorSwatch(me.color);
+
+      const btnNotifs = document.getElementById('btnEnableNotifs');
+      if (btnNotifs && 'Notification' in window && Notification.permission === 'granted') {
+        btnNotifs.textContent = '✅ Notificări Active pe iPhone';
+      }
     }
 
     function renderColorSwatches() {
@@ -4226,20 +4242,32 @@
 
     async function enableCommentNotifications() {
       if (!('Notification' in window)) {
-        showToast('Notificările nu sunt suportate în acest browser.');
+        showToast('Notificările pe iPhone necesită adăugarea pe Ecranul Principal (Add to Home Screen).');
         return;
       }
       try {
         const perm = await Notification.requestPermission();
         if (perm === 'granted') {
-          showToast('Notificările sunt activate! Vei vedea bulina când apar comentarii noi.');
+          showToast('✅ Notificările sunt active pe iPhone!');
           const btn = document.getElementById('btnEnableNotifs');
-          if (btn) btn.textContent = '✅ Notificări Active';
+          if (btn) btn.textContent = '✅ Notificări Active pe iPhone';
+          try {
+            if ('serviceWorker' in navigator) {
+              const reg = await navigator.serviceWorker.ready;
+              if (reg && reg.showNotification) {
+                reg.showNotification('🔔 BlackBlock Academy', {
+                  body: 'Notificările funcționează perfect pe ecranul iPhone-ului tău!',
+                  icon: './apple-touch-icon.png',
+                  badge: './apple-touch-icon.png'
+                });
+              }
+            }
+          } catch (e) {}
         } else {
           showToast('Permisiunea a fost refuzată din setările Safari.');
         }
       } catch (err) {
-        showToast('Activează notificările din Setări iPhone -> Safari.');
+        showToast('Activează notificările din Setări iPhone -> Notificări -> BlackBlock.');
       }
     }
 
@@ -4286,6 +4314,7 @@
 
     function openDayModal(dateKey) {
       editingDateKey = dateKey;
+      markCommentsAsRead();
       const parts = dateKey.split('-');
       const y = Number(parts[0]);
       const m = Number(parts[1]) - 1;
