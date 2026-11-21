@@ -464,6 +464,25 @@
       line-height: 1;
     }
 
+    /* ASCUNDE COMPLET WIDGETUL CLOPOTEL ALBASTRU SI POPUP-URILE WEBPUSHR */
+    #webpushr-bell,
+    .webpushr-bell,
+    div[id*="webpushr-bell"],
+    div[class*="webpushr-bell"],
+    iframe[id*="webpushr"],
+    iframe[src*="webpushr"],
+    #webpushr-bell-widget,
+    .webpushr-prompt,
+    #webpushr-prompt,
+    .webpushr-optin-box {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
     /* QUICK ACTION BANNER */
     .quick-sign-card {
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.16), rgba(236, 72, 153, 0.1));
@@ -4115,7 +4134,7 @@
 
       const btnNotifs = document.getElementById('btnEnableNotifs');
       if (btnNotifs && 'Notification' in window && Notification.permission === 'granted') {
-        btnNotifs.textContent = '✅ Notificări Active pe iPhone';
+        btnNotifs.textContent = '✅ Notificări Active (Apasă pt Test)';
       }
     }
 
@@ -4287,18 +4306,36 @@
     }
 
     async function enableCommentNotifications() {
+      if (!('Notification' in window)) {
+        showToast('Notificările nu sunt suportate în această versiune.');
+        return;
+      }
       try {
-        if (typeof webpushr !== 'undefined') {
-          webpushr('prompt');
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
           syncWebpushrUser();
-        } else if ('Notification' in window) {
-          await Notification.requestPermission();
+          const btn = document.getElementById('btnEnableNotifs');
+          if (btn) btn.textContent = '✅ Notificări Active (Apasă pt Test)';
+          showToast('✅ Notificările sunt active! Trimit test pe ecran...');
+          // Trimite notificare nativă de test direct pe ecranul iPhone-ului
+          if ('serviceWorker' in navigator) {
+            const reg = await navigator.serviceWorker.ready;
+            if (reg && reg.showNotification) {
+              reg.showNotification('🔔 BlackBlock Academy', {
+                body: 'Notificările funcționează perfect pe ecranul iPhone-ului tău!',
+                icon: './apple-touch-icon.png',
+                badge: './apple-touch-icon.png',
+                vibrate: [200, 100, 200]
+              });
+            }
+          }
+        } else if (perm === 'denied') {
+          showToast('Notificările sunt oprite în iOS. Mergi în Setări iPhone -> Notificări -> BlackBlock.');
+        } else {
+          showToast('Permisiunea nu a fost confirmată.');
         }
-        showToast('🔔 Se activează notificările! Confirmă cu «Permite» pe ecran.');
-        const btn = document.getElementById('btnEnableNotifs');
-        if (btn) btn.textContent = '✅ Notificări Active pe iPhone';
       } catch (err) {
-        showToast('Activează notificările din Setări iPhone -> Notificări -> BlackBlock.');
+        showToast('Eroare: ' + (err.message || err));
       }
     }
 
