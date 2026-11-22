@@ -15,7 +15,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=12" />
 
   <!-- WEBPUSHR PUSH NOTIFICATIONS FOR IPHONE (APNs) -->
-  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk-alternative'));webpushr('init','BBWBt-isEvHcG1JdvD2RH6twD862qk1Ps73syo5iYihXOyfUW3i5mycytCPHVw3JdLM8yZ2gcDcQV8ongeTv3Ew','https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/webpushr-sw.js','/BlackBlockAcademy-Admin-App/');</script>
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk-alternative'));webpushr('init','BBWBt-isEvHcG1JdvD2RH6twD862qk1Ps73syo5iYihXOyfUW3i5mycytCPHVw3JdLM8yZ2gcDcQV8ongeTv3Ew','https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/sw.js','/BlackBlockAcademy-Admin-App/');</script>
 
   <style>
     :root {
@@ -1704,55 +1704,55 @@
       <div class="login-brand">
         <div class="login-logo">BB</div>
         <div class="login-title">BlackBlock Academy</div>
-        <div class="login-sub">Conturi Administratori • Școala Muzicală</div>
+        <div class="login-sub" data-i18n="login_sub">Conturi Administratori • Școala Muzicală</div>
       </div>
 
       <div id="authAccountsStatus" class="auth-status-pill">Conturi create: 0/2</div>
 
       <div class="auth-tabs">
-        <button id="authTabLogin" type="button" class="auth-tab-btn active" onclick="switchAuthMode('login')">🔑 Intră în Cont</button>
-        <button id="authTabRegister" type="button" class="auth-tab-btn" onclick="switchAuthMode('register')">✨ Creează Cont</button>
+        <button id="authTabLogin" type="button" class="auth-tab-btn active" onclick="switchAuthMode('login')" data-i18n="auth_tab_login">🔑 Intră în Cont</button>
+        <button id="authTabRegister" type="button" class="auth-tab-btn" onclick="switchAuthMode('register')" data-i18n="auth_tab_register">✨ Creează Cont</button>
       </div>
 
       <div id="loginErrorMsg" class="login-error hidden"></div>
 
       <!-- LOGIN FORM -->
       <div id="authFormLogin">
-        <span class="field-label">Nume Utilizator (Username)</span>
-        <input id="loginUsernameInput" type="text" class="text-input" autocapitalize="none" autocomplete="username" placeholder="Nume utilizator (ex: mihail)" />
+        <span class="field-label" data-i18n="lbl_username">Nume Utilizator (Username)</span>
+        <input id="loginUsernameInput" type="text" class="text-input" autocapitalize="none" autocomplete="username" placeholder="Nume utilizator (ex: mihail)" data-i18n-placeholder="ph_username" />
 
-        <span class="field-label">Parola Ta Personală</span>
-        <input id="loginPersonalPassInput" type="password" class="text-input" autocomplete="current-password" placeholder="Parola ta personală" onkeydown="if(event.key==='Enter')handleAccountLogin()" />
+        <span class="field-label" data-i18n="lbl_personal_pass">Parola Ta Personală</span>
+        <input id="loginPersonalPassInput" type="password" class="text-input" autocomplete="current-password" placeholder="Parola ta personală" data-i18n-placeholder="ph_personal_pass" onkeydown="if(event.key==='Enter')handleAccountLogin()" />
 
         <div id="loginSchoolCodeWrap">
-          <span class="field-label">Cod de Acces BlackBlock</span>
-          <input id="loginSchoolCodeInput" type="password" class="text-input" placeholder="Introdu codul de acces al școlii" onkeydown="if(event.key==='Enter')handleAccountLogin()" />
+          <span class="field-label" data-i18n="lbl_school_code">Cod de Acces BlackBlock</span>
+          <input id="loginSchoolCodeInput" type="password" class="text-input" placeholder="Introdu codul de acces al școlii" data-i18n-placeholder="ph_school_code" onkeydown="if(event.key==='Enter')handleAccountLogin()" />
         </div>
-        <button id="toggleLoginSchoolCode" type="button" class="inline-link-btn hidden" onclick="revealLoginSchoolCode()">Schimbă codul școlii</button>
+        <button id="toggleLoginSchoolCode" type="button" class="inline-link-btn hidden" onclick="revealLoginSchoolCode()" data-i18n="btn_change_school_code">Schimbă codul școlii</button>
 
-        <button id="loginSubmitBtn" type="button" class="primary-btn" onclick="handleAccountLogin()">🔑 Intră în Cont</button>
+        <button id="loginSubmitBtn" type="button" class="primary-btn" onclick="handleAccountLogin()" data-i18n="btn_login_submit">🔑 Intră în Cont</button>
       </div>
 
       <!-- REGISTER FORM -->
       <div id="authFormRegister" class="hidden">
-        <span class="field-label">Numele Tău Afișat</span>
-        <input id="regNameInput" type="text" class="text-input" placeholder="Numele tău afișat (ex: Mihail / Elena)" />
+        <span class="field-label" data-i18n="lbl_display_name">Numele Tău Afișat</span>
+        <input id="regNameInput" type="text" class="text-input" placeholder="Numele tău afișat (ex: Mihail / Elena)" data-i18n-placeholder="ph_display_name" />
 
-        <span class="field-label">Nume Utilizator pentru Login (fără spații)</span>
-        <input id="regUsernameInput" type="text" class="text-input" autocapitalize="none" autocomplete="username" placeholder="Nume utilizator (ex: mihail)" />
+        <span class="field-label" data-i18n="lbl_reg_username">Nume Utilizator pentru Login (fără spații)</span>
+        <input id="regUsernameInput" type="text" class="text-input" autocapitalize="none" autocomplete="username" placeholder="Nume utilizator (ex: mihail)" data-i18n-placeholder="ph_username" />
 
-        <span class="field-label">Parola Ta Personală</span>
-        <input id="regPassInput" type="password" class="text-input" autocomplete="new-password" placeholder="Parola ta personală (min. 4 caractere)" />
+        <span class="field-label" data-i18n="lbl_personal_pass">Parola Ta Personală</span>
+        <input id="regPassInput" type="password" class="text-input" autocomplete="new-password" placeholder="Parola ta personală (min. 4 caractere)" data-i18n-placeholder="ph_new_pass" />
 
-        <span class="field-label">Alege Culoarea Cercului Tău</span>
+        <span class="field-label" data-i18n="lbl_reg_color">Alege Culoarea Cercului Tău</span>
         <div id="regColorSwatchesGrid" class="color-grid"></div>
 
         <div id="regSchoolCodeWrap">
-          <span class="field-label">Cod de Acces BlackBlock</span>
-          <input id="regSchoolCodeInput" type="password" class="text-input" placeholder="Introdu codul de acces al școlii" onkeydown="if(event.key==='Enter')handleAccountRegister()" />
+          <span class="field-label" data-i18n="lbl_school_code">Cod de Acces BlackBlock</span>
+          <input id="regSchoolCodeInput" type="password" class="text-input" placeholder="Introdu codul de acces al școlii" data-i18n-placeholder="ph_school_code" onkeydown="if(event.key==='Enter')handleAccountRegister()" />
         </div>
 
-        <button id="regSubmitBtn" type="button" class="primary-btn" onclick="handleAccountRegister()">✨ Creează Contul Meu</button>
+        <button id="regSubmitBtn" type="button" class="primary-btn" onclick="handleAccountRegister()" data-i18n="btn_reg_submit">✨ Creează Contul Meu</button>
       </div>
     </div>
   </div>
@@ -1773,7 +1773,7 @@
     </div>
 
     <div class="header-actions">
-      <button class="sync-btn" onclick="triggerManualSync()" title="Sincronizează acum">↻</button>
+      <button id="btnManualSync" class="sync-btn" onclick="triggerManualSync()" title="Sincronizează acum">↻</button>
       <div class="me-pill" onclick="switchTab('profile')">
         <span id="headerMeCircle" class="circle-dot" style="background: #8b5cf6;">M</span>
         <span id="headerMeName">Profil</span>
@@ -1789,7 +1789,7 @@
       <button class="month-nav-btn" onclick="changeMonth(-1)">‹</button>
       <div class="month-label-wrap" onclick="goToCurrentMonth()" style="cursor:pointer;">
         <div id="currentMonthLabel" class="month-label">Noiembrie 2026</div>
-        <div class="month-sub">Schimb 12 ore • 500 MDL / tură</div>
+        <div id="monthSubLabel" class="month-sub" data-i18n="month_sub">Schimb 12 ore • 500 MDL / tură</div>
       </div>
       <button class="month-nav-btn" onclick="changeMonth(1)">›</button>
     </div>
@@ -1853,41 +1853,41 @@
             <div id="statHeroCircle" class="legend-circle" style="width:34px;height:34px;font-size:13px;background:#8b5cf6;">M</div>
             <div>
               <div id="statHeroName" style="font-size:15px;font-weight:800;">Mihail</div>
-              <div class="bank-hero-title">EVIDENȚĂ SALARIU & BANCĂ</div>
+              <div class="bank-hero-title" data-i18n="bank_subtitle">EVIDENȚĂ SALARIU & BANCĂ</div>
             </div>
           </div>
-          <span class="bank-badge">De Încasat</span>
+          <span class="bank-badge" data-i18n="bank_badge">De Încasat</span>
         </div>
-        <div class="bank-hero-title" style="margin-top:4px;">🏦 RĂMAS ÎN BANCĂ (SOLD)</div>
+        <div class="bank-hero-title" style="margin-top:4px;" data-i18n="bank_remaining_title">🏦 RĂMAS ÎN BANCĂ (SOLD)</div>
         <div id="statBankBalance" class="bank-hero-val">0 MDL</div>
         <div id="statBankSub" class="bank-hero-sub">Total Câștigat: 0 MDL • Retras deja: 0 MDL</div>
-        <button type="button" class="payout-action-btn" onclick="openPayoutModal()">
+        <button type="button" class="payout-action-btn" onclick="openPayoutModal()" data-i18n-html="btn_took_salary_html">
           <span style="font-size:16px;">💸</span> Am luat leafa (Înregistrează Retragere)
         </button>
       </div>
 
       <!-- MONTHLY ACCUMULATED SALARY -->
       <div class="hero-salary-card">
-        <div class="hero-label">Salariu Luna Selectată</div>
+        <div class="hero-label" data-i18n="stat_month_salary_lbl">Salariu Luna Selectată</div>
         <div id="statSalaryMDL" class="hero-amount">0 MDL</div>
         <div id="statSalaryFormula" class="hero-sub">0 schimburi × 500 MDL (12 ore / schimb)</div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="stat-box-label">SCHIMBURI (LUNĂ)</div>
+          <div class="stat-box-label" data-i18n="stat_shifts_lbl">SCHIMBURI (LUNĂ)</div>
           <div id="statShiftsCount" class="stat-box-value">0</div>
-          <div class="stat-box-sub">Ture a câte 500 MDL</div>
+          <div class="stat-box-sub" data-i18n="stat_shifts_sub">Ture a câte 500 MDL</div>
         </div>
         <div class="stat-box">
-          <div class="stat-box-label">ORE LUCRATE (LUNĂ)</div>
+          <div class="stat-box-label" data-i18n="stat_hours_lbl">ORE LUCRATE (LUNĂ)</div>
           <div id="statHoursCount" class="stat-box-value">0h</div>
-          <div class="stat-box-sub">12 ore pe schimb</div>
+          <div class="stat-box-sub" data-i18n="stat_hours_sub">12 ore pe schimb</div>
         </div>
         <div class="stat-box">
-          <div class="stat-box-label">CLIENȚI NOI (LEAD-URI)</div>
+          <div class="stat-box-label" data-i18n="stat_leads_lbl">CLIENȚI NOI (LEAD-URI)</div>
           <div id="statLeadsCount" class="stat-box-value" style="color:var(--success);">0</div>
-          <div class="stat-box-sub">Închiși în această lună</div>
+          <div class="stat-box-sub" data-i18n="stat_leads_sub">Închiși în această lună</div>
         </div>
         <div class="stat-box">
           <div id="lblStatSubsTitle" class="stat-box-label">ABONAMENTE ÎNCHEIATE</div>
@@ -1898,13 +1898,13 @@
 
       <!-- Payouts History Feed -->
       <div class="section-title">
-        <span>💸 Istoric Leafă Luată (Retrageri)</span>
+        <span data-i18n="sec_payouts_history">💸 Istoric Leafă Luată (Retrageri)</span>
       </div>
       <div id="myPayoutsList" class="feed-list"></div>
 
       <!-- Worked Days Feed -->
       <div class="section-title">
-        <span>📅 Schimburi lucrate în această lună</span>
+        <span data-i18n="sec_worked_days">📅 Schimburi lucrate în această lună</span>
       </div>
       <div id="myWorkedDaysList" class="feed-list"></div>
     </section>
@@ -1915,13 +1915,13 @@
         <div class="vs-player">
           <div id="vsCircle1" class="vs-circle" style="background:#8b5cf6;">M</div>
           <div id="vsName1" class="vs-name">Mihail</div>
-          <div class="vs-role">Administrator</div>
+          <div class="vs-role" data-i18n="role_admin">Administrator</div>
         </div>
         <div class="vs-badge">VS</div>
         <div class="vs-player">
           <div id="vsCircle2" class="vs-circle" style="background:#ec4899;">C</div>
           <div id="vsName2" class="vs-name">Colega</div>
-          <div class="vs-role">Administrator</div>
+          <div class="vs-role" data-i18n="role_admin">Administrator</div>
         </div>
       </div>
 
@@ -1930,15 +1930,15 @@
 
       <!-- Total BlackBlock Academy Summary -->
       <div class="profile-card" style="margin-top: 14px;">
-        <div class="field-label" style="margin-bottom:10px;">🏫 Total BlackBlock Academy (Ambii Admini)</div>
+        <div class="field-label" style="margin-bottom:10px;" data-i18n="comp_school_total">🏫 Total BlackBlock Academy (Ambii Admini)</div>
         <div class="stats-grid" style="margin-bottom:0;">
           <div class="stat-box">
-            <div class="stat-box-label">TOTAL SCHIMBURI</div>
+            <div class="stat-box-label" data-i18n="comp_total_shifts_lbl">TOTAL SCHIMBURI</div>
             <div id="totalSchoolShifts" class="stat-box-value">0</div>
             <div id="totalSchoolHours" class="stat-box-sub">0 ore acoperite</div>
           </div>
           <div class="stat-box">
-            <div class="stat-box-label">TOTAL LEAD-URI ȘCOALĂ</div>
+            <div class="stat-box-label" data-i18n="comp_total_leads_lbl">TOTAL LEAD-URI ȘCOALĂ</div>
             <div id="totalSchoolLeads" class="stat-box-value" style="color:var(--success);">0</div>
             <div id="totalSchoolPay" class="stat-box-sub">Buget ture: 0 MDL</div>
           </div>
@@ -1968,7 +1968,7 @@
       </div>
       <!-- 1. PERSONAL PROFILE & AVATAR -->
       <div class="profile-card">
-        <span class="field-label">1. Profilul Tău & Poză Avatar</span>
+        <span class="field-label" data-i18n="prof_sec1_title">1. Profilul Tău & Poză Avatar</span>
         <div class="account-summary-box">
           <div id="profMyCircle" class="legend-circle" style="width:52px;height:52px;font-size:18px;">M</div>
           <div style="min-width:0;flex:1;">
@@ -1979,29 +1979,29 @@
         </div>
 
         <!-- AVATAR PHOTO PICKER -->
-        <span class="field-label">Poză de Profil (Avatar)</span>
+        <span class="field-label" data-i18n="prof_avatar_lbl">Poză de Profil (Avatar)</span>
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
           <input id="avatarFileInput" type="file" accept="image/*" class="hidden" onchange="handleAvatarFileSelect(event)" />
-          <button type="button" class="secondary-btn" style="margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;" onclick="document.getElementById('avatarFileInput').click()">
+          <button type="button" class="secondary-btn" style="margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;" onclick="document.getElementById('avatarFileInput').click()" data-i18n-html="btn_upload_avatar_html">
             <span>📷</span> Încarcă / Schimbă Poza
           </button>
-          <button id="btnRemoveAvatar" type="button" class="secondary-btn hidden" style="margin-top:0;color:var(--danger);border-color:rgba(239,68,68,0.3);width:auto;padding:10px 14px;" onclick="removeMyAvatar()">
+          <button id="btnRemoveAvatar" type="button" class="secondary-btn hidden" style="margin-top:0;color:var(--danger);border-color:rgba(239,68,68,0.3);width:auto;padding:10px 14px;" onclick="removeMyAvatar()" data-i18n="btn_delete_avatar">
             🗑️ Șterge
           </button>
         </div>
 
-        <span class="field-label">Numele Tău Afișat</span>
+        <span class="field-label" data-i18n="lbl_display_name">Numele Tău Afișat</span>
         <input id="inputMyName" type="text" class="text-input" placeholder="Ex: Mike / Yanna" oninput="updateMyProfileLive()" />
 
-        <span class="field-label">Alege Culoarea Cercului & Profilului Tău</span>
+        <span class="field-label" data-i18n="prof_color_lbl">Alege Culoarea Cercului & Profilului Tău</span>
         <div id="colorSwatchesGrid" class="color-grid"></div>
 
-        <button class="primary-btn" onclick="saveProfilesAndSync()">Salvează Profilul & Culoarea</button>
+        <button class="primary-btn" onclick="saveProfilesAndSync()" data-i18n="btn_save_profile">Salvează Profilul & Culoarea</button>
 
         <!-- THEMES, BUTTONS & BACKGROUND CUSTOMIZATION -->
         <div style="border-top:1px solid var(--border);margin-top:18px;padding-top:16px;">
-          <span class="field-label" style="font-size:14px;color:var(--text);margin-bottom:4px;">🎨 Culoare Butoane & Teme Aplicație</span>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+          <span class="field-label" style="font-size:14px;color:var(--text);margin-bottom:4px;" data-i18n="theme_btn_title">🎨 Culoare Butoane & Teme Aplicație</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;" data-i18n="theme_btn_desc">
             Alege culoarea dorită pentru butoane, acțiuni și accente:
           </p>
           <div id="buttonColorTilesGrid" class="theme-tiles-grid"></div>
@@ -2009,7 +2009,7 @@
           <!-- Custom Color Picker for Buttons -->
           <div style="display:flex;align-items:center;justify-content:space-between;background:var(--card-elevated);border:1px solid var(--border);padding:10px 14px;border-radius:14px;margin-bottom:12px;">
             <div>
-              <div style="font-size:13px;font-weight:700;">Alege Oricare Culoare Personalizată</div>
+              <div style="font-size:13px;font-weight:700;" data-i18n="theme_custom_btn_title">Alege Oricare Culoare Personalizată</div>
               <div style="font-size:11px;color:var(--text-muted);" id="currentButtonColorLabel">Selectează din paletă orice nuanță dorești</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;">
@@ -2018,19 +2018,19 @@
           </div>
 
           <!-- Bottom Nav Button Style Switcher -->
-          <span class="field-label" style="margin-top:14px;">🔘 Stil Butoane Navigare de Jos</span>
+          <span class="field-label" style="margin-top:14px;" data-i18n="theme_nav_style_lbl">🔘 Stil Butoane Navigare de Jos</span>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
-            <button type="button" id="btnModeUnicolor" class="secondary-btn" style="margin-top:0;font-size:12px;padding:10px 6px;font-weight:700;" onclick="setButtonColorMode('unicolor')">
+            <button type="button" id="btnModeUnicolor" class="secondary-btn" style="margin-top:0;font-size:12px;padding:10px 6px;font-weight:700;" onclick="setButtonColorMode('unicolor')" data-i18n="btn_mode_unicolor">
               ✨ Culoare Unică (Toate)
             </button>
-            <button type="button" id="btnModeMulticolor" class="secondary-btn" style="margin-top:0;font-size:12px;padding:10px 6px;font-weight:700;" onclick="setButtonColorMode('multicolor')">
+            <button type="button" id="btnModeMulticolor" class="secondary-btn" style="margin-top:0;font-size:12px;padding:10px 6px;font-weight:700;" onclick="setButtonColorMode('multicolor')" data-i18n="btn_mode_multicolor">
               🌈 Colorate / Vibrant
             </button>
           </div>
 
           <!-- Background Themes Section -->
-          <span class="field-label" style="margin-top:14px;font-size:14px;color:var(--text);margin-bottom:4px;">🌌 Tema Fundalului (Background Theme)</span>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+          <span class="field-label" style="margin-top:14px;font-size:14px;color:var(--text);margin-bottom:4px;" data-i18n="theme_bg_title">🌌 Tema Fundalului (Background Theme)</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;" data-i18n="theme_bg_desc">
             Alege atmosfera fundalului pentru aplicație:
           </p>
           <div id="bgThemeTilesGrid" class="theme-tiles-grid"></div>
@@ -2038,7 +2038,7 @@
           <!-- Custom Background Color Picker -->
           <div style="display:flex;align-items:center;justify-content:space-between;background:var(--card-elevated);border:1px solid var(--border);padding:10px 14px;border-radius:14px;margin-bottom:10px;">
             <div>
-              <div style="font-size:13px;font-weight:700;">Fundal Personalizat (Orice Culoare)</div>
+              <div style="font-size:13px;font-weight:700;" data-i18n="theme_custom_bg_title">Fundal Personalizat (Orice Culoare)</div>
               <div style="font-size:11px;color:var(--text-muted);" id="currentBgColorLabel">Paletă completă pentru fundal</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;">
@@ -2049,79 +2049,80 @@
 
         <!-- NOTIFICATIONS SETTINGS -->
         <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
-          <span class="field-label">🔔 Notificări Push pe iPhone</span>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
-            Primești banner pe ecranul iPhone-ului când celălalt administrator semnează tura sau lasă comentarii:
+          <span class="field-label" data-i18n="notif_title">🔔 Notificări Comentarii pe iPhone</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;" data-i18n="notif_desc">
+            Primești notificare Push pe iPhone DOAR când celălalt administrator lasă sau modifică un comentariu:
           </p>
           <button type="button" id="btnEnableNotifs" class="secondary-btn" style="margin-top:0;" onclick="enableCommentNotifications()">
             🔔 Activează Notificările & Trimite Test
           </button>
           <div id="webpushr-subscription-button" style="margin-top:8px;"></div>
+          <div id="pushStatusBox" style="font-size:11.5px;color:var(--text-muted);background:var(--card-elevated);border:1px solid var(--border);border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.45;"></div>
         </div>
 
         <!-- REFRESH APP CACHE -->
         <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
-          <span class="field-label">🔄 Actualizare Forțată (Curățare Cache)</span>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+          <span class="field-label" data-i18n="cache_title">🔄 Actualizare Forțată (Curățare Cache)</span>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;" data-i18n="cache_desc">
             Dacă vrei să forțezi descărcarea versiunii noi sau să reîncarci aplicația fără cache:
           </p>
-          <button type="button" class="secondary-btn" style="margin-top:0;font-size:12px;" onclick="forceAppUpdate()">
+          <button type="button" class="secondary-btn" style="margin-top:0;font-size:12px;" onclick="forceAppUpdate()" data-i18n="btn_force_update">
             🔄 Reîncarcă Versiunea Nouă a Aplicației
           </button>
         </div>
 
         <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
-          <span class="field-label">Schimbă Parola Ta Personală</span>
-          <input id="inputNewPersonalPass" type="password" class="text-input" autocomplete="new-password" placeholder="Parolă nouă (min. 4 caractere)" />
-          <button class="secondary-btn" style="margin-top:0;" onclick="changeMyPersonalPassword()">🔒 Actualizează Parola Mea</button>
+          <span class="field-label" data-i18n="pass_change_lbl">Schimbă Parola Ta Personală</span>
+          <input id="inputNewPersonalPass" type="password" class="text-input" autocomplete="new-password" placeholder="Parolă nouă (min. 4 caractere)" data-i18n-placeholder="ph_pass_min4" />
+          <button class="secondary-btn" style="margin-top:0;" onclick="changeMyPersonalPassword()" data-i18n="btn_update_pass">🔒 Actualizează Parola Mea</button>
         </div>
       </div>
 
       <!-- 2. CLOUD SYNC (GOOGLE DRIVE) - PROTEJAT CU PAROLĂ blackblock2026 -->
       <div class="profile-card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-          <span class="field-label" style="margin-bottom:0;">☁️ 2. Conexiune & Sincronizare Google Drive</span>
-          <span id="syncLockBadge" class="badge-lock">🔒 Protejat</span>
+          <span class="field-label" style="margin-bottom:0;" data-i18n="cloud_sec2_title">☁️ 2. Conexiune & Sincronizare Google Drive</span>
+          <span id="syncLockBadge" class="badge-lock" data-i18n="badge_locked">🔒 Protejat</span>
         </div>
         
         <div id="driveFolderStatusBadge" class="drive-badge">📁 Conectat la Google Drive: ADMIN APP BACKUP</div>
 
         <!-- LOCKED VIEW (DEFAULT) -->
         <div id="syncLockedView" style="margin-top:12px;">
-          <p style="font-size:12px;color:var(--text-muted);line-height:1.45;margin-bottom:12px;">
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.45;margin-bottom:12px;" data-i18n="cloud_locked_desc">
             Setările tehnice de conexiune sunt blocate pentru a preveni deconectarea sau modificarea accidentală. Pentru deblocare, introdu parola școlii.
           </p>
           <div style="display:flex;gap:8px;">
-            <input id="inputUnlockPass" type="password" class="text-input" placeholder="Parola (blackblock2026)" style="margin-bottom:0;" onkeydown="if(event.key==='Enter')unlockAdvancedSettings()" />
-            <button type="button" class="primary-btn" style="width:auto;white-space:nowrap;padding:10px 14px;margin:0;" onclick="unlockAdvancedSettings()">🔓 Deblochează</button>
+            <input id="inputUnlockPass" type="password" class="text-input" placeholder="Parola (blackblock2026)" data-i18n-placeholder="ph_unlock_pass" style="margin-bottom:0;" onkeydown="if(event.key==='Enter')unlockAdvancedSettings()" />
+            <button type="button" class="primary-btn" style="width:auto;white-space:nowrap;padding:10px 14px;margin:0;" onclick="unlockAdvancedSettings()" data-i18n="btn_unlock">🔓 Deblochează</button>
           </div>
-          <div id="unlockErrorMsg" style="font-size:11px;color:var(--danger);margin-top:6px;display:none;">Parolă incorectă!</div>
+          <div id="unlockErrorMsg" style="font-size:11px;color:var(--danger);margin-top:6px;display:none;" data-i18n="err_wrong_pass">Parolă incorectă!</div>
         </div>
 
         <!-- UNLOCKED VIEW (SHOWN ONLY AFTER TYPING blackblock2026) -->
         <div id="syncUnlockedView" class="hidden" style="margin-top:12px;">
-          <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:8px 10px;margin-bottom:12px;font-size:11px;color:#fca5a5;">
+          <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:8px 10px;margin-bottom:12px;font-size:11px;color:#fca5a5;" data-i18n-html="cloud_warn_html">
             ⚠️ <strong>Atenție:</strong> Modificarea acestor câmpuri poate întrerupe sincronizarea automată dintre voi.
           </div>
 
-          <span class="field-label">Link Bază de Date Google (Web App URL)</span>
+          <span class="field-label" data-i18n="cloud_url_lbl">Link Bază de Date Google (Web App URL)</span>
           <input id="inputSyncUrl" type="url" class="text-input" placeholder="https://script.google.com/macros/s/.../exec" />
 
-          <span class="field-label">Cod de Acces BlackBlock</span>
-          <input id="inputTeamPass" type="password" class="text-input" placeholder="Codul de acces al școlii" />
+          <span class="field-label" data-i18n="lbl_school_code">Cod de Acces BlackBlock</span>
+          <input id="inputTeamPass" type="password" class="text-input" placeholder="Codul de acces al școlii" data-i18n-placeholder="ph_school_code_short" />
 
-          <button class="primary-btn" onclick="saveSyncUrlAndTest()">Conectează & Sincronizează Acum</button>
-          <button id="openDriveFolderBtn" class="secondary-btn" onclick="openDriveBackupFolder()">📁 Deschide Folderul ADMIN APP BACKUP</button>
-          <button class="secondary-btn" onclick="shareMagicLinkWithColleague()">📲 Trimite Aplicația Colegei</button>
-          <button class="secondary-btn" onclick="copyGoogleAppsScriptCode()">📋 Copiază Codul pentru Google Drive & Sheets</button>
-          <button class="secondary-btn" style="color:var(--text-muted);border-color:var(--border);" onclick="lockAdvancedSettings()">🔒 Blochează din Nou</button>
+          <button class="primary-btn" onclick="saveSyncUrlAndTest()" data-i18n="btn_connect_sync">Conectează & Sincronizează Acum</button>
+          <button id="openDriveFolderBtn" class="secondary-btn" onclick="openDriveBackupFolder()" data-i18n="btn_open_drive">📁 Deschide Folderul ADMIN APP BACKUP</button>
+          <button class="secondary-btn" onclick="shareMagicLinkWithColleague()" data-i18n="btn_share_app">📲 Trimite Aplicația Colegei</button>
+          <button class="secondary-btn" onclick="copyGoogleAppsScriptCode()" data-i18n="btn_copy_gas">📋 Copiază Codul pentru Google Drive & Sheets</button>
+          <button class="secondary-btn" style="color:var(--text-muted);border-color:var(--border);" onclick="lockAdvancedSettings()" data-i18n="btn_lock_again">🔒 Blochează din Nou</button>
         </div>
       </div>
 
       <!-- IPHONE INSTALL GUIDE -->
       <div class="profile-card">
-        <span class="field-label">📱 Cum o pui pe ecranul iPhone-ului (Fără App Store)</span>
-        <ol style="font-size:13px;color:#e2e8f0;line-height:1.6;padding-left:18px;">
+        <span class="field-label" data-i18n="guide_title">📱 Cum o pui pe ecranul iPhone-ului (Fără App Store)</span>
+        <ol id="iphoneGuideList" style="font-size:13px;color:#e2e8f0;line-height:1.6;padding-left:18px;" data-i18n-html="guide_list_html">
           <li>Deschide link-ul aplicației în <strong>Safari</strong> pe iPhone.</li>
           <li>Apasă jos pe butonul <strong>Share (Partajare)</strong> <span style="background:#27272a;padding:2px 6px;border-radius:6px;">↑</span>.</li>
           <li>Alege <strong>Add to Home Screen (Adaugă la ecranul principal)</strong>.</li>
@@ -2131,7 +2132,7 @@
 
       <!-- LOGOUT -->
       <div class="profile-card">
-        <button class="secondary-btn logout-btn" style="margin-top:0;" onclick="logoutUser()">🚪 Deconectare (Logout)</button>
+        <button class="secondary-btn logout-btn" style="margin-top:0;" onclick="logoutUser()" data-i18n="btn_logout">🚪 Deconectare (Logout)</button>
       </div>
     </section>
 
@@ -2144,7 +2145,7 @@
       <div class="sheet-header">
         <div>
           <div id="modalDateTitle" class="sheet-title">19 Noiembrie 2026</div>
-          <div style="font-size:12px;color:var(--text-muted);">Schimb 12 ore • 500 MDL</div>
+          <div style="font-size:12px;color:var(--text-muted);" data-i18n="modal_shift_sub">Schimb 12 ore • 500 MDL</div>
         </div>
         <button class="sheet-close" onclick="closeDayModal()">✕</button>
       </div>
@@ -2166,17 +2167,17 @@
 
       <!-- Worker Selector for other admin or both -->
       <div style="border-top:1px solid var(--border);padding-top:10px;">
-        <span class="field-label">Sau alege alt administrator / ambii:</span>
+        <span class="field-label" data-i18n="modal_alt_worker_lbl">Sau alege alt administrator / ambii:</span>
         <div class="worker-select-grid">
           <div id="modalOptAdmin1" class="worker-option" onclick="selectModalWorker('admin1')">
             <div id="modalCircle1" class="legend-circle" style="width:34px;height:34px;font-size:13px;">M</div>
             <div id="modalName1" class="worker-opt-name">Mihail</div>
-            <div class="worker-opt-tag">12h • +500 MDL</div>
+            <div class="worker-opt-tag" data-i18n="modal_worker_tag">12h • +500 MDL</div>
           </div>
           <div id="modalOptAdmin2" class="worker-option" onclick="selectModalWorker('admin2')">
             <div id="modalCircle2" class="legend-circle" style="width:34px;height:34px;font-size:13px;">C</div>
             <div id="modalName2" class="worker-opt-name">Colega</div>
-            <div class="worker-opt-tag">12h • +500 MDL</div>
+            <div class="worker-opt-tag" data-i18n="modal_worker_tag">12h • +500 MDL</div>
           </div>
         </div>
 
@@ -2206,10 +2207,10 @@
         <button type="button" class="step-btn" onclick="adjustModalSubs(1)">+</button>
       </div>
 
-      <span class="field-label">Comentariu pentru celălalt administrator (Opțional)</span>
+      <span class="field-label" data-i18n="modal_comment_lbl">Comentariu pentru celălalt administrator (Opțional)</span>
       <textarea id="modalCommentInput" class="textarea-input" placeholder="Lasă un mesaj colegului/colegei despre această zi (ex: clienți noi, plăți, programări)..."></textarea>
 
-      <button class="primary-btn" onclick="saveDayFromModal()">💾 Salvează & Închide</button>
+      <button class="primary-btn" onclick="saveDayFromModal()" data-i18n="modal_save_close">💾 Salvează & Închide</button>
     </div>
   </div>
 
@@ -2219,36 +2220,36 @@
       <div class="sheet-handle"></div>
       <div class="sheet-header">
         <div>
-          <div class="sheet-title">💸 Înregistrează Leafă Luată</div>
-          <div style="font-size:12px;color:var(--text-muted);">Scade suma din soldul rămas în bancă</div>
+          <div class="sheet-title" data-i18n="payout_title">💸 Înregistrează Leafă Luată</div>
+          <div style="font-size:12px;color:var(--text-muted);" data-i18n="payout_sub">Scade suma din soldul rămas în bancă</div>
         </div>
         <button class="sheet-close" onclick="closePayoutModal()">✕</button>
       </div>
 
-      <span class="field-label">Pentru cine înregistrezi leafa?</span>
+      <span class="field-label" data-i18n="payout_for_lbl">Pentru cine înregistrezi leafa?</span>
       <div class="who-am-i-grid" style="margin-bottom:12px;">
         <button id="payoutOptAdmin1" type="button" class="sub-opt-btn" onclick="selectPayoutWorker('admin1')">Admin 1</button>
         <button id="payoutOptAdmin2" type="button" class="sub-opt-btn" onclick="selectPayoutWorker('admin2')">Admin 2</button>
       </div>
 
-      <span class="field-label">Suma Luată (MDL)</span>
-      <input id="payoutAmountInput" type="number" inputmode="numeric" placeholder="Ex: 1500" class="text-input" style="font-size:22px;font-weight:900;text-align:center;color:#10b981;" />
+      <span class="field-label" data-i18n="payout_amount_lbl">Suma Luată (MDL)</span>
+      <input id="payoutAmountInput" type="number" inputmode="numeric" placeholder="Ex: 1500" data-i18n-placeholder="ph_payout_amount" class="text-input" style="font-size:22px;font-weight:900;text-align:center;color:#10b981;" />
 
       <div class="quick-chips-row">
         <button type="button" class="chip-btn" onclick="setPayoutChip(500)">+500 MDL</button>
         <button type="button" class="chip-btn" onclick="setPayoutChip(1000)">+1.000 MDL</button>
         <button type="button" class="chip-btn" onclick="setPayoutChip(1500)">+1.500 MDL</button>
         <button type="button" class="chip-btn" onclick="setPayoutChip(2000)">+2.000 MDL</button>
-        <button type="button" class="chip-btn" onclick="setPayoutChip('all')">Tot Rămasul</button>
+        <button id="payoutChipAll" type="button" class="chip-btn" onclick="setPayoutChip('all')" data-i18n="payout_chip_all">Tot Rămasul</button>
       </div>
 
-      <span class="field-label">Data când ai luat banii</span>
+      <span class="field-label" data-i18n="payout_date_lbl">Data când ai luat banii</span>
       <input id="payoutDateInput" type="date" class="text-input" />
 
-      <span class="field-label">Notă / Detalii (Opțional)</span>
-      <input id="payoutNoteInput" type="text" placeholder="Ex: Cash la școală / Transfer pe card..." class="text-input" />
+      <span class="field-label" data-i18n="payout_note_lbl">Notă / Detalii (Opțional)</span>
+      <input id="payoutNoteInput" type="text" placeholder="Ex: Cash la școală / Transfer pe card..." data-i18n-placeholder="ph_payout_note" class="text-input" />
 
-      <button class="primary-btn" style="margin-top:14px;" onclick="savePayoutFromModal()">💾 Înregistrează Plata & Sincronizează</button>
+      <button class="primary-btn" style="margin-top:14px;" onclick="savePayoutFromModal()" data-i18n="payout_save_btn">💾 Înregistrează Plata & Sincronizează</button>
     </div>
   </div>
 
@@ -2257,8 +2258,8 @@
     <div class="modal-sheet" style="border-radius:24px;max-width:360px;padding:18px 16px;margin:16px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
         <div>
-          <div class="sheet-title" style="font-size:16px;">Aranjează Poza în Cerc</div>
-          <div style="font-size:11.5px;color:var(--text-muted);">Trage cu degetul pentru a centra fața în cercul tău</div>
+          <div class="sheet-title" style="font-size:16px;" data-i18n="crop_title">Aranjează Poza în Cerc</div>
+          <div style="font-size:11.5px;color:var(--text-muted);" data-i18n="crop_sub">Trage cu degetul pentru a centra fața în cercul tău</div>
         </div>
         <button type="button" class="sheet-close" onclick="closeAvatarCropModal()">✕</button>
       </div>
@@ -2273,7 +2274,7 @@
       <!-- ZOOM & ROTATE CONTROLS -->
       <div style="margin:14px 0 10px;">
         <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;">
-          <span>Mărește / Micșorează (Zoom)</span>
+          <span data-i18n="crop_zoom_lbl">Mărește / Micșorează (Zoom)</span>
           <span id="cropZoomVal">100%</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
@@ -2285,8 +2286,8 @@
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
-        <button type="button" class="secondary-btn" style="margin-top:0;" onclick="closeAvatarCropModal()">Anulează</button>
-        <button type="button" class="primary-btn" style="margin-top:0;" onclick="applyAvatarCrop()">✓ Salvează Poza</button>
+        <button type="button" class="secondary-btn" style="margin-top:0;" onclick="closeAvatarCropModal()" data-i18n="btn_cancel">Anulează</button>
+        <button type="button" class="primary-btn" style="margin-top:0;" onclick="applyAvatarCrop()" data-i18n="btn_save_photo">✓ Salvează Poza</button>
       </div>
     </div>
   </div>
@@ -2379,16 +2380,282 @@
     const WEEKDAYS_RO = ['LUN', 'MAR', 'MIE', 'JOI', 'VIN', 'SÂM', 'DUM'];
     const WEEKDAYS_RU = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 
+    const I18N = {
+      ro: {
+        login_sub: 'Conturi Administratori • Școala Muzicală',
+        auth_tab_login: '🔑 Intră în Cont',
+        auth_tab_register: '✨ Creează Cont',
+        lbl_username: 'Nume Utilizator (Username)',
+        ph_username: 'Nume utilizator (ex: mihail)',
+        lbl_personal_pass: 'Parola Ta Personală',
+        ph_personal_pass: 'Parola ta personală',
+        lbl_school_code: 'Cod de Acces BlackBlock',
+        ph_school_code: 'Introdu codul de acces al școlii',
+        ph_school_code_short: 'Codul de acces al școlii',
+        btn_change_school_code: 'Schimbă codul școlii',
+        btn_login_submit: '🔑 Intră în Cont',
+        btn_checking_account: 'Se verifică contul...',
+        lbl_display_name: 'Numele Tău Afișat',
+        ph_display_name: 'Numele tău afișat (ex: Mihail / Elena)',
+        lbl_reg_username: 'Nume Utilizator pentru Login (fără spații)',
+        ph_new_pass: 'Parola ta personală (min. 4 caractere)',
+        lbl_reg_color: 'Alege Culoarea Cercului Tău',
+        btn_reg_submit: '✨ Creează Contul Meu',
+        btn_creating_account: 'Se creează contul...',
+        sync_synced: 'Sincronizat',
+        sync_backup: 'Sincronizat • ADMIN APP BACKUP',
+        sync_online: 'Sincronizat online',
+        sync_syncing: 'Se sincronizează...',
+        sync_saving: 'Se salvează online...',
+        sync_offline: 'Offline • Salvat pe telefon',
+        sync_local: 'Salvat local',
+        sync_saved_net: 'Salvat pe telefon (va sincroniza la net)',
+        sync_bad_code: 'Cod acces incorect',
+        sync_mod_local: 'Mod Local',
+        sync_need_google: 'Mod Local (Conectează Google în Profil)',
+        month_sub: 'Schimb 12 ore • 500 MDL / tură',
+        bank_subtitle: 'EVIDENȚĂ SALARIU & BANCĂ',
+        bank_badge: 'De Încasat',
+        bank_remaining_title: '🏦 RĂMAS ÎN BANCĂ (SOLD)',
+        btn_took_salary_html: '<span style="font-size:16px;">💸</span> Am luat leafa (Înregistrează Retragere)',
+        stat_month_salary_lbl: 'Salariu Luna Selectată',
+        stat_shifts_lbl: 'SCHIMBURI (LUNĂ)',
+        stat_shifts_sub: 'Ture a câte 500 MDL',
+        stat_hours_lbl: 'ORE LUCRATE (LUNĂ)',
+        stat_hours_sub: '12 ore pe schimb',
+        stat_leads_lbl: 'CLIENȚI NOI (LEAD-URI)',
+        stat_leads_sub: 'Închiși în această lună',
+        sec_payouts_history: '💸 Istoric Leafă Luată (Retrageri)',
+        sec_worked_days: '📅 Schimburi lucrate în această lună',
+        role_admin: 'Administrator',
+        comp_school_total: '🏫 Total BlackBlock Academy (Ambii Admini)',
+        comp_total_shifts_lbl: 'TOTAL SCHIMBURI',
+        comp_total_leads_lbl: 'TOTAL LEAD-URI ȘCOALĂ',
+        prof_sec1_title: '1. Profilul Tău & Poză Avatar',
+        prof_avatar_lbl: 'Poză de Profil (Avatar)',
+        btn_upload_avatar_html: '<span>📷</span> Încarcă / Schimbă Poza',
+        btn_delete_avatar: '🗑️ Șterge',
+        prof_color_lbl: 'Alege Culoarea Cercului & Profilului Tău',
+        btn_save_profile: 'Salvează Profilul & Culoarea',
+        theme_btn_title: '🎨 Culoare Butoane & Teme Aplicație',
+        theme_btn_desc: 'Alege culoarea dorită pentru butoane, acțiuni și accente:',
+        theme_custom_btn_title: 'Alege Oricare Culoare Personalizată',
+        theme_nav_style_lbl: '🔘 Stil Butoane Navigare de Jos',
+        btn_mode_unicolor: '✨ Culoare Unică (Toate)',
+        btn_mode_multicolor: '🌈 Colorate / Vibrant',
+        theme_bg_title: '🌌 Tema Fundalului (Background Theme)',
+        theme_bg_desc: 'Alege atmosfera fundalului pentru aplicație:',
+        theme_custom_bg_title: 'Fundal Personalizat (Orice Culoare)',
+        notif_title: '🔔 Notificări Comentarii pe iPhone',
+        notif_desc: 'Primești notificare Push pe iPhone DOAR când celălalt administrator lasă sau modifică un comentariu:',
+        notif_btn_default: '🔔 Activează Notificările & Trimite Test',
+        notif_btn_active: '✅ Notificări Active (Apasă pt Test)',
+        cache_title: '🔄 Actualizare Forțată (Curățare Cache)',
+        cache_desc: 'Dacă vrei să forțezi descărcarea versiunii noi sau să reîncarci aplicația fără cache:',
+        btn_force_update: '🔄 Reîncarcă Versiunea Nouă a Aplicației',
+        pass_change_lbl: 'Schimbă Parola Ta Personală',
+        ph_pass_min4: 'Parolă nouă (min. 4 caractere)',
+        btn_update_pass: '🔒 Actualizează Parola Mea',
+        cloud_sec2_title: '☁️ 2. Conexiune & Sincronizare Google Drive',
+        badge_locked: '🔒 Protejat',
+        badge_unlocked: '🔓 Deblocat',
+        cloud_locked_desc: 'Setările tehnice de conexiune sunt blocate pentru a preveni deconectarea sau modificarea accidentală. Pentru deblocare, introdu parola școlii.',
+        ph_unlock_pass: 'Parola (blackblock2026)',
+        btn_unlock: '🔓 Deblochează',
+        err_wrong_pass: 'Parolă incorectă!',
+        cloud_warn_html: '⚠️ <strong>Atenție:</strong> Modificarea acestor câmpuri poate întrerupe sincronizarea automată dintre voi.',
+        cloud_url_lbl: 'Link Bază de Date Google (Web App URL)',
+        btn_connect_sync: 'Conectează & Sincronizează Acum',
+        btn_open_drive: '📁 Deschide Folderul ADMIN APP BACKUP',
+        btn_share_app: '📲 Trimite Aplicația Colegei',
+        btn_copy_gas: '📋 Copiază Codul pentru Google Drive & Sheets',
+        btn_lock_again: '🔒 Blochează din Nou',
+        guide_title: '📱 Cum o pui pe ecranul iPhone-ului (Fără App Store)',
+        guide_list_html: '<li>Deschide link-ul aplicației în <strong>Safari</strong> pe iPhone.</li><li>Apasă jos pe butonul <strong>Share (Partajare)</strong> <span style="background:#27272a;padding:2px 6px;border-radius:6px;">↑</span>.</li><li>Alege <strong>Add to Home Screen (Adaugă la ecranul principal)</strong>.</li><li>Acum ai iconița <strong>BlackBlock</strong> pe iPhone ca o aplicație nativă și se sincronizează automat când o deschizi!</li>',
+        btn_logout: '🚪 Deconectare (Logout)',
+        modal_shift_sub: 'Schimb 12 ore • 500 MDL',
+        modal_alt_worker_lbl: 'Sau alege alt administrator / ambii:',
+        modal_worker_tag: '12h • +500 MDL',
+        modal_comment_lbl: 'Comentariu pentru celălalt administrator (Opțional)',
+        modal_save_close: '💾 Salvează & Închide',
+        payout_title: '💸 Înregistrează Leafă Luată',
+        payout_sub: 'Scade suma din soldul rămas în bancă',
+        payout_for_lbl: 'Pentru cine înregistrezi leafa?',
+        payout_amount_lbl: 'Suma Luată (MDL)',
+        ph_payout_amount: 'Ex: 1500',
+        payout_chip_all: 'Tot Rămasul',
+        payout_date_lbl: 'Data când ai luat banii',
+        payout_note_lbl: 'Notă / Detalii (Opțional)',
+        ph_payout_note: 'Ex: Cash la școală / Transfer pe card...',
+        payout_save_btn: '💾 Înregistrează Plata & Sincronizează',
+        crop_title: 'Aranjează Poza în Cerc',
+        crop_sub: 'Trage cu degetul pentru a centra fața în cercul tău',
+        crop_zoom_lbl: 'Mărește / Micșorează (Zoom)',
+        btn_cancel: 'Anulează',
+        btn_save_photo: '✓ Salvează Poza',
+        toast_day_saved: 'Ziua a fost salvată!',
+        toast_synced_ok: 'Sincronizat cu succes!',
+        toast_updating_cache: 'Se curăță memoria cache & se reîncarcă...',
+        toast_colleague_no_push: 'Colegul încă nu a activat notificările pe iPhone-ul lui.'
+      },
+      ru: {
+        login_sub: 'Аккаунты Администраторов • Музыкальная Школа',
+        auth_tab_login: '🔑 Войти',
+        auth_tab_register: '✨ Регистрация',
+        lbl_username: 'Логин (Username)',
+        ph_username: 'Имя пользователя (напр. mihail)',
+        lbl_personal_pass: 'Личный пароль',
+        ph_personal_pass: 'Ваш личный пароль',
+        lbl_school_code: 'Код доступа BlackBlock',
+        ph_school_code: 'Введите код доступа школы',
+        ph_school_code_short: 'Код доступа школы',
+        btn_change_school_code: 'Изменить код школы',
+        btn_login_submit: '🔑 Войти в аккаунт',
+        btn_checking_account: 'Проверка аккаунта...',
+        lbl_display_name: 'Отображаемое имя',
+        ph_display_name: 'Ваше имя (напр. Михаил / Елена)',
+        lbl_reg_username: 'Логин для входа (без пробелов)',
+        ph_new_pass: 'Личный пароль (мин. 4 символа)',
+        lbl_reg_color: 'Выберите цвет вашего кружка',
+        btn_reg_submit: '✨ Создать аккаунт',
+        btn_creating_account: 'Создание аккаунта...',
+        sync_synced: 'Синхронизировано',
+        sync_backup: 'Синхронизировано • ADMIN APP BACKUP',
+        sync_online: 'Синхронизировано онлайн',
+        sync_syncing: 'Синхронизация...',
+        sync_saving: 'Сохранение онлайн...',
+        sync_offline: 'Офлайн • Сохранено на телефоне',
+        sync_local: 'Сохранено локально',
+        sync_saved_net: 'Сохранено (синхр. при сети)',
+        sync_bad_code: 'Неверный код доступа',
+        sync_mod_local: 'Локальный режим',
+        sync_need_google: 'Локальный режим (Подключите Google в Настройках)',
+        month_sub: 'Смена 12 часов • 500 MDL / смена',
+        bank_subtitle: 'УЧЁТ ЗАРПЛАТЫ И БАНКА',
+        bank_badge: 'К выплате',
+        bank_remaining_title: '🏦 ОСТАТОК В БАНКЕ (БАЛАНС)',
+        btn_took_salary_html: '<span style="font-size:16px;">💸</span> Забрал(а) зарплату (Записать снятие)',
+        stat_month_salary_lbl: 'Зарплата за выбранный месяц',
+        stat_shifts_lbl: 'СМЕНЫ (МЕСЯЦ)',
+        stat_shifts_sub: 'Смены по 500 MDL',
+        stat_hours_lbl: 'ОТРАБОТАНО (МЕСЯЦ)',
+        stat_hours_sub: '12 часов за смену',
+        stat_leads_lbl: 'НОВЫЕ КЛИЕНТЫ (ЛИДЫ)',
+        stat_leads_sub: 'Закрыто за этот месяц',
+        sec_payouts_history: '💸 История выплат (Снятия)',
+        sec_worked_days: '📅 Отработанные смены за месяц',
+        role_admin: 'Администратор',
+        comp_school_total: '🏫 Итого BlackBlock Academy (Оба Админа)',
+        comp_total_shifts_lbl: 'ВСЕГО СМЕН',
+        comp_total_leads_lbl: 'ВСЕГО ЛИДОВ ШКОЛЫ',
+        prof_sec1_title: '1. Ваш профиль и Аватар',
+        prof_avatar_lbl: 'Фото профиля (Аватар)',
+        btn_upload_avatar_html: '<span>📷</span> Загрузить / Сменить фото',
+        btn_delete_avatar: '🗑️ Удалить',
+        prof_color_lbl: 'Выберите цвет кружка и профиля',
+        btn_save_profile: 'Сохранить профиль и цвет',
+        theme_btn_title: '🎨 Цвет кнопок и Темы',
+        theme_btn_desc: 'Выберите цвет для кнопок, действий и акцентов:',
+        theme_custom_btn_title: 'Выбрать любой цвет вручную',
+        theme_nav_style_lbl: '🔘 Стиль нижней панели кнопок',
+        btn_mode_unicolor: '✨ Один цвет (Все)',
+        btn_mode_multicolor: '🌈 Разноцветные',
+        theme_bg_title: '🌌 Тема фона (Background)',
+        theme_bg_desc: 'Выберите оформление фона приложения:',
+        theme_custom_bg_title: 'Свой цвет фона (Любой)',
+        notif_title: '🔔 Уведомления о комментариях на iPhone',
+        notif_desc: 'Вы получаете Push-уведомление на iPhone ТОЛЬКО когда второй администратор оставляет или меняет комментарий:',
+        notif_btn_default: '🔔 Включить уведомления и Отправить тест',
+        notif_btn_active: '✅ Уведомления активны (Нажмите для теста)',
+        cache_title: '🔄 Принудительное обновление (Очистка кэша)',
+        cache_desc: 'Если нужно принудительно загрузить новую версию без кэша:',
+        btn_force_update: '🔄 Перезагрузить новую версию приложения',
+        pass_change_lbl: 'Изменить личный пароль',
+        ph_pass_min4: 'Новый пароль (мин. 4 символа)',
+        btn_update_pass: '🔒 Обновить мой пароль',
+        cloud_sec2_title: '☁️ 2. Подключение и Google Drive',
+        badge_locked: '🔒 Защищено',
+        badge_unlocked: '🔓 Разблокировано',
+        cloud_locked_desc: 'Технические настройки скрыты во избежание случайного сброса. Для доступа введите пароль школы.',
+        ph_unlock_pass: 'Пароль (blackblock2026)',
+        btn_unlock: '🔓 Открыть',
+        err_wrong_pass: 'Неверный пароль!',
+        cloud_warn_html: '⚠️ <strong>Внимание:</strong> Изменение этих полей может нарушить автоматическую синхронизацию.',
+        cloud_url_lbl: 'Ссылка на Google Web App (URL)',
+        btn_connect_sync: 'Подключить и Синхронизировать',
+        btn_open_drive: '📁 Открыть папку ADMIN APP BACKUP',
+        btn_share_app: '📲 Отправить приложение коллеге',
+        btn_copy_gas: '📋 Скопировать код Google Drive & Sheets',
+        btn_lock_again: '🔒 Заблокировать снова',
+        guide_title: '📱 Как установить на экран iPhone (без App Store)',
+        guide_list_html: '<li>Откройте ссылку в <strong>Safari</strong> на iPhone.</li><li>Нажмите внизу кнопку <strong>Поделиться</strong> <span style="background:#27272a;padding:2px 6px;border-radius:6px;">↑</span>.</li><li>Выберите <strong>На экран «Домой» (Add to Home Screen)</strong>.</li><li>Теперь иконка <strong>BlackBlock</strong> работает как обычное приложение и синхронизируется автоматически!</li>',
+        btn_logout: '🚪 Выйти из аккаунта',
+        modal_shift_sub: 'Смена 12 часов • 500 MDL',
+        modal_alt_worker_lbl: 'Или выберите другого администратора / обоих:',
+        modal_worker_tag: '12ч • +500 MDL',
+        modal_comment_lbl: 'Комментарий для второго администратора (Необязательно)',
+        modal_save_close: '💾 Сохранить и Закрыть',
+        payout_title: '💸 Записать снятие зарплаты',
+        payout_sub: 'Списывает сумму с остатка в банке',
+        payout_for_lbl: 'Для кого записываете выплату?',
+        payout_amount_lbl: 'Сумма снятия (MDL)',
+        ph_payout_amount: 'Напр: 1500',
+        payout_chip_all: 'Весь остаток',
+        payout_date_lbl: 'Дата получения денег',
+        payout_note_lbl: 'Заметка / Детали (Необязательно)',
+        ph_payout_note: 'Напр: Наличные в школе / Перевод на карту...',
+        payout_save_btn: '💾 Сохранить выплату и Синхронизировать',
+        crop_title: 'Настройка фото в круге',
+        crop_sub: 'Перетаскивайте пальцем, чтобы отцентрировать фото',
+        crop_zoom_lbl: 'Масштаб (Zoom)',
+        btn_cancel: 'Отмена',
+        btn_save_photo: '✓ Сохранить фото',
+        toast_day_saved: 'День сохранён!',
+        toast_synced_ok: 'Успешно синхронизировано!',
+        toast_updating_cache: 'Очистка кэша и перезагрузка...',
+        toast_colleague_no_push: 'Коллега ещё не включил(а) уведомления на своём iPhone.'
+      }
+    };
+
+    function t(key) {
+      const lang = (localPrefs && localPrefs.language === 'ru') ? 'ru' : 'ro';
+      if (I18N[lang] && I18N[lang][key] !== undefined) return I18N[lang][key];
+      if (I18N.ro && I18N.ro[key] !== undefined) return I18N.ro[key];
+      return key;
+    }
+
+    function applyTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        if (key) el.textContent = t(key);
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+        const key = el.getAttribute('data-i18n-html');
+        if (key) el.innerHTML = t(key);
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (key) el.placeholder = t(key);
+      });
+      const isRu = localPrefs.language === 'ru';
+      const syncBtn = document.getElementById('btnManualSync');
+      if (syncBtn) syncBtn.title = isRu ? 'Синхронизировать' : 'Sincronizează acum';
+      document.documentElement.lang = isRu ? 'ru' : 'ro';
+    }
+
     // Starea sincronizată între cei 2 administratori
     let appState = {
       profiles: {
-        admin1: { id: 'admin1', name: 'Admin 1', username: '', passHash: '', registered: false, color: '#8b5cf6', avatar: '', updatedAt: 0 },
-        admin2: { id: 'admin2', name: 'Admin 2', username: '', passHash: '', registered: false, color: '#ec4899', avatar: '', updatedAt: 0 }
+        admin1: { id: 'admin1', name: 'Admin 1', username: '', passHash: '', registered: false, color: '#8b5cf6', avatar: '', pushSid: '', updatedAt: 0 },
+        admin2: { id: 'admin2', name: 'Admin 2', username: '', passHash: '', registered: false, color: '#ec4899', avatar: '', pushSid: '', updatedAt: 0 }
       },
       days: {}, // cheie: "YYYY-MM-DD" -> { workerId: 'admin1'|'admin2'|'both'|'', leads: 0, comment: '', updatedAt: 123, updatedBy: 'Mihail' }
       payouts: {}, // cheie: "pay_..." -> { id, workerId, amount, date, note, updatedAt, updatedBy }
       updatedAt: 0
     };
+
+    let lastSyncStatus = 'ok';
+    let lastSyncKey = 'sync_synced';
 
     let payoutTargetWorkerId = 'admin1';
 
@@ -2436,6 +2703,7 @@
       }
       statsViewWorkerId = localPrefs.myWorkerId || 'admin1';
 
+      applyBackgroundTheme();
       renderColorSwatches();
       renderRegColorSwatches();
       renderThemeTiles();
@@ -2660,14 +2928,15 @@
         if (regWrap) regWrap.classList.toggle('hidden', hasSavedCode);
         if (toggleBtn) toggleBtn.classList.toggle('hidden', !hasSavedCode);
 
+        const isRu = localPrefs.language === 'ru';
         const count = getRegisteredAccountsCount();
         const statusEl = document.getElementById('authAccountsStatus');
         const regTab = document.getElementById('authTabRegister');
         if (statusEl) {
           if (count >= 2) {
-            statusEl.textContent = 'Ambele conturi de admin sunt active (2/2)';
+            statusEl.textContent = isRu ? 'Оба аккаунта активны (2/2)' : 'Ambele conturi de admin sunt active (2/2)';
           } else {
-            statusEl.textContent = `Conturi create: ${count}/2 • Creează contul tău sau intră`;
+            statusEl.textContent = isRu ? `Аккаунтов создано: ${count}/2 • Создайте или войдите` : `Conturi create: ${count}/2 • Creează contul tău sau intră`;
           }
         }
         if (regTab) regTab.classList.toggle('hidden', count >= 2);
@@ -2714,13 +2983,14 @@
           saveToLocalStorage();
           return { ok: true };
         }
-        return { ok: false, message: 'Răspuns neașteptat de la serverul Google.' };
+        return { ok: false, message: localPrefs.language === 'ru' ? 'Неожиданный ответ сервера Google.' : 'Răspuns neașteptat de la serverul Google.' };
       } catch (err) {
         return { ok: false, networkError: true };
       }
     }
 
     async function handleAccountLogin() {
+      const isRu = localPrefs.language === 'ru';
       const username = document.getElementById('loginUsernameInput').value.trim().toLowerCase();
       const personalPass = document.getElementById('loginPersonalPassInput').value;
       const typedCode = document.getElementById('loginSchoolCodeInput').value.trim();
@@ -2729,18 +2999,18 @@
       showLoginError('');
 
       if (!username || !personalPass) {
-        showLoginError('Introdu numele de utilizator și parola ta personală.');
+        showLoginError(isRu ? 'Введите логин и личный пароль.' : 'Introdu numele de utilizator și parola ta personală.');
         return;
       }
       if (localPrefs.syncUrl && !schoolCode) {
         revealLoginSchoolCode();
-        showLoginError('Introdu Codul de Acces BlackBlock.');
+        showLoginError(isRu ? 'Введите код доступа BlackBlock.' : 'Introdu Codul de Acces BlackBlock.');
         return;
       }
 
       if (btn) {
         btn.disabled = true;
-        btn.textContent = 'Se verifică contul...';
+        btn.textContent = t('btn_checking_account');
       }
 
       try {
@@ -2748,11 +3018,11 @@
           const syncRes = await fetchRemoteStateWithCode(schoolCode);
           if (syncRes.unauthorized) {
             revealLoginSchoolCode();
-            showLoginError('Codul de acces al școlii este incorect!');
+            showLoginError(isRu ? 'Неверный код доступа школы!' : 'Codul de acces al școlii este incorect!');
             return;
           }
           if (!syncRes.ok) {
-            showLoginError('Nu s-a putut conecta la Google Drive. Verifică internetul.');
+            showLoginError(isRu ? 'Не удалось подключиться к Google Drive. Проверьте интернет.' : 'Nu s-a putut conecta la Google Drive. Verifică internetul.');
             return;
           }
         }
@@ -2766,38 +3036,43 @@
         if (!matched) {
           const count = getRegisteredAccountsCount();
           if (count < 2) {
-            showLoginError('Nu există acest username. Dacă e prima dată, creează contul din «Creează Cont».');
+            showLoginError(isRu ? 'Такого логина нет. Если вы впервые, создайте аккаунт во вкладке «Регистрация».' : 'Nu există acest username. Dacă e prima dată, creează contul din «Creează Cont».');
           } else {
-            showLoginError('Nume utilizator inexistent.');
+            showLoginError(isRu ? 'Пользователь не найден.' : 'Nume utilizator inexistent.');
           }
           return;
         }
 
         if (hashPersonalPassword(personalPass) !== matched.passHash) {
-          showLoginError('Parolă personală incorectă!');
+          showLoginError(isRu ? 'Неверный личный пароль!' : 'Parolă personală incorectă!');
           return;
         }
 
         localPrefs.myWorkerId = matched.id;
         localPrefs.teamPass = schoolCode;
         localPrefs.isLoggedIn = true;
+        if (matched.language === 'ru' || matched.language === 'ro') {
+          localPrefs.language = matched.language;
+        }
         statsViewWorkerId = matched.id;
         saveToLocalStorage();
 
         document.getElementById('loginPersonalPassInput').value = '';
         updateLoginOverlayVisibility();
         renderAll();
-        updateSyncStatusUI('ok', 'Sincronizat • ADMIN APP BACKUP');
-        showToast('Bine ai venit, ' + matched.name + '!');
+        updateSyncStatusUI('ok', 'sync_backup');
+        syncWebpushrUser();
+        showToast((localPrefs.language === 'ru' ? 'Добро пожаловать, ' : 'Bine ai venit, ') + matched.name + '!');
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.textContent = '🔑 Intră în Cont';
+          btn.textContent = t('btn_login_submit');
         }
       }
     }
 
     async function handleAccountRegister() {
+      const isRu = localPrefs.language === 'ru';
       const name = document.getElementById('regNameInput').value.trim();
       const username = document.getElementById('regUsernameInput').value.trim().toLowerCase();
       const personalPass = document.getElementById('regPassInput').value;
@@ -2807,27 +3082,27 @@
       showLoginError('');
 
       if (!name) {
-        showLoginError('Introdu numele tău afișat (ex: Mihail sau Elena).');
+        showLoginError(isRu ? 'Введите отображаемое имя (напр. Михаил или Елена).' : 'Introdu numele tău afișat (ex: Mihail sau Elena).');
         return;
       }
       if (!/^[a-z0-9._-]{2,24}$/.test(username)) {
-        showLoginError('Numele de utilizator trebuie să aibă 2-24 caractere (litere, cifre, . _ - fără spații).');
+        showLoginError(isRu ? 'Логин должен содержать 2-24 символа (латиница, цифры, . _ - без пробелов).' : 'Numele de utilizator trebuie să aibă 2-24 caractere (litere, cifre, . _ - fără spații).');
         return;
       }
       if (!personalPass || personalPass.length < 4) {
-        showLoginError('Parola personală trebuie să aibă cel puțin 4 caractere.');
+        showLoginError(isRu ? 'Личный пароль должен быть не менее 4 символов.' : 'Parola personală trebuie să aibă cel puțin 4 caractere.');
         return;
       }
       if (localPrefs.syncUrl && !schoolCode) {
         const regWrap = document.getElementById('regSchoolCodeWrap');
         if (regWrap) regWrap.classList.remove('hidden');
-        showLoginError('Introdu Codul de Acces BlackBlock.');
+        showLoginError(isRu ? 'Введите код доступа BlackBlock.' : 'Introdu Codul de Acces BlackBlock.');
         return;
       }
 
       if (btn) {
         btn.disabled = true;
-        btn.textContent = 'Se creează contul...';
+        btn.textContent = t('btn_creating_account');
       }
 
       try {
@@ -2836,11 +3111,11 @@
           if (syncRes.unauthorized) {
             const regWrap = document.getElementById('regSchoolCodeWrap');
             if (regWrap) regWrap.classList.remove('hidden');
-            showLoginError('Codul de acces al școlii este incorect!');
+            showLoginError(isRu ? 'Неверный код доступа школы!' : 'Codul de acces al școlii este incorect!');
             return;
           }
           if (!syncRes.ok) {
-            showLoginError('Nu s-a putut conecta la Google Drive. Verifică internetul.');
+            showLoginError(isRu ? 'Не удалось подключиться к Google Drive. Проверьте интернет.' : 'Nu s-a putut conecta la Google Drive. Verifică internetul.');
             return;
           }
         }
@@ -2850,7 +3125,7 @@
 
         if ((p1.registered && String(p1.username || '').toLowerCase() === username) ||
             (p2.registered && String(p2.username || '').toLowerCase() === username)) {
-          showLoginError('Acest username este deja folosit de colegul/colega ta. Alege altul.');
+          showLoginError(isRu ? 'Этот логин уже занят коллегой. Выберите другой.' : 'Acest username este deja folosit de colegul/colega ta. Alege altul.');
           return;
         }
 
@@ -2859,7 +3134,7 @@
         else if (!p2.registered) slot = 'admin2';
 
         if (!slot) {
-          showLoginError('Ambele conturi (2/2) au fost deja create! Intră din «Intră în Cont».');
+          showLoginError(isRu ? 'Оба аккаунта (2/2) уже созданы! Войдите через «Войти».' : 'Ambele conturi (2/2) au fost deja create! Intră din «Intră în Cont».');
           updateLoginOverlayVisibility();
           switchAuthMode('login');
           return;
@@ -2872,6 +3147,8 @@
           passHash: hashPersonalPassword(personalPass),
           registered: true,
           color: regSelectedColor,
+          language: localPrefs.language || 'ro',
+          pushSid: '',
           updatedAt: Date.now()
         };
 
@@ -2886,11 +3163,12 @@
         document.getElementById('regPassInput').value = '';
         updateLoginOverlayVisibility();
         renderAll();
-        showToast('Cont creat cu succes! Bine ai venit, ' + name + '!');
+        syncWebpushrUser();
+        showToast((localPrefs.language === 'ru' ? 'Аккаунт создан! Добро пожаловать, ' : 'Cont creat cu succes! Bine ai venit, ') + name + '!');
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.textContent = '✨ Creează Contul Meu';
+          btn.textContent = t('btn_reg_submit');
         }
       }
     }
@@ -2909,7 +3187,11 @@
     /********************************************************************
      * SINCRONIZARE CLOUD (GOOGLE DRIVE / SHEETS SAU FIREBASE)
      ********************************************************************/
-    function updateSyncStatusUI(status, text) {
+    function updateSyncStatusUI(status, textOrKey) {
+      lastSyncStatus = status || 'ok';
+      if (textOrKey && I18N.ro && I18N.ro[textOrKey]) {
+        lastSyncKey = textOrKey;
+      }
       const dot = document.getElementById('syncDot');
       const label = document.getElementById('syncText');
       if (!dot || !label) return;
@@ -2917,7 +3199,7 @@
       dot.className = 'sync-dot';
       if (status === 'syncing') dot.classList.add('syncing');
       if (status === 'local') dot.classList.add('local');
-      label.textContent = text;
+      label.textContent = (textOrKey && I18N.ro && I18N.ro[textOrKey]) ? t(textOrKey) : (textOrKey || t(lastSyncKey));
     }
 
     function isFirebaseUrl(url) {
@@ -2935,14 +3217,14 @@
     async function autoSyncOnOpen() {
       if (!localPrefs.isLoggedIn) return;
       if (!localPrefs.syncUrl) {
-        updateSyncStatusUI('local', 'Mod Local (Conectează Google în Profil)');
+        updateSyncStatusUI('local', 'sync_need_google');
         return;
       }
       await pullFromCloud(false);
     }
 
     async function forceAppUpdate() {
-      showToast('Se curăță memoria cache & se reîncarcă...');
+      showToast(t('toast_updating_cache'));
       try {
         if ('caches' in window) {
           const keys = await caches.keys();
@@ -2964,7 +3246,7 @@
       }
       if (!localPrefs.syncUrl) {
         switchTab('profile');
-        showToast('Adaugă link-ul Google în secțiunea Profil & Sync');
+        showToast(localPrefs.language === 'ru' ? 'Добавьте ссылку Google в Настройках' : 'Adaugă link-ul Google în secțiunea Profil & Sync');
         return;
       }
       await pullFromCloud(true);
@@ -2974,7 +3256,7 @@
       const url = (localPrefs.syncUrl || '').trim();
       if (!url) return;
 
-      updateSyncStatusUI('syncing', 'Se sincronizează...');
+      updateSyncStatusUI('syncing', 'sync_syncing');
       try {
         if (isFirebaseUrl(url)) {
           const res = await fetch(normalizeFirebaseUrl(url), { cache: 'no-store' });
@@ -2982,7 +3264,7 @@
           if (remoteState && remoteState.profiles) {
             mergeRemoteState(remoteState);
           }
-          updateSyncStatusUI('ok', 'Sincronizat online');
+          updateSyncStatusUI('ok', 'sync_online');
         } else {
           // Google Apps Script Web App URL cu validare cod acces
           const sep = url.includes('?') ? '&' : '?';
@@ -2990,8 +3272,8 @@
           const res = await fetch(`${url}${sep}pass=${passParam}&t=${Date.now()}`, { cache: 'no-store' });
           const data = await res.json();
           if (data && data.error === 'UNAUTHORIZED') {
-            updateSyncStatusUI('local', 'Cod acces incorect');
-            showToast('Cod acces incorect — re-autentifică-te!');
+            updateSyncStatusUI('local', 'sync_bad_code');
+            showToast(localPrefs.language === 'ru' ? 'Неверный код доступа — войдите снова!' : 'Cod acces incorect — re-autentifică-te!');
             localPrefs.isLoggedIn = false;
             saveToLocalStorage();
             updateLoginOverlayVisibility();
@@ -3000,14 +3282,14 @@
           if (data && data.ok) {
             if (data.folderUrl) localPrefs.folderUrl = data.folderUrl;
             if (data.state) mergeRemoteState(data.state);
-            updateSyncStatusUI('ok', 'Sincronizat • ADMIN APP BACKUP');
+            updateSyncStatusUI('ok', 'sync_backup');
           }
         }
         saveToLocalStorage();
         renderAll();
-        if (showFeedback) showToast('Sincronizat cu succes!');
+        if (showFeedback) showToast(t('toast_synced_ok'));
       } catch (err) {
-        updateSyncStatusUI('local', 'Offline • Salvat pe telefon');
+        updateSyncStatusUI('local', 'sync_offline');
       }
     }
 
@@ -3017,11 +3299,11 @@
       saveToLocalStorage();
 
       if (!url) {
-        updateSyncStatusUI('local', 'Salvat local');
+        updateSyncStatusUI('local', 'sync_local');
         return;
       }
 
-      updateSyncStatusUI('syncing', 'Se salvează online...');
+      updateSyncStatusUI('syncing', 'sync_saving');
       try {
         if (isFirebaseUrl(url)) {
           await fetch(normalizeFirebaseUrl(url), {
@@ -3029,7 +3311,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(appState)
           });
-          updateSyncStatusUI('ok', 'Sincronizat online');
+          updateSyncStatusUI('ok', 'sync_online');
         } else {
           // Google Apps Script acceptă text/plain fără preflight CORS
           const res = await fetch(url, {
@@ -3039,8 +3321,8 @@
           });
           const data = await res.json();
           if (data && data.error === 'UNAUTHORIZED') {
-            updateSyncStatusUI('local', 'Cod acces incorect');
-            showToast('Cod acces incorect — re-autentifică-te!');
+            updateSyncStatusUI('local', 'sync_bad_code');
+            showToast(localPrefs.language === 'ru' ? 'Неверный код доступа — войдите снова!' : 'Cod acces incorect — re-autentifică-te!');
             localPrefs.isLoggedIn = false;
             saveToLocalStorage();
             updateLoginOverlayVisibility();
@@ -3051,11 +3333,11 @@
             if (data.state) mergeRemoteState(data.state);
             saveToLocalStorage();
             renderAll();
-            updateSyncStatusUI('ok', 'Sincronizat • ADMIN APP BACKUP');
+            updateSyncStatusUI('ok', 'sync_backup');
           }
         }
       } catch (err) {
-        updateSyncStatusUI('local', 'Salvat pe telefon (va sincroniza la net)');
+        updateSyncStatusUI('local', 'sync_saved_net');
       }
     }
 
@@ -3070,12 +3352,18 @@
             passHash: '',
             registered: false,
             color: id === 'admin1' ? '#8b5cf6' : '#ec4899',
+            avatar: '',
+            pushSid: '',
+            language: '',
             updatedAt: 0
           };
           const loc = appState.profiles[id] || defaults;
           const rem = remote.profiles[id] || {};
           if ((rem.updatedAt || 0) >= (loc.updatedAt || 0)) {
             appState.profiles[id] = Object.assign({}, defaults, loc, rem);
+            if (localPrefs.isLoggedIn && localPrefs.myWorkerId === id && (rem.updatedAt || 0) > (loc.updatedAt || 0) && (rem.language === 'ru' || rem.language === 'ro')) {
+              localPrefs.language = rem.language;
+            }
           } else {
             appState.profiles[id] = Object.assign({}, defaults, loc);
           }
@@ -3387,7 +3675,7 @@
       saveToLocalStorage();
       renderAll();
       closeAvatarCropModal();
-      showToast('Avatar aranjat și salvat cu succes!');
+      showToast(localPrefs.language === 'ru' ? 'Аватар сохранён!' : 'Avatar aranjat și salvat cu succes!');
       pushToCloud();
     }
 
@@ -3395,7 +3683,7 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       if (!file.type.startsWith('image/')) {
-        showToast('Te rugăm să alegi un fișier imagine valid!');
+        showToast(localPrefs.language === 'ru' ? 'Выберите корректный файл изображения!' : 'Te rugăm să alegi un fișier imagine valid!');
         return;
       }
 
@@ -3509,34 +3797,41 @@
       }
     }
 
+    const BTN_COLOR_NAMES_RU = {
+      auto: 'Профиль', '#881337': 'Бордо', '#ef4444': 'Красный', '#8b5cf6': 'Фиолет.',
+      '#06b6d4': 'Циан', '#10b981': 'Изумруд', '#f59e0b': 'Золотой', '#ec4899': 'Розовый', '#3b82f6': 'Синий'
+    };
+
     function renderButtonColorTiles() {
       const grid = document.getElementById('buttonColorTilesGrid') || document.getElementById('themeTilesGrid');
       if (!grid) return;
       grid.innerHTML = '';
+      const isRu = localPrefs.language === 'ru';
       const me = appState.profiles[localPrefs.myWorkerId];
       const activeColor = localPrefs.accentColor || 'auto';
 
-      BUTTON_COLOR_PRESETS.forEach((t) => {
+      BUTTON_COLOR_PRESETS.forEach((p) => {
         const tile = document.createElement('div');
-        const isActive = activeColor === t.id;
+        const isActive = activeColor === p.id;
         tile.className = 'theme-tile' + (isActive ? ' active' : '');
-        const displayCol = t.isAuto ? (me?.color || '#881337') : t.color;
+        const displayCol = p.isAuto ? (me?.color || '#881337') : p.color;
+        const pName = isRu ? (BTN_COLOR_NAMES_RU[p.id] || p.name) : p.name;
         tile.style.color = displayCol;
 
         tile.innerHTML = `
-          <div class="theme-tile-circle" style="background:${t.isAuto ? `linear-gradient(135deg, ${displayCol}, #000)` : t.color};box-shadow:0 0 8px ${displayCol}66;">
-            ${t.isAuto ? '<span style="color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;height:100%;">★</span>' : ''}
+          <div class="theme-tile-circle" style="background:${p.isAuto ? `linear-gradient(135deg, ${displayCol}, #000)` : p.color};box-shadow:0 0 8px ${displayCol}66;">
+            ${p.isAuto ? '<span style="color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;height:100%;">★</span>' : ''}
           </div>
-          <div class="theme-tile-label">${t.name}</div>
+          <div class="theme-tile-label">${pName}</div>
         `;
 
         tile.onclick = () => {
-          localPrefs.accentColor = t.id;
+          localPrefs.accentColor = p.id;
           saveToLocalStorage();
           applyThemeColor();
           renderThemeTiles();
           renderAll();
-          showToast(`Culoare butoane: ${t.name}`);
+          showToast(isRu ? `Цвет кнопок: ${pName}` : `Culoare butoane: ${pName}`);
         };
 
         grid.appendChild(tile);
@@ -3548,7 +3843,7 @@
       if (customInput && currentVal.startsWith('#') && currentVal.length === 7) {
         customInput.value = currentVal;
       }
-      if (label) label.textContent = `Nuanță activă: ${currentVal}`;
+      if (label) label.textContent = isRu ? `Активный цвет: ${currentVal}` : `Nuanță activă: ${currentVal}`;
 
       const mode = localPrefs.buttonColorMode || 'unicolor';
       const btnUni = document.getElementById('btnModeUnicolor');
@@ -3572,27 +3867,28 @@
       const grid = document.getElementById('bgThemeTilesGrid');
       if (!grid) return;
       grid.innerHTML = '';
+      const isRu = localPrefs.language === 'ru';
       const currentBgTheme = localPrefs.bgTheme || 'obsidian';
 
-      BG_THEME_PRESETS.forEach((t) => {
+      BG_THEME_PRESETS.forEach((bgItem) => {
         const tile = document.createElement('div');
-        const isActive = currentBgTheme === t.id;
+        const isActive = currentBgTheme === bgItem.id;
         tile.className = 'theme-tile' + (isActive ? ' active' : '');
         tile.style.color = '#fff';
 
         tile.innerHTML = `
-          <div class="theme-tile-circle" style="background:${t.bg};border:2px solid ${isActive ? 'var(--accent, #8b5cf6)' : 'rgba(255,255,255,0.2)'};box-shadow:0 0 8px rgba(0,0,0,0.8);">
+          <div class="theme-tile-circle" style="background:${bgItem.bg};border:2px solid ${isActive ? 'var(--accent, #8b5cf6)' : 'rgba(255,255,255,0.2)'};box-shadow:0 0 8px rgba(0,0,0,0.8);">
             ${isActive ? '<span style="color:var(--accent, #8b5cf6);font-size:12px;display:flex;align-items:center;justify-content:center;height:100%;">✓</span>' : ''}
           </div>
-          <div class="theme-tile-label">${t.name}</div>
+          <div class="theme-tile-label">${bgItem.name}</div>
         `;
 
         tile.onclick = () => {
-          localPrefs.bgTheme = t.id;
+          localPrefs.bgTheme = bgItem.id;
           saveToLocalStorage();
           applyBackgroundTheme();
           renderBgThemeTiles();
-          showToast(`Fundal ${t.name} activat!`);
+          showToast(isRu ? `Фон ${bgItem.name} включён!` : `Fundal ${bgItem.name} activat!`);
         };
 
         grid.appendChild(tile);
@@ -3604,7 +3900,9 @@
         customBgInput.value = localPrefs.customBg;
       }
       if (bgLabel) {
-        bgLabel.textContent = currentBgTheme === 'custom' ? `Fundal personalizat (${localPrefs.customBg})` : `Fundal selectat: ${currentBgTheme}`;
+        bgLabel.textContent = currentBgTheme === 'custom'
+          ? (isRu ? `Свой фон (${localPrefs.customBg})` : `Fundal personalizat (${localPrefs.customBg})`)
+          : (isRu ? `Выбран фон: ${currentBgTheme}` : `Fundal selectat: ${currentBgTheme}`);
       }
     }
 
@@ -3614,11 +3912,14 @@
     }
 
     function setButtonColorMode(mode) {
+      const isRu = localPrefs.language === 'ru';
       localPrefs.buttonColorMode = mode;
       saveToLocalStorage();
       applyThemeColor();
       renderButtonColorTiles();
-      showToast(mode === 'unicolor' ? 'Butoane setate în culoare unică!' : 'Butoane setate în mod multicolor!');
+      showToast(mode === 'unicolor'
+        ? (isRu ? 'Кнопки переведены в единый цвет!' : 'Butoane setate în culoare unică!')
+        : (isRu ? 'Кнопки переведены в цветной режим!' : 'Butoane setate în mod multicolor!'));
     }
 
     function handleCustomButtonColor(hex) {
@@ -3628,7 +3929,7 @@
       applyThemeColor();
       renderThemeTiles();
       renderAll();
-      showToast(`Culoare butoane setată: ${hex}`);
+      showToast((localPrefs.language === 'ru' ? 'Цвет кнопок: ' : 'Culoare butoane setată: ') + hex);
     }
 
     function handleCustomBgColor(hex) {
@@ -3638,7 +3939,7 @@
       saveToLocalStorage();
       applyBackgroundTheme();
       renderBgThemeTiles();
-      showToast(`Fundal personalizat setat: ${hex}`);
+      showToast((localPrefs.language === 'ru' ? 'Свой цвет фона: ' : 'Fundal personalizat setat: ') + hex);
     }
 
     function unlockAdvancedSettings() {
@@ -3651,16 +3952,16 @@
         document.getElementById('syncLockedView').classList.add('hidden');
         document.getElementById('syncUnlockedView').classList.remove('hidden');
         const badge = document.getElementById('syncLockBadge');
-        badge.textContent = '🔓 Deblocat';
+        badge.textContent = t('badge_unlocked');
         badge.style.borderColor = 'rgba(16,185,129,0.4)';
         badge.style.color = '#34d399';
         badge.style.background = 'rgba(16,185,129,0.12)';
         if (err) err.style.display = 'none';
         if (input) input.value = '';
-        showToast('Setările Google Drive au fost deblocate.');
+        showToast(localPrefs.language === 'ru' ? 'Настройки Google Drive открыты.' : 'Setările Google Drive au fost deblocate.');
       } else {
         if (err) err.style.display = 'block';
-        showToast('Parolă incorectă!');
+        showToast(t('err_wrong_pass'));
       }
     }
 
@@ -3668,11 +3969,11 @@
       document.getElementById('syncLockedView').classList.remove('hidden');
       document.getElementById('syncUnlockedView').classList.add('hidden');
       const badge = document.getElementById('syncLockBadge');
-      badge.textContent = '🔒 Protejat';
+      badge.textContent = t('badge_locked');
       badge.style.borderColor = 'rgba(239,68,68,0.4)';
       badge.style.color = '#f87171';
       badge.style.background = 'rgba(239,68,68,0.12)';
-      showToast('Setările au fost blocate.');
+      showToast(localPrefs.language === 'ru' ? 'Настройки заблокированы.' : 'Setările au fost blocate.');
     }
 
         function renderAvatarBadgeHTML(profile, size = 22, isDual = false) {
@@ -3716,7 +4017,9 @@
     }
 
     function renderAll() {
+      applyBackgroundTheme();
       applyThemeColor();
+      applyTranslations();
       const p1 = appState.profiles.admin1;
       const p2 = appState.profiles.admin2;
       const me = appState.profiles[localPrefs.myWorkerId] || p1;
@@ -3732,18 +4035,18 @@
 
       // Month Label & Sync Header
       document.getElementById('currentMonthLabel').textContent = `${currentMonths[currentMonth]} ${currentYear}`;
-      const syncTextEl = document.getElementById('syncStatusText');
-      if (syncTextEl) syncTextEl.textContent = isRu ? 'Синхронизировано • ADMIN APP BACKUP' : 'Sincronizat • ADMIN APP BACKUP';
+      const syncTextEl = document.getElementById('syncText');
+      if (syncTextEl) syncTextEl.textContent = t(lastSyncKey);
 
-      // Update Navigation Tab Labels
+      // Update Navigation Tab Labels & Titles
       const calNav = document.querySelector('#nav-calendar span');
       if (calNav) calNav.textContent = isRu ? 'Календарь' : 'Calendar';
       const statNav = document.querySelector('#nav-stats span');
-      if (statNav) statNav.textContent = isRu ? 'Статистика' : 'Statistica Mea';
+      if (statNav) statNav.textContent = isRu ? 'Статистика' : 'Statistica';
       const compNav = document.querySelector('#nav-compare span');
       if (compNav) compNav.textContent = isRu ? 'Сравнение' : 'Comparație';
       const profNav = document.querySelector('#nav-profile span');
-      if (profNav) profNav.textContent = isRu ? 'Настройки' : 'Profil & Sync';
+      if (profNav) profNav.textContent = isRu ? 'Настройки' : 'Setări';
 
       // Weekdays Header Row
       const weekdaysEl = document.getElementById('weekdaysGridRow');
@@ -3765,15 +4068,14 @@
       const c1 = document.getElementById('legCircle1');
       updateElementAvatar(c1, p1, 30);
       document.getElementById('legName1').textContent = p1.name;
-      document.getElementById('legMeta1').textContent = `${monthStats.admin1.shifts} ture • ${formatMDL(monthStats.admin1.pay)}`;
 
       const c2 = document.getElementById('legCircle2');
       updateElementAvatar(c2, p2, 30);
       document.getElementById('legName2').textContent = p2.name;
-      document.getElementById('legMeta2').textContent = `${monthStats.admin2.shifts} ture • ${formatMDL(monthStats.admin2.pay)}`;
 
       // Today Quick Banner
       const isRu = localPrefs.language === 'ru';
+      const currentMonths = isRu ? MONTHS_RU : MONTHS_RO;
       const todayKey = makeDateKey(now.getFullYear(), now.getMonth(), now.getDate());
       const todayData = appState.days[todayKey];
       const bannerTitle = document.getElementById('todayBannerTitle');
@@ -3860,7 +4162,7 @@
 
       // Month Comments & Activity Feed
       const feedTitleEl = document.getElementById('commentsSectionTitle');
-      if (feedTitleEl) feedTitleEl.textContent = isRu ? '💬 Комментарии, Лиды & Абонементы в этом месяце' : '💬 Comentarii & Lead-uri în această lună';
+      if (feedTitleEl) feedTitleEl.textContent = isRu ? '💬 Комментарии, Лиды и Абонементы за месяц' : '💬 Comentarii & Lead-uri în această lună';
       const feedList = document.getElementById('monthFeedList');
       feedList.innerHTML = '';
       const prefix = getMonthPrefix(currentYear, currentMonth);
@@ -3869,17 +4171,19 @@
         .sort()
         .reverse()
         .map((k) => ({ dateKey: k, ...appState.days[k] }))
-        .filter((d) => !d.deleted && ((d.comment && d.comment.trim() !== '') || Number(d.leads) > 0));
+        .filter((d) => !d.deleted && ((d.comment && d.comment.trim() !== '') || Number(d.leads) > 0 || Number(d.subs) > 0));
 
       if (monthEntries.length === 0) {
         feedList.innerHTML = `
           <div class="feed-item" style="text-align:center;color:var(--text-muted);font-size:13px;cursor:default;">
-            Niciun comentariu sau lead adăugat în ${MONTHS_RO[currentMonth]}. Apasă pe orice zi din calendar pentru a lăsa un comentariu celuilalt administrator!
+            ${isRu
+              ? `Нет комментариев, лидов или абонементов за ${currentMonths[currentMonth]}. Нажмите на любой день в календаре, чтобы оставить комментарий коллеге!`
+              : `Niciun comentariu sau lead adăugat în ${currentMonths[currentMonth]}. Apasă pe orice zi din calendar pentru a lăsa un comentariu celuilalt administrator!`}
           </div>
         `;
       } else {
         monthEntries.forEach((entry) => {
-          const worker = appState.profiles[entry.workerId] || { name: 'Nesemnat', color: '#64748b' };
+          const worker = appState.profiles[entry.workerId] || { name: isRu ? 'Не отмечено' : 'Nesemnat', color: '#64748b' };
           const dayNum = Number(entry.dateKey.split('-')[2]);
           const item = document.createElement('div');
           item.className = 'feed-item';
@@ -3889,11 +4193,11 @@
             <div class="feed-top">
               <div class="feed-author">
                 ${renderAvatarBadgeHTML(worker, 20)}
-                <span>${worker.name}</span>
+                <span>${escapeHtml(worker.name)}</span>
                 ${Number(entry.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${entry.leads} ${isRu ? 'лидов' : 'clienți noi'}</span>` : ''}
                 ${Number(entry.subs) > 0 ? `<span class="badge-subs" style="font-size:11px;padding:2px 6px;">+${entry.subs} ${isRu ? 'абонементов' : 'abonamente'}</span>` : ''}
               </div>
-              <div class="feed-date">${dayNum} ${MONTHS_RO[currentMonth]}</div>
+              <div class="feed-date">${dayNum} ${currentMonths[currentMonth]}</div>
             </div>
             ${entry.comment ? `<div class="feed-comment" style="border-left-color:${worker.color}">${escapeHtml(entry.comment)}</div>` : ''}
           `;
@@ -3903,10 +4207,12 @@
     }
 
     function renderStatsTab(p1, p2, monthStats) {
+      const isRu = localPrefs.language === 'ru';
+      const currentMonths = isRu ? MONTHS_RU : MONTHS_RO;
       const btn1 = document.getElementById('statsToggle1');
       const btn2 = document.getElementById('statsToggle2');
-      btn1.textContent = `Statistica: ${p1.name}`;
-      btn2.textContent = `Statistica: ${p2.name}`;
+      btn1.textContent = (isRu ? 'Статистика: ' : 'Statistica: ') + p1.name;
+      btn2.textContent = (isRu ? 'Статистика: ' : 'Statistica: ') + p2.name;
       btn1.className = 'sub-opt-btn' + (statsViewWorkerId === 'admin1' ? ' selected' : '');
       btn2.className = 'sub-opt-btn' + (statsViewWorkerId === 'admin2' ? ' selected' : '');
 
@@ -3926,15 +4232,18 @@
       } else {
         bankValEl.style.color = '#10b981';
       }
-      document.getElementById('statBankSub').textContent = `Total Câștigat: ${formatMDL(bal.totalEarned)} (${bal.totalShifts} ture) • Retras deja: ${formatMDL(bal.totalPaidOut)}`;
+      document.getElementById('statBankSub').textContent = isRu
+        ? `Всего заработано: ${formatMDL(bal.totalEarned)} (${bal.totalShifts} смен) • Уже снято: ${formatMDL(bal.totalPaidOut)}`
+        : `Total Câștigat: ${formatMDL(bal.totalEarned)} (${bal.totalShifts} ture) • Retras deja: ${formatMDL(bal.totalPaidOut)}`;
 
       // Month stats
       document.getElementById('statSalaryMDL').textContent = formatMDL(st.pay);
-      document.getElementById('statSalaryFormula').textContent = `${st.shifts} schimburi în ${MONTHS_RO[currentMonth]} (${st.hours} ore lucrate)`;
+      document.getElementById('statSalaryFormula').textContent = isRu
+        ? `${st.shifts} смен за ${currentMonths[currentMonth]} (${st.hours} ч. отработано)`
+        : `${st.shifts} schimburi în ${currentMonths[currentMonth]} (${st.hours} ore lucrate)`;
 
-      const isRu = localPrefs.language === 'ru';
       document.getElementById('statShiftsCount').textContent = st.shifts;
-      document.getElementById('statHoursCount').textContent = `${st.hours}h`;
+      document.getElementById('statHoursCount').textContent = `${st.hours}${isRu ? 'ч' : 'h'}`;
       document.getElementById('statLeadsCount').textContent = st.leads;
       const subsCountEl = document.getElementById('statSubsCount');
       if (subsCountEl) subsCountEl.textContent = st.subs || 0;
@@ -3949,14 +4258,16 @@
       if (!bal.payouts || bal.payouts.length === 0) {
         pList.innerHTML = `
           <div class="feed-item" style="text-align:center;color:var(--text-muted);font-size:12px;padding:12px;">
-            Nicio retragere înregistrată încă. Când iei leafa, apasă pe «Am luat leafa».
+            ${isRu
+              ? 'Снятий зарплаты пока нет. Когда заберёте деньги, нажмите «Забрал(а) зарплату».'
+              : 'Nicio retragere înregistrată încă. Când iei leafa, apasă pe «Am luat leafa».'}
           </div>
         `;
       } else {
         bal.payouts.forEach((p) => {
           const item = document.createElement('div');
           item.className = 'payout-item';
-          const pDate = p.date ? p.date : 'Dată nespecificată';
+          const pDate = p.date ? p.date : (isRu ? 'Дата не указана' : 'Dată nespecificată');
           item.innerHTML = `
             <div style="min-width:0;flex:1;">
               <div style="display:flex;align-items:center;gap:6px;">
@@ -3965,7 +4276,7 @@
               </div>
               ${p.note ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${escapeHtml(p.note)}</div>` : ''}
             </div>
-            <button type="button" class="payout-item-del" onclick="deletePayoutRecord('${p.id}')" title="Șterge înregistrarea">🗑️</button>
+            <button type="button" class="payout-item-del" onclick="deletePayoutRecord('${p.id}')" title="${isRu ? 'Удалить запись' : 'Șterge înregistrarea'}">🗑️</button>
           `;
           pList.appendChild(item);
         });
@@ -3977,7 +4288,9 @@
       if (st.days.length === 0) {
         list.innerHTML = `
           <div class="feed-item" style="text-align:center;color:var(--text-muted);font-size:13px;">
-            Niciun schimb semnat pentru ${profile.name} în ${MONTHS_RO[currentMonth]} ${currentYear}.
+            ${isRu
+              ? `Нет отмеченных смен для ${profile.name} за ${currentMonths[currentMonth]} ${currentYear}.`
+              : `Niciun schimb semnat pentru ${profile.name} în ${currentMonths[currentMonth]} ${currentYear}.`}
           </div>
         `;
       } else {
@@ -3990,10 +4303,11 @@
             <div class="feed-top" style="margin-bottom:0;">
               <div class="feed-author">
                 <span class="circle-dot" style="background:${profile.color};width:22px;height:22px;">${dayNum}</span>
-                <span>${dayNum} ${MONTHS_RO[currentMonth]} ${currentYear}</span>
-                ${Number(d.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${d.leads} lead-uri</span>` : ''}
+                <span>${dayNum} ${currentMonths[currentMonth]} ${currentYear}</span>
+                ${Number(d.leads) > 0 ? `<span class="badge-leads" style="font-size:11px;padding:2px 6px;">+${d.leads} ${isRu ? 'лидов' : 'lead-uri'}</span>` : ''}
+                ${Number(d.subs) > 0 ? `<span class="badge-subs" style="font-size:11px;padding:2px 6px;">+${d.subs} ${isRu ? 'абон.' : 'ab.'}</span>` : ''}
               </div>
-              <div style="font-weight:800;font-size:13px;color:#fff;">+${SHIFT_PAY_MDL} MDL <span style="color:var(--text-muted);font-size:11px;">(12h)</span></div>
+              <div style="font-weight:800;font-size:13px;color:#fff;">+${SHIFT_PAY_MDL} MDL <span style="color:var(--text-muted);font-size:11px;">(${isRu ? '12ч' : '12h'})</span></div>
             </div>
             ${d.comment ? `<div class="feed-comment" style="border-left-color:${profile.color};margin-top:8px;">${escapeHtml(d.comment)}</div>` : ''}
           `;
@@ -4003,6 +4317,7 @@
     }
 
     function renderCompareTab(p1, p2, monthStats) {
+      const isRu = localPrefs.language === 'ru';
       const s1 = monthStats.admin1;
       const s2 = monthStats.admin2;
 
@@ -4019,60 +4334,60 @@
 
       const metrics = [
         {
-          title: '🏦 Rămas în Bancă (De Încasat)',
+          title: isRu ? '🏦 Остаток в Банке (К выплате)' : '🏦 Rămas în Bancă (De Încasat)',
           v1: Math.max(0, bal1.bankBalance),
           v2: Math.max(0, bal2.bankBalance),
           fmt1: formatMDL(bal1.bankBalance),
           fmt2: formatMDL(bal2.bankBalance)
         },
         {
-          title: '💸 Total Leafă Luată (All-Time)',
+          title: isRu ? '💸 Всего снято зарплаты (За всё время)' : '💸 Total Leafă Luată (All-Time)',
           v1: bal1.totalPaidOut,
           v2: bal2.totalPaidOut,
           fmt1: formatMDL(bal1.totalPaidOut),
           fmt2: formatMDL(bal2.totalPaidOut)
         },
         {
-          title: '💰 Total Câștigat All-Time',
+          title: isRu ? '💰 Всего заработано (За всё время)' : '💰 Total Câștigat All-Time',
           v1: bal1.totalEarned,
           v2: bal2.totalEarned,
           fmt1: formatMDL(bal1.totalEarned),
           fmt2: formatMDL(bal2.totalEarned)
         },
         {
-          title: 'Salariu în Luna Curentă (500 MDL / Schimb)',
+          title: isRu ? 'Зарплата за текущий месяц (500 MDL / смена)' : 'Salariu în Luna Curentă (500 MDL / Schimb)',
           v1: s1.pay,
           v2: s2.pay,
           fmt1: formatMDL(s1.pay),
           fmt2: formatMDL(s2.pay)
         },
         {
-          title: 'Schimburi Lucrate (Ture)',
+          title: isRu ? 'Отработано смен' : 'Schimburi Lucrate (Ture)',
           v1: s1.shifts,
           v2: s2.shifts,
-          fmt1: `${s1.shifts} ture`,
-          fmt2: `${s2.shifts} ture`
+          fmt1: `${s1.shifts} ${isRu ? 'смен' : 'ture'}`,
+          fmt2: `${s2.shifts} ${isRu ? 'смен' : 'ture'}`
         },
         {
-          title: localPrefs.language === 'ru' ? 'Отработано Часов (12ч / смена)' : 'Ore Lucrate (12 ore / Schimb)',
+          title: isRu ? 'Отработано Часов (12ч / смена)' : 'Ore Lucrate (12 ore / Schimb)',
           v1: s1.hours,
           v2: s2.hours,
-          fmt1: `${s1.hours} ${localPrefs.language === 'ru' ? 'ч.' : 'ore'}`,
-          fmt2: `${s2.hours} ${localPrefs.language === 'ru' ? 'ч.' : 'ore'}`
+          fmt1: `${s1.hours} ${isRu ? 'ч.' : 'ore'}`,
+          fmt2: `${s2.hours} ${isRu ? 'ч.' : 'ore'}`
         },
         {
-          title: localPrefs.language === 'ru' ? 'Новые Клиенты (Лиды)' : 'Clienți Noi Închiși (Lead-uri)',
+          title: isRu ? 'Новые Клиенты (Лиды)' : 'Clienți Noi Închiși (Lead-uri)',
           v1: s1.leads,
           v2: s2.leads,
-          fmt1: `${s1.leads} ${localPrefs.language === 'ru' ? 'лидов' : 'lead-uri'}`,
-          fmt2: `${s2.leads} ${localPrefs.language === 'ru' ? 'лидов' : 'lead-uri'}`
+          fmt1: `${s1.leads} ${isRu ? 'лидов' : 'lead-uri'}`,
+          fmt2: `${s2.leads} ${isRu ? 'лидов' : 'lead-uri'}`
         },
         {
-          title: localPrefs.language === 'ru' ? '🎟️ Оформлено Абонементов' : '🎟️ Clienți Închiși la Abonamente',
+          title: isRu ? '🎟️ Оформлено Абонементов' : '🎟️ Clienți Închiși la Abonamente',
           v1: s1.subs || 0,
           v2: s2.subs || 0,
-          fmt1: `${s1.subs || 0} ${localPrefs.language === 'ru' ? 'абон.' : 'ab.'}`,
-          fmt2: `${s2.subs || 0} ${localPrefs.language === 'ru' ? 'абон.' : 'ab.'}`
+          fmt1: `${s1.subs || 0} ${isRu ? 'абон.' : 'ab.'}`,
+          fmt2: `${s2.subs || 0} ${isRu ? 'абон.' : 'ab.'}`
         }
       ];
 
@@ -4101,12 +4416,13 @@
       });
 
       document.getElementById('totalSchoolShifts').textContent = s1.shifts + s2.shifts;
-      document.getElementById('totalSchoolHours').textContent = `${s1.hours + s2.hours} ore acoperite`;
+      document.getElementById('totalSchoolHours').textContent = `${s1.hours + s2.hours} ${isRu ? 'ч. закрыто' : 'ore acoperite'}`;
       document.getElementById('totalSchoolLeads').textContent = s1.leads + s2.leads;
-      document.getElementById('totalSchoolPay').textContent = `Buget salarii: ${formatMDL(s1.pay + s2.pay)}`;
+      document.getElementById('totalSchoolPay').textContent = `${isRu ? 'Бюджет зарплат: ' : 'Buget salarii: '}${formatMDL(s1.pay + s2.pay)}`;
     }
 
     function renderProfileTab(p1, p2) {
+      const isRu = localPrefs.language === 'ru';
       const me = appState.profiles[localPrefs.myWorkerId] || p1;
       const other = me.id === 'admin1' ? p2 : p1;
 
@@ -4126,14 +4442,18 @@
       if (myNameEl) myNameEl.textContent = me.name;
 
       const myUserEl = document.getElementById('profMyUsernameDisplay');
-      if (myUserEl) myUserEl.textContent = me.username ? '@' + me.username : 'Cont activ';
+      if (myUserEl) myUserEl.textContent = me.username ? '@' + me.username : (isRu ? 'Активный аккаунт' : 'Cont activ');
 
       const colleagueEl = document.getElementById('profColleagueInfo');
       if (colleagueEl) {
         if (other && other.registered) {
-          colleagueEl.textContent = `Coleg conectat: ${other.name} (@${other.username})`;
+          colleagueEl.textContent = isRu
+            ? `Коллега подключён(а): ${other.name} (@${other.username})`
+            : `Coleg conectat: ${other.name} (@${other.username})`;
         } else {
-          colleagueEl.textContent = 'Coleg: în așteptare (nu și-a creat încă contul)';
+          colleagueEl.textContent = isRu
+            ? 'Коллега: ожидание (аккаунт ещё не создан)'
+            : 'Coleg: în așteptare (nu și-a creat încă contul)';
         }
       }
 
@@ -4155,18 +4475,25 @@
       const driveBadge = document.getElementById('driveFolderStatusBadge');
       const openDriveBtn = document.getElementById('openDriveFolderBtn');
       if (localPrefs.folderUrl) {
-        if (driveBadge) driveBadge.textContent = '📁 Conectat la Google Drive: ADMIN APP BACKUP';
+        if (driveBadge) driveBadge.textContent = isRu ? '📁 Подключено к Google Drive: ADMIN APP BACKUP' : '📁 Conectat la Google Drive: ADMIN APP BACKUP';
         if (openDriveBtn) openDriveBtn.classList.remove('hidden');
       } else {
-        if (driveBadge) driveBadge.textContent = '📁 Folder Backup: ADMIN APP BACKUP (așteaptă conectarea)';
+        if (driveBadge) driveBadge.textContent = isRu ? '📁 Папка бэкапа: ADMIN APP BACKUP (ожидание)' : '📁 Folder Backup: ADMIN APP BACKUP (așteaptă conectarea)';
         if (openDriveBtn) openDriveBtn.classList.add('hidden');
       }
 
       highlightActiveColorSwatch(me.color);
 
       const btnNotifs = document.getElementById('btnEnableNotifs');
-      if (btnNotifs && 'Notification' in window && Notification.permission === 'granted') {
-        btnNotifs.textContent = '✅ Notificări Active (Apasă pt Test)';
+      if (btnNotifs) {
+        if ('Notification' in window && Notification.permission === 'granted') {
+          btnNotifs.textContent = t('notif_btn_active');
+        } else {
+          btnNotifs.textContent = t('notif_btn_default');
+        }
+      }
+      if (typeof updatePushStatusBox === 'function') {
+        updatePushStatusBox(me, other);
       }
     }
 
@@ -4245,8 +4572,53 @@
       return outputArray;
     }
 
+    let lastPushDebugError = '';
+
+    function updatePushStatusBox(me, other) {
+      const box = document.getElementById('pushStatusBox');
+      if (!box) return;
+      const isRu = localPrefs.language === 'ru';
+      const perm = ('Notification' in window) ? Notification.permission : 'unsupported';
+      const mySid = me && me.pushSid ? String(me.pushSid).trim() : '';
+      const otherSid = other && other.pushSid ? String(other.pushSid).trim() : '';
+      const otherName = other && other.name ? escapeHtml(other.name) : (isRu ? 'Коллега' : 'Colegul');
+
+      let myStatus = '';
+      if (perm === 'unsupported') {
+        myStatus = isRu
+          ? '⚠️ Добавьте приложение на экран «Домой» (iOS 16.4+)'
+          : '⚠️ Adaugă aplicația pe Ecranul Principal (iOS 16.4+)';
+      } else if (perm !== 'granted') {
+        myStatus = isRu
+          ? '🔴 Этот iPhone: уведомления ещё не включены'
+          : '🔴 Telefonul tău: notificările nu sunt activate încă';
+      } else if (mySid) {
+        myStatus = isRu
+          ? `🟢 Этот iPhone: подключён (ID: ${mySid})`
+          : `🟢 Telefonul tău: conectat (ID: ${mySid})`;
+      } else {
+        const reason = lastPushDebugError ? ` (${escapeHtml(lastPushDebugError)})` : '';
+        myStatus = isRu
+          ? `🟡 Этот iPhone: разрешение есть, ожидается Push ID${reason}`
+          : `🟡 Telefonul tău: permis, se obține Push ID${reason}`;
+      }
+
+      const otherStatus = otherSid
+        ? (isRu ? `🟢 ${otherName}: подключён (ID: ${otherSid})` : `🟢 ${otherName}: conectat (ID: ${otherSid})`)
+        : (isRu ? `⚪ ${otherName}: ещё не нажал(а) кнопку активации` : `⚪ ${otherName}: încă nu a activat notificările`);
+
+      box.innerHTML = `<div>${myStatus}</div><div style="margin-top:4px;">${otherStatus}</div>`;
+    }
+
     async function subscribeToWebpushr() {
-      if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        lastPushDebugError = 'No PushManager';
+        return { ok: false, error: 'No PushManager' };
+      }
+      if (!('Notification' in window) || Notification.permission !== 'granted') {
+        lastPushDebugError = 'Permission: ' + (('Notification' in window) ? Notification.permission : 'unsupported');
+        return { ok: false, error: lastPushDebugError };
+      }
       try {
         const reg = await navigator.serviceWorker.ready;
         let sub = await reg.pushManager.getSubscription();
@@ -4256,96 +4628,155 @@
             applicationServerKey: urlBase64ToUint8Array(WEBPUSHR_PUBLIC_KEY)
           });
         }
-        if (sub) {
-          const pKey = sub.getKey('p256dh');
-          const aKey = sub.getKey('auth');
-          const keyB64 = pKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(pKey))) : null;
-          const authB64 = aKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(aKey))) : null;
-          
-          const payload = {
-            endpoint: sub.endpoint,
-            key: keyB64,
-            token: authB64,
-            site_id: WEBPUSHR_PUBLIC_KEY,
-            type: 'POST',
-            timezone: new Date().getTimezoneOffset()
-          };
-
-          await fetch('https://subscriber.webpushr.com/subscribe/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-
-          const myId = localPrefs.myWorkerId || 'admin1';
-          const me = appState.profiles[myId] || { name: 'Admin' };
-          await fetch('https://bot.webpushr.com/subscribe/attributes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              endpoint: sub.endpoint,
-              site_id: WEBPUSHR_PUBLIC_KEY,
-              attributes: { workerId: myId, adminName: me.name }
-            })
-          }).catch(() => {});
+        if (!sub) {
+          lastPushDebugError = 'No PushSubscription';
+          return { ok: false, error: 'No PushSubscription' };
         }
+
+        const pKey = sub.getKey('p256dh');
+        const aKey = sub.getKey('auth');
+        const keyB64 = pKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(pKey))) : null;
+        const authB64 = aKey ? btoa(String.fromCharCode.apply(null, new Uint8Array(aKey))) : null;
+
+        const payload = {
+          endpoint: sub.endpoint,
+          key: keyB64,
+          token: authB64,
+          site_id: WEBPUSHR_PUBLIC_KEY,
+          type: 'POST',
+          timezone: new Date().getTimezoneOffset()
+        };
+
+        const subRes = await fetch('https://subscriber.webpushr.com/subscribe/', {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        if (!subRes.ok) {
+          lastPushDebugError = 'Subscribe HTTP ' + subRes.status;
+          return { ok: false, error: lastPushDebugError };
+        }
+
+        const myId = localPrefs.myWorkerId || 'admin1';
+        const me = appState.profiles[myId] || { name: 'Admin' };
+        await fetch('https://bot.webpushr.com/subscribe/attributes/', {
+          method: 'POST',
+          body: JSON.stringify({
+            workerId: myId,
+            adminName: me.name,
+            sid: sub.endpoint,
+            site_id: WEBPUSHR_PUBLIC_KEY
+          })
+        }).catch(() => {});
+
+        let pushSid = '';
+        try {
+          const idRes = await fetch('https://bot.webpushr.com/subscribe/getId/', {
+            method: 'POST',
+            body: JSON.stringify({
+              sid: sub.endpoint,
+              site_id: WEBPUSHR_PUBLIC_KEY
+            })
+          });
+          if (idRes.ok) {
+            const rawSid = (await idRes.text()).trim();
+            if (/^\d+$/.test(rawSid)) {
+              pushSid = rawSid;
+            } else {
+              const m = rawSid.match(/\d+/);
+              if (m) pushSid = m[0];
+            }
+          } else {
+            lastPushDebugError = 'getId HTTP ' + idRes.status;
+          }
+        } catch (idErr) {
+          lastPushDebugError = idErr.message || 'getId error';
+        }
+
+        if (pushSid) {
+          lastPushDebugError = '';
+          if (appState.profiles[myId] && appState.profiles[myId].pushSid !== pushSid) {
+            appState.profiles[myId].pushSid = pushSid;
+            appState.profiles[myId].updatedAt = Date.now();
+            appState.updatedAt = Date.now();
+            saveToLocalStorage();
+            await pushToCloud();
+          }
+          const otherId = myId === 'admin1' ? 'admin2' : 'admin1';
+          updatePushStatusBox(appState.profiles[myId], appState.profiles[otherId]);
+          return { ok: true, sid: pushSid };
+        }
+
+        if (!lastPushDebugError) lastPushDebugError = 'Empty SID';
+        const otherId = myId === 'admin1' ? 'admin2' : 'admin1';
+        updatePushStatusBox(appState.profiles[myId], appState.profiles[otherId]);
+        return { ok: false, error: lastPushDebugError };
       } catch (err) {
+        lastPushDebugError = err.message || String(err);
         console.warn('subscribeToWebpushr error:', err);
+        return { ok: false, error: lastPushDebugError };
       }
     }
 
-    function syncWebpushrUser() {
+    function syncWebpushrUser(skipSubscribe = false) {
       try {
         if (typeof webpushr !== 'undefined' && localPrefs.myWorkerId && appState.profiles[localPrefs.myWorkerId]) {
           const me = appState.profiles[localPrefs.myWorkerId];
-          webpushr('setUserAttribute', {
+          webpushr('attributes', {
             'workerId': localPrefs.myWorkerId,
             'adminName': me.name
           });
         }
       } catch (ignore) {}
-      subscribeToWebpushr();
+      if (!skipSubscribe && 'Notification' in window && Notification.permission === 'granted') {
+        subscribeToWebpushr();
+      }
     }
 
     async function sendPushToColleague(title, message) {
       try {
         const myId = localPrefs.myWorkerId || 'admin1';
         const otherId = myId === 'admin1' ? 'admin2' : 'admin1';
+        const otherProfile = appState.profiles[otherId];
         const payload = {
-          title: title || '💬 Comentariu nou • BlackBlock',
+          title: title || (localPrefs.language === 'ru' ? '💬 Новый комментарий • BlackBlock' : '💬 Comentariu nou • BlackBlock'),
           message: message,
           target_url: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/',
           icon: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/apple-touch-icon.png'
         };
 
-        // 1. Trimite către celălalt administrator
-        const res = await fetch('https://api.webpushr.com/v1/notification/send/attribute', {
-          method: 'POST',
-          headers: {
-            'webpushrKey': WEBPUSHR_KEY,
-            'webpushrAuthToken': WEBPUSHR_AUTH_TOKEN,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            ...payload,
-            attribute: { workerId: otherId }
-          })
-        });
-        const data = await res.json();
-        console.log('Webpushr attribute send:', data);
-
-        // 2. Fallback dacă atributul celuilalt nu a fost încă sincronizat
-        if (data && (data.status === 'failure' || (data.description && data.description.includes('No subscriber')))) {
-          console.log('Fallback: sending broadcast push for new comment');
-          await fetch('https://api.webpushr.com/v1/notification/send/all', {
+        let res;
+        if (otherProfile && otherProfile.pushSid && /^\d+$/.test(String(otherProfile.pushSid).trim())) {
+          res = await fetch('https://api.webpushr.com/v1/notification/send/sid', {
             method: 'POST',
             headers: {
               'webpushrKey': WEBPUSHR_KEY,
               'webpushrAuthToken': WEBPUSHR_AUTH_TOKEN,
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+              ...payload,
+              sid: Number(otherProfile.pushSid)
+            })
           });
+        } else {
+          res = await fetch('https://api.webpushr.com/v1/notification/send/attribute', {
+            method: 'POST',
+            headers: {
+              'webpushrKey': WEBPUSHR_KEY,
+              'webpushrAuthToken': WEBPUSHR_AUTH_TOKEN,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              ...payload,
+              attribute: { workerId: otherId }
+            })
+          });
+        }
+
+        const data = await res.json().catch(() => null);
+        console.log('Webpushr send result:', data);
+        if (data && data.status === 'failure' && data.description && data.description.includes('No subscriber')) {
+          showToast(t('toast_colleague_no_push'));
         }
       } catch (err) {
         console.warn('Webpushr push error:', err);
@@ -4421,43 +4852,76 @@
     }
 
     async function enableCommentNotifications() {
-      // Daca exista butonul oficial Webpushr, il activam
-      const wpBtn = document.querySelector('#webpushr-subscription-button button, #webpushr-subscription-button input');
-      if (wpBtn) {
-        try { wpBtn.click(); } catch (e) {}
-      }
-
-      if (!('Notification' in window)) {
-        showToast('Notificările nu sunt suportate în această versiune.');
+      const isRu = localPrefs.language === 'ru';
+      if (!('Notification' in window) || typeof Notification === 'undefined') {
+        showToast(isRu
+          ? 'Уведомления на iPhone работают только через «На экран Домой» (iOS 16.4+).'
+          : 'Notificările nu sunt suportate în acest browser (adaugă aplicația pe Ecranul Principal).');
         return;
       }
       try {
         const perm = await Notification.requestPermission();
         if (perm === 'granted') {
-          syncWebpushrUser();
-          await subscribeToWebpushr();
+          syncWebpushrUser(true);
+          const subRes = await subscribeToWebpushr();
+          const myId = localPrefs.myWorkerId || 'admin1';
+          const otherId = myId === 'admin1' ? 'admin2' : 'admin1';
+          updatePushStatusBox(appState.profiles[myId], appState.profiles[otherId]);
+
           const btn = document.getElementById('btnEnableNotifs');
-          if (btn) btn.textContent = '✅ Notificări Active (Apasă pt Test)';
-          showToast('✅ Notificările pentru comentarii sunt active! Trimit test...');
-          // Trimite notificare nativă de test direct pe ecranul iPhone-ului
-          if ('serviceWorker' in navigator) {
-            const reg = await navigator.serviceWorker.ready;
-            if (reg && reg.showNotification) {
-              reg.showNotification('🔔 BlackBlock Academy', {
-                body: 'Notificările funcționează perfect pe ecranul iPhone-ului tău!',
-                icon: './apple-touch-icon.png',
-                badge: './apple-touch-icon.png',
-                vibrate: [200, 100, 200]
+          if (btn) btn.textContent = t('notif_btn_active');
+
+          if (subRes && subRes.ok && subRes.sid) {
+            showToast(isRu
+              ? `✅ Подключено (ID: ${subRes.sid})! Отправляю реальный Push через Apple...`
+              : `✅ Conectat (ID: ${subRes.sid})! Trimit test real prin serverele Apple...`);
+            try {
+              const testRes = await fetch('https://api.webpushr.com/v1/notification/send/sid', {
+                method: 'POST',
+                headers: {
+                  'webpushrKey': WEBPUSHR_KEY,
+                  'webpushrAuthToken': WEBPUSHR_AUTH_TOKEN,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  title: isRu ? '💬 Тест Push • BlackBlock' : '💬 Test Push Real • BlackBlock',
+                  message: isRu
+                    ? 'Реальные Push-уведомления о комментариях настроены и работают!'
+                    : 'Notificările reale pentru comentarii prin Apple APNs funcționează!',
+                  target_url: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/',
+                  icon: 'https://mikekr260698-ops.github.io/BlackBlockAcademy-Admin-App/apple-touch-icon.png',
+                  sid: Number(subRes.sid)
+                })
               });
+              const testData = await testRes.json().catch(() => null);
+              console.log('Self push test response:', testData);
+            } catch (testErr) {
+              console.warn('Self push test failed:', testErr);
+            }
+          } else {
+            showToast(isRu
+              ? '⚠️ Разрешено локально, но Push ID не получен (см. статус ниже).'
+              : '⚠️ Permis local, dar Push ID nu s-a obținut (vezi statusul mai jos).');
+            if ('serviceWorker' in navigator) {
+              const reg = await navigator.serviceWorker.ready;
+              if (reg && reg.showNotification) {
+                reg.showNotification('🔔 BlackBlock Academy', {
+                  body: isRu ? 'Локальный тест работает, проверяем регистрацию сервера.' : 'Test local ok — verifică statusul înregistrării pe server.',
+                  icon: './apple-touch-icon.png',
+                  badge: './apple-touch-icon.png'
+                });
+              }
             }
           }
         } else if (perm === 'denied') {
-          showToast('Notificările sunt oprite în iOS. Mergi în Setări iPhone -> Notificări -> BlackBlock.');
+          showToast(isRu
+            ? 'Уведомления отключены в iOS. Откройте Настройки iPhone -> Уведомления -> BlackBlock.'
+            : 'Notificările sunt oprite în iOS. Mergi în Setări iPhone -> Notificări -> BlackBlock.');
         } else {
-          showToast('Permisiunea nu a fost confirmată.');
+          showToast(isRu ? 'Разрешение не подтверждено.' : 'Permisiunea nu a fost confirmată.');
         }
       } catch (err) {
-        showToast('Eroare: ' + (err.message || err));
+        showToast((isRu ? 'Ошибка: ' : 'Eroare: ') + (err.message || err));
       }
     }
 
@@ -4601,11 +5065,12 @@
       const myId = localPrefs.myWorkerId;
       if (myId && appState.profiles[myId]) {
         appState.profiles[myId].language = lang;
+        appState.profiles[myId].updatedAt = Date.now();
         appState.updatedAt = Date.now();
       }
       saveToLocalStorage();
-      syncToCloudSilently();
       renderAll();
+      pushToCloud();
       showToast(lang === 'ru' ? 'Язык изменён на Русский!' : 'Limba a fost schimbată în Română!');
     }
 
@@ -4640,6 +5105,7 @@
       if (lblTitle) lblTitle.textContent = isRu ? '🌐 Язык Приложения' : '🌐 Limba Aplicației (Язык)';
       const lblDesc = document.getElementById('lblLangDesc');
       if (lblDesc) lblDesc.textContent = isRu ? 'Выберите предпочитаемый язык (сохраняется в аккаунте):' : 'Alege limba preferată (se salvează automat pe contul tău):';
+      applyTranslations();
     }
 
     function adjustModalSubs(delta) {
@@ -4711,6 +5177,10 @@
       const comment = document.getElementById('modalCommentInput').value.trim();
       const me = appState.profiles[localPrefs.myWorkerId];
 
+      const prevComment = (appState.days[editingDateKey] && !appState.days[editingDateKey].deleted && appState.days[editingDateKey].comment)
+        ? String(appState.days[editingDateKey].comment).trim()
+        : '';
+
       if (!modalWorkerId && modalLeadsCount === 0 && modalSubsCount === 0 && !comment) {
         appState.days[editingDateKey] = {
           deleted: true,
@@ -4728,22 +5198,20 @@
       }
 
       const savedDateKey = editingDateKey;
-      const savedWorkerId = modalWorkerId;
-      const savedLeads = modalLeadsCount;
-      const savedSubs = modalSubsCount;
       const savedComment = comment;
 
       closeDayModal();
       renderAll();
-      showToast('Ziua a fost salvată!');
+      showToast(t('toast_day_saved'));
       await pushToCloud();
 
-      // Notificare Push STRICT pentru comentarii lăsate celuilalt administrator
+      // Notificare Push STRICT pentru comentarii noi sau modificate lăsate celuilalt administrator
       try {
         const trimmed = (savedComment || '').trim();
-        if (trimmed) {
-          const myName = me ? me.name : 'Colegul';
-          const notifTitle = `💬 Comentariu de la ${myName}`;
+        if (trimmed && trimmed !== prevComment) {
+          const isRu = localPrefs.language === 'ru';
+          const myName = me ? me.name : (isRu ? 'Коллега' : 'Colegul');
+          const notifTitle = isRu ? `💬 Комментарий от ${myName}` : `💬 Comentariu de la ${myName}`;
           const notifMsg = `"${trimmed.slice(0, 80)}${trimmed.length > 80 ? '...' : ''}" (${savedDateKey})`;
           sendPushToColleague(notifTitle, notifMsg);
         }
@@ -4813,9 +5281,10 @@
     }
 
     async function savePayoutFromModal() {
+      const isRu = localPrefs.language === 'ru';
       const amt = Number(document.getElementById('payoutAmountInput').value || 0);
       if (!amt || amt <= 0) {
-        showToast('Introdu o sumă validă mai mare ca 0!');
+        showToast(isRu ? 'Введите корректную сумму больше 0!' : 'Introdu o sumă validă mai mare ca 0!');
         return;
       }
 
@@ -4840,32 +5309,32 @@
       saveToLocalStorage();
       renderAll();
       closePayoutModal();
-      showToast(`Leafă luată înregistrată: -${formatMDL(amt)}!`);
+      showToast((isRu ? 'Выплата записана: -' : 'Leafă luată înregistrată: -') + formatMDL(amt) + '!');
       await pushToCloud();
-
-
     }
 
     async function deletePayoutRecord(pId) {
-      if (!confirm('Sigur dorești să ștergi această înregistrare de plată?')) return;
+      const isRu = localPrefs.language === 'ru';
+      if (!confirm(isRu ? 'Удалить эту запись о выплате?' : 'Sigur dorești să ștergi această înregistrare de plată?')) return;
       if (appState.payouts && appState.payouts[pId]) {
         appState.payouts[pId].deleted = true;
         appState.payouts[pId].updatedAt = Date.now();
         appState.updatedAt = Date.now();
         saveToLocalStorage();
         renderAll();
-        showToast('Înregistrare ștearsă!');
+        showToast(isRu ? 'Запись удалена!' : 'Înregistrare ștearsă!');
         await pushToCloud();
       }
     }
 
     async function changeMyPersonalPassword() {
+      const isRu = localPrefs.language === 'ru';
       const me = appState.profiles[localPrefs.myWorkerId];
       if (!me) return;
       const input = document.getElementById('inputNewPersonalPass');
       const newPass = input ? input.value : '';
       if (!newPass || newPass.length < 4) {
-        showToast('Parola nouă trebuie să aibă minim 4 caractere!');
+        showToast(isRu ? 'Новый пароль должен содержать минимум 4 символа!' : 'Parola nouă trebuie să aibă minim 4 caractere!');
         return;
       }
       me.passHash = hashPersonalPassword(newPass);
@@ -4873,7 +5342,7 @@
       if (input) input.value = '';
       saveToLocalStorage();
       renderAll();
-      showToast('Parola ta personală a fost actualizată!');
+      showToast(isRu ? 'Ваш личный пароль обновлён!' : 'Parola ta personală a fost actualizată!');
       await pushToCloud();
     }
 
@@ -4888,15 +5357,17 @@
     }
 
     async function saveProfilesAndSync() {
+      const isRu = localPrefs.language === 'ru';
       const me = appState.profiles[localPrefs.myWorkerId];
       if (me) me.updatedAt = Date.now();
       saveToLocalStorage();
       renderAll();
-      showToast('Profilul și culoarea au fost salvate!');
+      showToast(isRu ? 'Профиль и цвет сохранены!' : 'Profilul și culoarea au fost salvate!');
       await pushToCloud();
     }
 
     async function saveSyncUrlAndTest() {
+      const isRu = localPrefs.language === 'ru';
       const url = document.getElementById('inputSyncUrl').value.trim();
       const passEl = document.getElementById('inputTeamPass');
       const pass = passEl ? passEl.value.trim() : (localPrefs.teamPass || '');
@@ -4904,15 +5375,15 @@
       localPrefs.teamPass = pass;
       saveToLocalStorage();
       if (!url) {
-        updateSyncStatusUI('local', 'Mod Local');
-        showToast('Link-ul de sincronizare a fost șters.');
+        updateSyncStatusUI('local', 'sync_mod_local');
+        showToast(isRu ? 'Ссылка синхронизации удалена.' : 'Link-ul de sincronizare a fost șters.');
         return;
       }
       await pullFromCloud(false);
       if (localPrefs.isLoggedIn) {
         await pushToCloud();
         renderAll();
-        showToast('Conectat și sincronizat cu ADMIN APP BACKUP!');
+        showToast(isRu ? 'Подключено и синхронизировано с ADMIN APP BACKUP!' : 'Conectat și sincronizat cu ADMIN APP BACKUP!');
       }
     }
 
@@ -4923,13 +5394,16 @@
     }
 
     async function shareMagicLinkWithColleague() {
+      const isRu = localPrefs.language === 'ru';
       const url = window.location.origin + window.location.pathname;
 
       if (navigator.share) {
         try {
           await navigator.share({
             title: 'BlackBlock Academy Admin',
-            text: 'Deschide aplicația BlackBlock Academy în Safari pe iPhone, adaug-o pe ecranul principal și creează-ți contul tău de admin:',
+            text: isRu
+              ? 'Откройте приложение BlackBlock Academy в Safari на iPhone, добавьте на экран Домой и создайте свой аккаунт:'
+              : 'Deschide aplicația BlackBlock Academy în Safari pe iPhone, adaug-o pe ecranul principal și creează-ți contul tău de admin:',
             url: url
           });
           return;
@@ -4937,9 +5411,9 @@
       }
       try {
         await navigator.clipboard.writeText(url);
-        showToast('Link-ul aplicației a fost copiat!');
+        showToast(isRu ? 'Ссылка на приложение скопирована!' : 'Link-ul aplicației a fost copiat!');
       } catch (e) {
-        prompt('Copiază acest link și trimite-l colegei tale:', url);
+        prompt(isRu ? 'Скопируйте эту ссылку и отправьте коллеге:' : 'Copiază acest link și trimite-l colegei tale:', url);
       }
     }
 
@@ -5158,9 +5632,9 @@ function updateReadableSheet(folder, state) {
 }`;
       try {
         await navigator.clipboard.writeText(code);
-        showToast('Codul Google Script a fost copiat!');
+        showToast(localPrefs.language === 'ru' ? 'Код Google Script скопирован!' : 'Codul Google Script a fost copiat!');
       } catch (e) {
-        prompt('Copiază acest cod în https://script.google.com:', code);
+        prompt(localPrefs.language === 'ru' ? 'Скопируйте этот код в https://script.google.com:' : 'Copiază acest cod în https://script.google.com:', code);
       }
     }
 
